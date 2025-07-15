@@ -8,14 +8,12 @@ namespace TextRPG
 {
     abstract class Items
     {
-        public int itemType; // 0 = 무기, 1 = 방어구, 2 = 포션
-        public int itemValue; // 아이템 효과
+        public int itemType; // 0 = 무기, 1 = 방어구, 2 = 포션  -- 아이템 타입이 같은 장비는 하나밖에 착용하지 못하고, 2번은 착용할 수 없음.
         public int itemAttack; // 아이템 공격
         public int itemArmor; // 아이템 방어력
         public int itemHealth; // 아이템 체력
         public string itemName; // 아이템 이름
         public string itemDescription; // 아이템 설명
-
 
         public void ItemInformation()
         {

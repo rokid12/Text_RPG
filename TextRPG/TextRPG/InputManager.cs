@@ -16,11 +16,11 @@ namespace TextRPG
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">>");
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int selectNumber))
+                if (int.TryParse(input, out int selectedNumber))
                 {
-                    if (selectNumber <= max && selectNumber >= min)
+                    if (selectedNumber <= max && selectedNumber >= min)
                     {
-                        return selectNumber;
+                        return selectedNumber;
                     }
                 }
                 Console.WriteLine("\n잘못된 입력입니다.");
