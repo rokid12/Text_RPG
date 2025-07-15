@@ -91,18 +91,18 @@ namespace TextRPG
             return inventory;
         }
 
-        public int GetPotion()
-        {
-            int value;
-            if (inventory.Contains(ItemManager.potion)
-            {
-                return inventory.potion.itemCount;
-            }
-            else
-            {
-                return value = 0;
-            }
-        }
+        //public int GetPotion()
+        //{
+        //    int value;
+        //    if (inventory.Contains(ItemManager.potion)
+        //    {
+        //        return inventory.potion.itemCount;
+        //    }
+        //    else
+        //    {
+        //        return value = 0;
+        //    }
+        //}
         public void AddItem(Items name)
         {
             inventory.Add(name);

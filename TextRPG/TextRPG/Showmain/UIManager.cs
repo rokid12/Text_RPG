@@ -1,5 +1,6 @@
 ﻿using TextRPG;
 using System;
+using TextRPG.BattleSystem;
 
 namespace TextRPG
 {
@@ -55,6 +56,7 @@ namespace TextRPG
                 else if (input == "2")
                 {
                     Console.WriteLine("\n이제 전투를 시작할 수 있습니다.");
+                    BattleManager.Instance.DebugBattleSystem();
                     break;
                 }
                 else if (input == "3")
