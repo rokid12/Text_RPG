@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TextRPG.BattleSystem
 {
@@ -39,16 +40,17 @@ namespace TextRPG.BattleSystem
 
         public void ExecuteBattle()
         {
-            Console.WriteLine("전투 시작!");
-
             while (true)
             {
-                Console.WriteLine($"\n현재 턴: {++_curTrun}");
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Battle!!\n");
+                Console.ResetColor();
 
-                while(_turnQueue.Count > 0)
+                while (_turnQueue.Count > 0)
                 {
                     Unit current = _turnQueue.Dequeue();
-                    if (current.HP <= 0) // 사망한 인원은 제외
+                    if (current.HP <= 0) // 사망한 인원의 차례는 제외
                         continue;
 
                     if (_allies.Contains(current))
@@ -59,15 +61,22 @@ namespace TextRPG.BattleSystem
                     if (CheckAllDead(_enemies.Cast<Unit>().ToList())) // 적 패배
                     {
                         // 승리 화면 표시
+                        ShowWinUI();
+                        Console.ReadLine();
+                        return;
                     }
                     else if (CheckAllDead(_allies.Cast<Unit>().ToList())) // 플레이어 패배
                     {
                         // 패배 화면 표시
+                        ShowLoseUI();
+                        Console.ReadLine();
+                        return;
                     }
 
                     _tempTurnQueue.Enqueue(current);
                 }
-                
+                MyDelay(500);
+
                 while(_tempTurnQueue.Count > 0)
                 {
                     _turnQueue.Enqueue(_tempTurnQueue.Dequeue());
@@ -83,11 +92,39 @@ namespace TextRPG.BattleSystem
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {enemies[i].Name} (HP: {enemies[i].HP})");
+                if(enemies[i].HP <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} Dead");
+                    Console.ResetColor();
+                }
+                else
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} HP {enemies[i].HP}");
             }
 
-            int choice = int.Parse(Console.ReadLine()) - 1;
-            player.Attack(enemies[choice]);
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job})\nHP {player.HP}/{player.Mp}\n"); // 최대 HP 필요함
+
+            Console.Write("대상을 선택해주세요.\n>> ");
+            int choice;
+            while (true)
+            {
+                string input = Console.ReadLine(); // 죽은 적 선택 못하게 막을 필요 있음
+                if (int.TryParse(input, out choice))
+                {
+                    if (choice >= 1 && choice <= enemies.Count)
+                    {
+                        if(enemies[choice-1].HP > 0)
+                            break;
+                    }
+                }
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("\n잘못된 입력입니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 3);
+            }
+            player.Attack(enemies[choice-1]);
+            Console.WriteLine();
         }
 
         private void EnemyTurn(Monster enemy, List<Character> allies)
@@ -115,16 +152,23 @@ namespace TextRPG.BattleSystem
             return isAllDead;
         }
 
-        private void ShowWinUI()
+        private void ShowWinUI() // 승리 시 보여줄 UI
         {
+            MyDelay(500);
             Console.Clear();
             Console.WriteLine("승리하였습니다.");
         }
 
-        private void ShowLoseUI()
+        private void ShowLoseUI() // 패배 시 보여줄 UI
         {
+            MyDelay(500);
             Console.Clear();
             Console.WriteLine("패배하였습니다.");
+        }
+
+        void MyDelay(int ms)
+        {
+            Thread.Sleep(ms);
         }
     }
 }
@@ -160,7 +204,8 @@ public class Unit
     //피격
     public void TakeDamage(int atk)
     {
-        int TakeDamage = Atk - Def;
+        int TakeDamage = atk - Def;
+        HP -= TakeDamage;
         Console.WriteLine($"{Name}이(가) {TakeDamage} 데미지를 입었습니다.");
     }
 
