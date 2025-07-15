@@ -102,18 +102,25 @@ namespace TextRPG
             return inventory;
         }
 
-        //public int GetPotion()
-        //{
-        //    int value;
-        //    if (inventory.Contains(ItemManager.potion)
-        //    {
-        //        return inventory.potion.itemCount;
-        //    }
-        //    else
-        //    {
-        //        return value = 0;
-        //    }
-        //}
+        public ItemPotion PotionFinder()
+        {
+            var findPotion = GetInventory().Find(item => item.itemName == "포션") as ItemPotion;
+            return findPotion;
+        }
+
+        public int GetPotion()
+        {
+            int potionCount;
+
+            if (PotionFinder() != null)
+            {
+                return potionCount = PotionFinder().itemCount;
+            }
+            else
+            {
+                return potionCount = 0;
+            }
+        }
         public void AddItem(Items name)
         {
             inventory.Add(name);
