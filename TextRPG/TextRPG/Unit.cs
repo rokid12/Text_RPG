@@ -155,9 +155,9 @@ namespace TextRPG
                 equipHp = Hp + ItemManager.usefulShield.itemHealth;
             }
 
-            TotalAtk = Atk + EquipAtk;
-            TotalDef = Def + EquipDef;
-            TotalHp = Hp + EquipHp;
+            TotalAtk = Atk + equipAtk;
+            TotalDef = Def + equipDef;
+            TotalHp = Hp + equipHp;
         }
     }
     //몬스터
