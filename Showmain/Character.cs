@@ -36,10 +36,16 @@
         {
             Console.WriteLine($"\nLv. {Level:00}");
             Console.WriteLine($"{Name} ( {Job} )");
-            Console.WriteLine($"공격력 : {Attack}");
-            Console.WriteLine($"방어력 : {Defense}");
+            Console.WriteLine($"공격력 : {TotalAttack} (기본 {Attack})");
+            Console.WriteLine($"방어력 : {TotalDefense} (기본 {Defense})");
             Console.WriteLine($"체력 : {MaxHp}");
             Console.WriteLine($"Gold : {Gold} G");
+
+            Console.WriteLine("\n[장착 아이템]");
+            foreach (var item in inventory.Where(i => i.IsEquipped))
+            {
+                Console.WriteLine($"- {item.Name} (+{item.Value} {item.Type})");
+            }
         }
 
         public void ShowInventory()
@@ -60,7 +66,7 @@
                 for (int i = 0; i < inventory.Count; i++)
                 {
                     var item = inventory[i];
-                    Console.WriteLine($"{i + 1}. {item.Name} ({item.Type}) + {item.Value} - {item.Description} {(item.IsEquipped ? "[장착 중]" : "")}");
+                    Console.WriteLine($"{i + 1}. {item.Name} ({item.Type}) +{item.Value} - {item.Description} {(item.IsEquipped ? "[장착 중]" : "")}");
                 }
 
                 Console.WriteLine("\n0. 나가기");
@@ -81,6 +87,26 @@
 
                 Console.WriteLine("아무 키나 누르면 계속...");
                 Console.ReadKey();
+            }
+        }
+
+        public int TotalAttack
+        {
+            get
+            {
+                return Attack + inventory
+                    .Where(item => item.IsEquipped && item.Type == "Attack")
+                    .Sum(item => item.Value);
+            }
+        }
+
+        public int TotalDefense
+        {
+            get
+            {
+                return Defense + inventory
+                    .Where(item => item.IsEquipped && item.Type == "Defense")
+                    .Sum(item => item.Value);
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using GameCharacter;
 using System.Collections.Generic;
 
 namespace GameCharacter
@@ -25,14 +24,22 @@ namespace GameCharacter
 
             var selectedItem = inventory[index];
 
-            foreach (var item in inventory)
+            if (selectedItem.IsEquipped)
             {
-                if (item.Type == selectedItem.Type)
-                    item.IsEquipped = false;
+                selectedItem.IsEquipped = false;
+                Console.WriteLine($"{selectedItem.Name}을(를) 해제했습니다!");
             }
+            else
+            {
+                foreach (var item in inventory)
+                {
+                    if (item.Type == selectedItem.Type)
+                        item.IsEquipped = false;
+                }
 
-            selectedItem.IsEquipped = true;
-            Console.WriteLine($"{selectedItem.Name}을(를) 장착했습니다!");
+                selectedItem.IsEquipped = true;
+                Console.WriteLine($"{selectedItem.Name}을(를) 장착했습니다!");
+            }
         }
     }
 }
