@@ -55,7 +55,7 @@ namespace TextRPG.BattleSystem
                 while (_turnQueue.Count > 0)
                 {
                     Unit current = _turnQueue.Dequeue();
-                    if (current.HP <= 0) // 사망한 인원의 차례는 제외
+                    if (current.Hp <= 0) // 사망한 인원의 차례는 제외
                         continue;
 
                     if (_allies.Contains(current))
@@ -97,18 +97,18 @@ namespace TextRPG.BattleSystem
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                if(enemies[i].HP <= 0)
+                if(enemies[i].Hp <= 0)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} Dead");
                     Console.ResetColor();
                 }
                 else
-                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} HP {enemies[i].HP}");
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} HP {enemies[i].Hp}");
             }
 
             Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job})\nHP {player.HP}/{player.Mp}\n"); // 최대 HP 필요함
+            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job})\nHP {player.Hp}/{player.Mp}\n"); // 최대 HP 필요함
 
             Console.Write("대상을 선택해주세요.\n>> ");
             int choice;
@@ -119,7 +119,7 @@ namespace TextRPG.BattleSystem
                 {
                     if (choice >= 1 && choice <= enemies.Count)
                     {
-                        if(enemies[choice-1].HP > 0)
+                        if(enemies[choice-1].Hp > 0)
                             break;
                     }
                 }
@@ -147,7 +147,7 @@ namespace TextRPG.BattleSystem
             bool isAllDead = true;
             foreach(Unit unit  in units)
             {
-                if(unit.HP > 0)
+                if(unit.Hp > 0)
                 {
                     isAllDead = false;
                     break;
