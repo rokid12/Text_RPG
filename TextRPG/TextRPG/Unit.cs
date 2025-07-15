@@ -77,12 +77,10 @@ namespace TextRPG
         public Item itemArmor;          //아이템에서 가져오기
         public Item itemHealth;
 
-        public bool isEquiped;
-
         //장착
         public void Equipment()
         {
-            if (!isEquiped)
+            if (item == null)
             {
                 Console.WriteLine($"{item.Name}을(를) 장착할 수 없습니다.");
                 return;
