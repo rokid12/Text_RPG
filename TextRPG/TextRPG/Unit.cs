@@ -106,7 +106,8 @@ namespace TextRPG
                     Console.WriteLine("잘못된 장착입니다.");
                     break;
             }
-            EquipmentStat();
+
+            EquipmentStat();      //스탯 업데이트
         }
         //인벤토리 리스트
         public static List<Item> Inventory = new List<Item>();
