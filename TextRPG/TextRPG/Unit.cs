@@ -54,10 +54,9 @@ namespace TextRPG
         {
             public int Exp;
             public string Job;
-            public string Inventory;
             public int Gold;
 
-            public static List<Inventory> item = new List<Inventory>();
+            public static List<Item> Inventory = new List<Item>();
 
             public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
             :base(name, atk, def, hp, mp, level)   
@@ -72,10 +71,10 @@ namespace TextRPG
                 if(CharacterExp = )
                 {
                     Level++;
-                    Atk = +2;
-                    Def = +2;
-                    Hp = +5;
-                    Mp = +5;
+                    Atk += 2;
+                    Def += 2;
+                    Hp += 5;
+                    Mp += 5;
                     Exp = 0;
                 }
             }
