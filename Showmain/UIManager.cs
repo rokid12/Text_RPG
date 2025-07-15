@@ -63,7 +63,7 @@ namespace TextRPG
             }
         }
 
-        private void ShowStatus()
+        public void ShowStatus()
         {
             while (true)
             {
@@ -78,11 +78,20 @@ namespace TextRPG
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "0")
+                {
                     break;
+                }
                 else if (input == "1")
+                {
                     character.ShowInventory();
+                }
                 else
+                {
                     Console.WriteLine("잘못된 입력입니다.");
+                }
+
+                Console.WriteLine("\n아무 키나 누르면 계속...");
+                Console.ReadKey();
             }
         }
     }

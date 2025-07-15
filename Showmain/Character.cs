@@ -1,13 +1,15 @@
 ﻿using TextRPG;
+using System;
+using System.Collections.Generic;
 
-    namespace TextRPG
+namespace TextRPG
+{
+    public class Character
     {
-        public class Character
-        {
-            public string Name { get; private set; }
-            public int Level { get; private set; }
-            public int MaxHp { get; private set; }
-            public int Gold { get; private set; }
+        public string Name { get; private set; }
+        public int Level { get; private set; }
+        public int MaxHp { get; private set; }
+        public int Gold { get; private set; }
 
         private List<Items> inventory = new List<Items>();
 
@@ -28,67 +30,85 @@
             return inventory;
         }
 
-            public void ShowStatus()
-            {
-                Console.WriteLine($"\nLv. {Level:00}");
-                Console.WriteLine($"{Name}");
-                Console.WriteLine($"체력 : {MaxHp}");
-                Console.WriteLine($"Gold : {Gold} G");
+        public int TotalAttack => inventory.Where(i => i.isEquipped).Sum(i => i.itemAttack);
+        public int TotalDefense => inventory.Where(i => i.isEquipped).Sum(i => i.itemArmor);
+        public int TotalHealth => MaxHp + inventory.Where(i => i.isEquipped).Sum(i => i.itemHealth);
 
-                Console.WriteLine("\n[장착중인 장비]");
-                foreach (var item in inventory)
+        public void ShowStatus()
+        {
+            int totalAtk = 0;
+            int totalDef = 0;
+
+            foreach (var item in inventory)
+            {
+                if (item.isEquipped)
                 {
-                    if (item.isEquipped)
-                    {
-                        Console.Write($" - ");
-                        item.ItemInformation();
-                        Console.WriteLine();
-                    }
+                    totalAtk += item.itemAttack;
+                    totalDef += item.itemArmor;
                 }
             }
 
-            public void ShowInventory()
+            Console.WriteLine($"\nLv. {Level:00}");
+            Console.WriteLine($"{Name}");
+            Console.WriteLine($"체력 : {MaxHp}");
+            Console.WriteLine($"공격력 : {totalAtk}");
+            Console.WriteLine($"방어력 : {totalDef}");
+            Console.WriteLine($"Gold : {Gold} G");
+
+            Console.WriteLine("\n[장착중인 장비]");
+            foreach (var item in inventory)
             {
-                EquipManager equipManager = new EquipManager(this);
-
-                while (true)
+                if (item.isEquipped)
                 {
-                    Console.Clear();
-                    Console.WriteLine("[ 인벤토리 ]");
-
-                    if (inventory.Count == 0)
-                    {
-                        Console.WriteLine("보유한 아이템이 없습니다.");
-                        break;
-                    }
-
-                    for (int i = 0; i < inventory.Count; i++)
-                    {
-                        var item = inventory[i];
-                        Console.Write($"{i + 1}. ");
-                        item.ItemInformation();
-                        Console.WriteLine(item.isEquipped ? " [장착 중]" : "");
-                    }
-
-                    Console.WriteLine("\n0. 나가기");
-                    Console.Write("장착할 아이템 번호를 입력해주세요: ");
-                    string input = Console.ReadLine() ?? "";
-
-                    if (input == "0")
-                        break;
-
-                    if (int.TryParse(input, out int index) && index >= 1 && index <= inventory.Count)
-                    {
-                        equipManager.EquipItem(index - 1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("잘못된 입력입니다.");
-                    }
-
-                    Console.WriteLine("\n아무 키나 누르면 계속...");
-                    Console.ReadKey();
+                    Console.Write(" - ");
+                    item.ItemInformation();
+                    Console.WriteLine();
                 }
             }
         }
+
+        public void ShowInventory()
+        {
+            EquipManager equipManager = new EquipManager(this);
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("[ 인벤토리 ]");
+
+                if (inventory.Count == 0)
+                {
+                    Console.WriteLine("보유한 아이템이 없습니다.");
+                    break;
+                }
+
+                for (int i = 0; i < inventory.Count; i++)
+                {
+                    var item = inventory[i];
+                    Console.Write($"{i + 1}. ");
+                    item.ItemInformation();
+                    Console.WriteLine(item.isEquipped ? " [장착 중]" : "");
+                }
+
+                Console.WriteLine("\n0. 나가기");
+                Console.Write("장착할 아이템 번호를 입력해주세요: ");
+                string input = Console.ReadLine() ?? "";
+
+                if (input == "0")
+                    break;
+
+                if (int.TryParse(input, out int index) && index >= 1 && index <= inventory.Count)
+                {
+                    equipManager.EquipItem(index - 1);
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+
+                Console.WriteLine("\n아무 키나 누르면 계속...");
+                Console.ReadKey();
+            }
+        }
     }
+}
