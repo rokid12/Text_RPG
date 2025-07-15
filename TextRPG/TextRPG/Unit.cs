@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using TextRPG;
 
 namespace TextRPG
-{   //유닛
+{     
+    //유닛
     public class Unit
     {
         public string Name;
@@ -21,6 +22,7 @@ namespace TextRPG
         public int TotalAtk;
         public int TotalDef;
         public int TotalHp;
+
 
         //생성자
         public Unit(string name, int atk, int def, int hp, int mp, int level)
@@ -86,9 +88,20 @@ namespace TextRPG
                 return;
             }
                 
+            switch (item.ItemType)
+            {
+                case 0:
+                    EquippedWeapon = itemWeapon; 
+                    Cosole.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
+                    break;
+                case 1:
+                    EquippedArmor = itemArmor;
+                    Cosole.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
+                    break;
+                default :
+                    Console.WriteLine("잘못된 장착입니다.");
+                    break;
             }
-
-            Console.WriteLine($"{item.Name}을(를) 장착했습니다.");
         }
         //인벤토리 리스트
         public static List<Item> Inventory = new List<Item>();
@@ -123,22 +136,20 @@ namespace TextRPG
             equipDef = 0;
             equipHp = 0;
 
-            equip
-
             if (EquippedWeapon != null)
             {
-                TotalAtk = Atk + equipAtk;
-                TotalDef = Def + equipDef;
-                TotalHp = Hp + equipHp;
+                equipAtk = Atk + ItemManager.usefulShield.itemAttack;
+                equipDef = Def + ItemManager.usefulShield.itemArmor;
+                equipHp = Hp + ItemManager.usefulShield.itemHealth;
             }
             else if (EquippedArmor != null)
             {
-                TotalAtk = Atk + equipAtk;
-                TotalDef = Def + equipDef;
-                TotalHp = Hp + equipHp;
+                equipAtk = Atk + ItemManager.usefulShield.itemAttack;
+                equipDef = Def + ItemManager.usefulShield.itemArmor;
+                equipHp = Hp + ItemManager.usefulShield.itemHealth;
             }
-            else (EquippedAccessory != null)
-                TotalHp = Hp + equipHp;
+            else ()
+
         }
     }
     //몬스터
