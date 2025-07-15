@@ -11,7 +11,7 @@ public class LevelManager
 
     public void Experience(int exp)
     {
-        Console.WriteLine($"{player.Name}이(가) 경험치 {exp}을(를) 획득했습니다!");
+        Console.WriteLine($"경험치 {exp}을(를) 획득했습니다!");
         player.Experience += exp;
 
         while (player.Experience >= player.MaxExperience)
@@ -25,7 +25,6 @@ public class LevelManager
     {
         player.Level++;
         player.MaxExperience += 50;
-        player.HP += 20;
         player.Attack += 2;
 
         Console.WriteLine($"레벨업! 현재 레벨은 {player.Level} 입니다!");
