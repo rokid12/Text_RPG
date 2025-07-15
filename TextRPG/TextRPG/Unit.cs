@@ -81,11 +81,14 @@ namespace TextRPG
         public Item itemHealth;
 
         //장착
-        public void Equipment()
+        public Items EquippedWeapon;
+        public Items EquipperArmor;
+
+        public void Equipment(Items item)
         {
             if (item == null)
             {
-                Console.WriteLine($"{item.Name}을(를) 장착할 수 없습니다.");
+                Console.WriteLine("장착할 아이템이 없습니다.");
                 return;
             }
                 
@@ -103,6 +106,7 @@ namespace TextRPG
                     Console.WriteLine("잘못된 장착입니다.");
                     break;
             }
+            EquipmentStat();
         }
         //인벤토리 리스트
         public static List<Item> Inventory = new List<Item>();
@@ -143,14 +147,16 @@ namespace TextRPG
                 equipDef = Def + ItemManager.usefulShield.itemArmor;
                 equipHp = Hp + ItemManager.usefulShield.itemHealth;
             }
-            else if (EquippedArmor != null)
+            if (EquippedArmor != null)
             {
                 equipAtk = Atk + ItemManager.usefulShield.itemAttack;
                 equipDef = Def + ItemManager.usefulShield.itemArmor;
                 equipHp = Hp + ItemManager.usefulShield.itemHealth;
             }
-            else ()
 
+            TotalAtk = Atk + EquipAtk;
+            TotalDef = Def + EquipDef;
+            TotalHp = Hp + EquipHp;
         }
     }
     //몬스터
