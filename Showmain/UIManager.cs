@@ -1,7 +1,5 @@
 ﻿using GameCharacter;
-using Showmain;
 using System;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Showmain
 {
@@ -32,13 +30,12 @@ namespace Showmain
 
             for (int i = 0; i < text.Length; i++)
             {
-                Console.ForegroundColor = rainbowColors[i % rainbowColors.Length]; 
+                Console.ForegroundColor = rainbowColors[i % rainbowColors.Length];
                 Console.Write(text[i]);
             }
 
-            Console.WriteLine(); 
-            Console.ResetColor(); 
-        
+            Console.WriteLine();
+            Console.ResetColor();
         }
 
         public void ShowMainMenu()
@@ -49,7 +46,7 @@ namespace Showmain
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine() ?? "";
 
                 if (input == "1")
                 {
@@ -69,16 +66,17 @@ namespace Showmain
 
         private void ShowStatus()
         {
-            while(true)
+            while (true)
             {
-                console.Clear();
+                Console.Clear();
                 Console.WriteLine("\n상태 보기");
+
                 character.ShowStatus();
 
-                console.WriteLine("\n1. 인벤토리 보기 및 장착");
-                console.WriteLine("0. 나가기");
-                console.WriteLine("\n원하시는 행동을 입력해주세요.\n>> ");
-                string input = console.ReadLine();
+                Console.WriteLine("\n1. 인벤토리 보기 및 장착");
+                Console.WriteLine("0. 나가기");
+                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+                string input = Console.ReadLine() ?? "";
 
                 if (input == "0")
                 {
@@ -90,9 +88,8 @@ namespace Showmain
                 }
                 else
                 {
-                    console.WriteLine("잘못된 입력입니다.");
+                    Console.WriteLine("잘못된 입력입니다.");
                 }
-
             }
         }
     }
