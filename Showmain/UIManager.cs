@@ -69,22 +69,30 @@ namespace Showmain
 
         private void ShowStatus()
         {
-            Console.WriteLine("\n상태 보기");
-            character.ShowStatus();
-            Console.WriteLine("\n0. 나가기");
-
-            while (true)
+            while(true)
             {
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
-                string input = Console.ReadLine();
+                console.Clear();
+                Console.WriteLine("\n상태 보기");
+                character.ShowStatus();
+
+                console.WriteLine("\n1. 인벤토리 보기 및 장착");
+                console.WriteLine("0. 나가기");
+                console.WriteLine("\n원하시는 행동을 입력해주세요.\n>> ");
+                string input = console.ReadLine();
+
                 if (input == "0")
                 {
                     break;
                 }
+                else if (input == "1")
+                {
+                    character.ShowInventory();
+                }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
+                    console.WriteLine("잘못된 입력입니다.");
                 }
+
             }
         }
     }
