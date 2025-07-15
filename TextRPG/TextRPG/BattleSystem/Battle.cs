@@ -16,6 +16,11 @@ namespace TextRPG.BattleSystem
         private Queue<Unit> _turnQueue;
         private Queue<Unit> _tempTurnQueue;
 
+        // 보상 리스트
+        private int rewardExp = 0;
+        private int rewardGold = 0;
+        private List<Items> rewardItems = new List<Items>();
+
         private int _curTrun;
 
         public Battle(List<Character> allies, List<Monster> enemies)
@@ -166,7 +171,17 @@ namespace TextRPG.BattleSystem
             Console.WriteLine("패배하였습니다.");
         }
 
-        void MyDelay(int ms)
+        private void RewardCheck()
+        {
+            foreach(Monster monster in _enemies)
+            {
+                rewardExp += monster.DropExp;
+                rewardGold += monster.DropGold;
+                //rewardItems.Add(); --> 여기 보상 아이템 아이템 클래스로 바꿔줘야 뭐 할 수 있음
+            }
+        }
+
+        void MyDelay(int ms) // 딜레이용으로 만든 함수
         {
             Thread.Sleep(ms);
         }
