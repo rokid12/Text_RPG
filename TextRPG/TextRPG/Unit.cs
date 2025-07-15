@@ -10,7 +10,7 @@ using TextRPG;
 namespace TextRPG
 {     
     //유닛
-    public class Unit
+    class Unit
     {
         public string Name;
         public int Atk;
@@ -66,7 +66,7 @@ namespace TextRPG
 
     }
     //캐릭터
-    public class Character : Unit
+    class Character : Unit
     {
         public int Exp;
         public string Job;
@@ -161,7 +161,7 @@ namespace TextRPG
         }
     }
     //몬스터
-    public class Monster : Unit
+    class Monster : Unit
     {
         public string DropItem;
         public int DropExp;
