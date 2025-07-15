@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Potion : Items
+    internal class ItemPotion : Items
     {
         public int itemCount = 1; // 포션 갯수는 추가할 때 갯수를 추가 저장해야함.
-        public Potion()
+        public ItemPotion()
         {
-            itemType = 2;
+            itemType = 2; // 포션은 아이템 타입이 고정
         }
 
         //public void UsingPotion()
