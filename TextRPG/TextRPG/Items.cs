@@ -14,6 +14,7 @@ namespace TextRPG
         public int itemHealth; // 아이템 체력
         public string itemName; // 아이템 이름
         public string itemDescription; // 아이템 설명
+        public bool isEquipped = false;
 
         public void ItemInformation()
         {

@@ -4,7 +4,7 @@ using TextRPG;
 
 namespace TextRPG
 {
-    public class EquipManager
+    class EquipManager
     {
         private Character character;
 

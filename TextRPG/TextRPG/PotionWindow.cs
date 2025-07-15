@@ -12,9 +12,9 @@ namespace TextRPG
         {
             Console.Clear();
             Console.WriteLine("회복");
-            Console.WriteLine($"{ItemManager.potion.itemDescription} ( 남은 포션 : {ItemManager.potion.itemCount} )"); 
+            Console.WriteLine($"{ItemManager.potion.itemDescription} ( 남은 포션 :  )"); //{GameManager.Instance.player.GetInventory().potion.itemCount}
             // 남은 포션 > 인벤토리로 경로 설정 변경 필요
-            
+
             while (true)
             {
                 Console.WriteLine("\n1. 사용하기");
@@ -39,5 +39,6 @@ namespace TextRPG
                 }
             }
         }
+
     }
 }

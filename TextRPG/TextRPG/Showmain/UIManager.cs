@@ -3,7 +3,7 @@ using System;
 
 namespace TextRPG
 {
-    public class UIManager
+    class UIManager
     {
         private Character character;
 
@@ -44,6 +44,7 @@ namespace TextRPG
             {
                 Console.WriteLine("\n1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
+                Console.WriteLine("3. 회복 아이템");
                 Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
                 string input = Console.ReadLine() ?? "";
 
@@ -54,6 +55,11 @@ namespace TextRPG
                 else if (input == "2")
                 {
                     Console.WriteLine("\n이제 전투를 시작할 수 있습니다.");
+                    break;
+                }
+                else if (input == "3")
+                {
+                    PotionWindow.Show();
                     break;
                 }
                 else

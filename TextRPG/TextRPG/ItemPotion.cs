@@ -29,9 +29,9 @@ namespace TextRPG
         //        int healingPoint = (maxHealth - health >= 30) ? healingPoint = 30 : healingPoint = Maxhealth - health;
         //        health = health + healingPoint;
         //    }
-        //
+
         //    Console.WriteLine($"{itemName} 을 사용했습니다.");
-        //
+
         //    if (itemCount == 0)
         //    {
         //        inventory.Remove(potion)

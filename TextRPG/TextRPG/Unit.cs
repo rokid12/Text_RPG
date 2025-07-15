@@ -2,19 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG;
 
 namespace TextRPG
-{     
+{
     //유닛
     class Unit
     {
         public string Name;
         public int Atk;
         public int Def;
+        public int maxHp;
         public int Hp;
         public int Mp;
         public int Level;
@@ -23,14 +25,14 @@ namespace TextRPG
         public int TotalDef;
         public int TotalHp;
 
-
         //생성자
-        public Unit(string name, int atk, int def, int hp, int mp, int level)
+        public Unit(string name, int atk, int def, int maxHp, int mp, int level)
         {
             Name = name;
             Atk = atk;
             Def = def;
-            Hp = hp;
+            this.maxHp = maxHp;
+            this.Hp = maxHp;
             Mp = mp;
             Level = level;
         }
@@ -56,7 +58,7 @@ namespace TextRPG
         }
 
         //마나소비
-        public void UseMp (int mp)
+        public void UseMp(int mp)
         {
             if (Mp <= 0)
             {
@@ -84,6 +86,91 @@ namespace TextRPG
         public Items EquippedWeapon;
         public Items EquippedArmor;
 
+        public List<Items> GetInventory()
+        {
+            return inventory;
+        }
+
+        public int GetPotion()
+        {
+            int value;
+            if (inventory.Contains(ItemManager.potion)
+            {
+                return inventory.potion.itemCount;
+            }
+            else
+            {
+                return value = 0;
+            }
+        }
+        public void AddItem(Items name)
+        {
+            inventory.Add(name);
+        }
+
+        public void ShowStatus()
+        {
+            Console.WriteLine($"\nLv. {Level:00}");
+            Console.WriteLine($"{Name}");
+            Console.WriteLine($"체력 : {maxHp}");
+            Console.WriteLine($"Gold : {Gold} G");
+
+            Console.WriteLine("\n[장착중인 장비]");
+            foreach (var item in inventory)
+            {
+                if (item.isEquipped)
+                {
+                    Console.Write($" - ");
+                    item.ItemInformation();
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        public void ShowInventory()
+        {
+            EquipManager equipManager = new EquipManager(this);
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("[ 인벤토리 ]");
+
+                if (inventory.Count == 0)
+                {
+                    Console.WriteLine("보유한 아이템이 없습니다.");
+                    break;
+                }
+
+                for (int i = 0; i < inventory.Count; i++)
+                {
+                    var item = inventory[i];
+                    Console.Write($"{i + 1}. ");
+                    item.ItemInformation();
+                    Console.WriteLine(item.isEquipped ? " [장착 중]" : "");
+                }
+
+                Console.WriteLine("\n0. 나가기");
+                Console.Write("장착할 아이템 번호를 입력해주세요: ");
+                string input = Console.ReadLine() ?? "";
+
+                if (input == "0")
+                    break;
+
+                if (int.TryParse(input, out int index) && index >= 1 && index <= inventory.Count)
+                {
+                    equipManager.EquipItem(index - 1);
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+
+                Console.WriteLine("\n아무 키나 누르면 계속...");
+                Console.ReadKey();
+            }
+        }
+
         public void Equipment(Items item)
         {
             if (item == null)
@@ -91,7 +178,7 @@ namespace TextRPG
                 Console.WriteLine("장착할 아이템이 없습니다.");
                 return;
             }
-                
+
             switch (item.itemType)
             {
                 case 0:
@@ -102,7 +189,7 @@ namespace TextRPG
                     EquippedArmor = item;
                     Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
                     break;
-                default :
+                default:
                     Console.WriteLine("잘못된 장착입니다.");
                     break;
             }
@@ -110,10 +197,10 @@ namespace TextRPG
             EquipmentStat();      //스탯 업데이트
         }
         //인벤토리 리스트
-        public static List<Items> Inventory = new List<Items>();
+        public static List<Items> inventory = new List<Items>();
         //캐릭터 생성자
         public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
-        :base(name, atk, def, hp, mp, level)   
+        : base(name, atk, def, hp, mp, level)
         {
             Exp = exp;
             Job = job;
@@ -160,6 +247,8 @@ namespace TextRPG
             TotalHp = Hp + EquipHp;
         }
     }
+}
+
     //몬스터
     class Monster : Unit
     {
@@ -190,4 +279,3 @@ namespace TextRPG
             };
         }
     }
-}
