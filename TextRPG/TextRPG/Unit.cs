@@ -13,61 +13,65 @@ namespace TextRPG
     //유닛
     class Unit
     {
-        public string Name;
-        public int Atk;
-        public int Def;
+        public string name;
+        public int atk;
+        public int def;
         public int maxHp;
-        public int Hp;
-        public int Mp;
-        public int Level;
+        public int hp;
+        public int mp;
+        public int level;
 
-        public int TotalAtk;
-        public int TotalDef;
-        public int TotalHp;
+        public int totalAtk;
+        public int totalDef;
+        public int totalHp;
 
         //생성자
         public Unit(string name, int atk, int def, int maxHp, int mp, int level)
         {
-            Name = name;
-            Atk = atk;
-            Def = def;
+            this.name = name;
+            this.atk = atk;
+            this.def = def;
             this.maxHp = maxHp;
-            this.Hp = maxHp;
-            Mp = mp;
-            Level = level;
+            this.hp = maxHp;
+            this.mp = mp;
+            this.level = level;
+
+            totalAtk = atk;
+            totalDef = def;
+            totalHp = maxHp;
         }
 
         //공격
         public void Attack(Unit target)
         {
-            Console.WriteLine($"{Name}이(가) {target.Name}을(를) 공격하였습니다.");
-            target.TakeDamage(TotalAtk);
+            Console.WriteLine($"{name}이(가) {target.name}을(를) 공격하였습니다.");
+            target.TakeDamage(totalAtk);
         }
 
         //피격
         public void TakeDamage(int trueatk)
         {
-            int damage = trueatk - TotalDef;
-            if (TotalDef >= trueatk)
+            int damage = trueatk - totalDef;
+            if (totalDef >= trueatk)
             {
                 damage = 0;
                 Console.WriteLine("Miss");
             }
             else
             {
-                Hp -= damage;
-                if (Hp <= 0)
+                hp -= damage;
+                if (hp <= 0)
                 {
-                    Hp = 0;
+                    hp = 0;
                 }
-                Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})");
+                Console.WriteLine($"{name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {hp})");
             }
         }
 
         //마나소비
         public void UseMp(int mp)
         {
-            if (Mp <= 0)
+            if (mp <= 0)
             {
                 Console.WriteLine("마나가 부족합니다.");
             }
@@ -77,21 +81,21 @@ namespace TextRPG
     //캐릭터
     class Character : Unit
     {
-        public int Exp;
-        public string Job;
-        public int Gold;
+        public int exp;
+        public string job;
+        public int gold;
 
-        public int EquipAtk;
-        public int EquipDef;
-        public int EquipHp;
+        public int equipAtk;
+        public int equipDef;
+        public int equipHp;
 
         public Items itemAttack;
         public Items itemArmor;          //아이템에서 가져오기
         public Items itemHealth;
 
         //장착
-        public Items EquippedWeapon;
-        public Items EquippedArmor;
+        public Items equippedWeapon;
+        public Items equippedArmor;
 
         public List<Items> GetInventory()
         {
@@ -117,10 +121,10 @@ namespace TextRPG
 
         public void ShowStatus()
         {
-            Console.WriteLine($"\nLv. {Level:00}");
-            Console.WriteLine($"{Name}");
+            Console.WriteLine($"\nLv. {level:00}");
+            Console.WriteLine($"{name}");
             Console.WriteLine($"체력 : {maxHp}");
-            Console.WriteLine($"Gold : {Gold} G");
+            Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
             foreach (var item in inventory)
@@ -189,11 +193,11 @@ namespace TextRPG
             switch (item.itemType)
             {
                 case 0:
-                    EquippedWeapon = item;
+                    equippedWeapon = item;
                     Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
                     break;
                 case 1:
-                    EquippedArmor = item;
+                    equippedArmor = item;
                     Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
                     break;
                 default:
@@ -209,49 +213,49 @@ namespace TextRPG
         public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
         : base(name, atk, def, hp, mp, level)
         {
-            Exp = exp;
-            Job = job;
-            Gold = gold;
+            this.exp = exp;
+            this.job = job;
+            this.gold = gold;
         }
 
         public void LevelUp()
         {   //레벨당 경험치가 가득찼을때
-            int CharacterExp = Level * 5;
-            if (Exp >= CharacterExp)
+            int CharacterExp = level * 5;
+            if (exp >= CharacterExp)
             {
-                Level++;
-                Atk += 2;
-                Def += 2;
-                Hp += 5;
-                Mp += 5;
-                Exp -= CharacterExp;
+                level++;
+                atk += 2;
+                def += 2;
+                hp += 5;
+                mp += 5;
+                exp -= CharacterExp;
 
-                Console.WriteLine($"{Name}이(가) 레벨업했습니다. 레벨 : {Level}");
+                Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
             }
         }
         //장착시 스탯
         public void EquipmentStat()
         {
-            EquipAtk = 0;
-            EquipDef = 0;
-            EquipHp = 0;
+            equipAtk = 0;
+            equipDef = 0;
+            equipHp = 0;
 
-            if (EquippedWeapon != null)
+            if (equippedWeapon != null)
             {
-                EquipAtk += EquippedWeapon.itemAttack;
-                EquipDef += EquippedWeapon.itemArmor;
-                EquipHp += EquippedWeapon.itemHealth;
+                equipAtk += equippedWeapon.itemAttack;
+                equipDef += equippedWeapon.itemArmor;
+                equipHp += equippedWeapon.itemHealth;
             }
-            if (EquippedArmor != null)
+            if (equippedArmor != null)
             {
-                EquipAtk += EquippedArmor.itemAttack;
-                EquipDef += EquippedArmor.itemArmor;
-                EquipHp += EquippedArmor.itemHealth;
+                equipAtk += equippedArmor.itemAttack;
+                equipDef += equippedArmor.itemArmor;
+                equipHp += equippedArmor.itemHealth;
             }
 
-            TotalAtk = Atk + EquipAtk;
-            TotalDef = Def + EquipDef;
-            TotalHp = Hp + EquipHp;
+            totalAtk = atk + equipAtk;
+            totalDef = def + equipDef;
+            totalHp = hp + equipHp;
         }
     }
 }
@@ -259,9 +263,9 @@ namespace TextRPG
     //몬스터
     class Monster : Unit
     {
-        public string DropItem;
-        public int DropExp;
-        public int DropGold;
+        public string dropItem;
+        public int dropExp;
+        public int dropGold;
 
         // 몬스터 배열
         public static Monster[] MonsterArray;
@@ -270,9 +274,9 @@ namespace TextRPG
         public Monster(string name, int atk, int def, int hp, int mp, int level, string dropItem, int dropExp, int dropGold)
         : base(name, atk, def, hp, mp, level)
         {
-            DropItem = dropItem;
-            DropExp = dropExp;
-            DropGold = dropGold;
+            this.dropItem = dropItem;
+            this.dropExp = dropExp;
+            this.dropGold = dropGold;
         }
         // 몬스터 정보
         public static void MonsterInfo()

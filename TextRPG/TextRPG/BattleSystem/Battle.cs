@@ -55,7 +55,7 @@ namespace TextRPG.BattleSystem
                 while (_turnQueue.Count > 0)
                 {
                     Unit current = _turnQueue.Dequeue();
-                    if (current.Hp <= 0) // 사망한 인원의 차례는 제외
+                    if (current.hp <= 0) // 사망한 인원의 차례는 제외
                         continue;
 
                     if (_allies.Contains(current))
@@ -92,23 +92,23 @@ namespace TextRPG.BattleSystem
 
         private void PlayerTurn(Character player, List<Monster> enemies)
         {
-            Console.WriteLine($"{player.Name}의 턴입니다.");
+            Console.WriteLine($"{player.name}의 턴입니다.");
             Console.WriteLine("공격할 적을 선택하세요:");
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                if(enemies[i].Hp <= 0)
+                if(enemies[i].hp <= 0)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} Dead");
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} Dead");
                     Console.ResetColor();
                 }
                 else
-                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} HP {enemies[i].Hp}");
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
             }
 
             Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job})\nHP {player.Hp}/{player.Mp}\n"); // 최대 HP 필요함
+            Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.mp}\n"); // 최대 HP 필요함
 
             Console.Write("대상을 선택해주세요.\n>> ");
             int choice;
@@ -119,7 +119,7 @@ namespace TextRPG.BattleSystem
                 {
                     if (choice >= 1 && choice <= enemies.Count)
                     {
-                        if(enemies[choice-1].Hp > 0)
+                        if(enemies[choice-1].hp > 0)
                             break;
                     }
                 }
@@ -137,7 +137,7 @@ namespace TextRPG.BattleSystem
             Unit? target = allies.FirstOrDefault();
             if (target != null)
             {
-                Console.WriteLine($"{enemy.Name}이 {target.Name}을 공격합니다.");
+                Console.WriteLine($"{enemy.name}이 {target.name}을 공격합니다.");
                 enemy.Attack(target);
             }
         }
@@ -147,7 +147,7 @@ namespace TextRPG.BattleSystem
             bool isAllDead = true;
             foreach(Unit unit  in units)
             {
-                if(unit.Hp > 0)
+                if(unit.hp > 0)
                 {
                     isAllDead = false;
                     break;
@@ -175,8 +175,8 @@ namespace TextRPG.BattleSystem
         {
             foreach(Monster monster in _enemies)
             {
-                rewardExp += monster.DropExp;
-                rewardGold += monster.DropGold;
+                rewardExp += monster.dropExp;
+                rewardGold += monster.dropGold;
                 //rewardItems.Add(); --> 여기 보상 아이템 아이템 클래스로 바꿔줘야 뭐 할 수 있음
             }
         }
