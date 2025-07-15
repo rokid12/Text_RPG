@@ -1,7 +1,7 @@
-﻿using GameCharacter;
+﻿using TextRPG;
 using System;
 
-namespace Showmain
+namespace TextRPG
 {
     public class UIManager
     {
@@ -44,8 +44,7 @@ namespace Showmain
             {
                 Console.WriteLine("\n1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
-                Console.WriteLine("\n원하시는 행동을 입력해주세요.");
-                Console.Write(">> ");
+                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "1")
@@ -69,27 +68,21 @@ namespace Showmain
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("\n상태 보기");
+                Console.WriteLine("상태 보기");
 
                 character.ShowStatus();
 
                 Console.WriteLine("\n1. 인벤토리 보기 및 장착");
                 Console.WriteLine("0. 나가기");
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+                Console.Write(">> ");
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "0")
-                {
                     break;
-                }
                 else if (input == "1")
-                {
                     character.ShowInventory();
-                }
                 else
-                {
                     Console.WriteLine("잘못된 입력입니다.");
-                }
             }
         }
     }

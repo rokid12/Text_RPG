@@ -1,6 +1,6 @@
-﻿using GameCharacter;
+﻿using TextRPG;
 
-namespace Showmain
+namespace TextRPG
 {
     class Program
     {

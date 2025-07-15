@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using TextRPG;
 
-namespace GameCharacter
+namespace TextRPG
 {
     public class EquipManager
     {
@@ -24,22 +25,25 @@ namespace GameCharacter
 
             var selectedItem = inventory[index];
 
-            if (selectedItem.IsEquipped)
+            if (selectedItem.isEquipped)
             {
-                selectedItem.IsEquipped = false;
-                Console.WriteLine($"{selectedItem.Name}을(를) 해제했습니다!");
+                selectedItem.isEquipped = false;
+                Console.WriteLine($"{selectedItem.itemName}을(를) 해제했습니다!");
             }
             else
             {
                 foreach (var item in inventory)
                 {
-                    if (item.Type == selectedItem.Type)
-                        item.IsEquipped = false;
+                    if (item.itemType == selectedItem.itemType)
+                        item.isEquipped = false;
                 }
 
-                selectedItem.IsEquipped = true;
-                Console.WriteLine($"{selectedItem.Name}을(를) 장착했습니다!");
+                selectedItem.isEquipped = true;
+                Console.WriteLine($"{selectedItem.itemName}을(를) 장착했습니다!");
             }
+
+            selectedItem.ItemInformation();
         }
     }
+
 }
