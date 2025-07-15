@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TextRPG;
 
 namespace TextRPG
-{
+{   //유닛
     public class Unit
     {
         public string Name;
@@ -17,6 +17,9 @@ namespace TextRPG
         public int Mp;
         public int Level;
 
+        public int TotalAtk;
+        public int TotalDef;
+        public int TotalHp;
 
         //생성자
         public Unit(string name, int atk, int def, int hp, int mp, int level)
@@ -33,79 +36,108 @@ namespace TextRPG
         public void Attack(Unit target)
         {
             Console.WriteLine($"{Name}이(가) {target.Name}을(를) 공격하였습니다.");
-            target.TakeDamage(Atk);
+            target.TakeDamage(TotalAtk);
         }
 
         //피격
-        public void TakeDamage(int atk)
+        public void TakeDamage(int trueatk)
         {
-            int damage = Atk - Def;
-            if (Def >= Atk)
+            int damage = trueatk - TotalDef;
+            if (TotalDef >= trueatk)
                 damage = 0;
             Hp -= damage;
-            if (Hp <= damage)
+            if (Hp <= 0)
                 Hp = 0;
             Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})")
         }
 
+        //마나소비
+        public void UseMp (int mp)
+        {
+            if (Mp <= 0)
+            {
+                Console.WriteLine("마나가 부족합니다.");
+            }
+        }
+
     }
+    //캐릭터
+    public class Character : Unit
+    {
+        public int Exp;
+        public string Job;
+        public int Gold;
 
-        public class Character : Unit
+        public int EquipAtk;
+        public int EquipDef;
+        public int EquipHp;
+
+        //장착
+        public void Equipment()
         {
-            public int Exp;
-            public string Job;
-            public int Gold;
-
-            public static List<Item> Inventory = new List<Item>();
-
-            public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
-            :base(name, atk, def, hp, mp, level)   
-            {
-                Exp = exp;
-                Job = job;
-                Gold = gold;
-            }
-
-            public void LevelUp()
-            {   //레벨당 경험치가 가득찼을때
-                if(CharacterExp = )
-                {
-                    Level++;
-                    Atk += 2;
-                    Def += 2;
-                    Hp += 5;
-                    Mp += 5;
-                    Exp = 0;
-                }
-            }
+            
+        }
+        //인벤토리 리스트
+        public static List<Item> Inventory = new List<Item>();
+        //캐릭터 생성자
+        public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
+        :base(name, atk, def, hp, mp, level)   
+        {
+            Exp = exp;
+            Job = job;
+            Gold = gold;
         }
 
-        public class Monster : Unit
-        {
-            public string DropItem;
-            public int DropExp;
-            public int DropGold;
-
-            // 몬스터 배열
-            public static Monster[] MonsterArray;
-
-            // 생성자
-            public Monster(string name, int atk, int def, int hp, int mp, int level, string dropItem, int dropExp, int dropGold)
-            : base(name, atk, def, hp, mp, level)
+        public void LevelUp()
+        {   //레벨당 경험치가 가득찼을때
+            int CharacterExp = Level * 5
+            if (Exp >= CharacterExp)
             {
-                DropItem = dropItem;
-                DropExp = dropExp;
-                DropGold = dropGold;
-            }
+                Level++;
+                Atk += 2;
+                Def += 2;
+                Hp += 5;
+                Mp += 5;
+                Exp -= CharacterExp;
 
-            public static void MonsterInfo()
-            {
-                MonsterArray = new Monster[]
-                {
-                    new Monster("미니언", 5, 0, 15, 2, 10, "", 2, 5),
-                    new Monster("공허충", 9, 2, 10, 3, 10, "", 3, 10),
-                    new Monster("대포미니언", 8, 5, 25, 5, 20, "", 5, 20)
-                };
+                Console.WriteLine($"{Name}이(가) 레벨업했습니다. 레벨 : {Level}");
             }
         }
+        //장착시 스탯
+        public void EquipmentStat()
+        {
+            TotalAtk = Atk + EquipAtk;
+            TotalDef = Def + EquipDef;
+            TotalHp = Hp + EquipHp ;
+        }
+    }
+    //몬스터
+    public class Monster : Unit
+    {
+        public string DropItem;
+        public int DropExp;
+        public int DropGold;
+
+        // 몬스터 배열
+        public static Monster[] MonsterArray;
+
+        //몬스터 생성자
+        public Monster(string name, int atk, int def, int hp, int mp, int level, string dropItem, int dropExp, int dropGold)
+        : base(name, atk, def, hp, mp, level)
+        {
+            DropItem = dropItem;
+            DropExp = dropExp;
+            DropGold = dropGold;
+        }
+        //몬스터 정보
+        public static void MonsterInfo()
+        {
+            MonsterArray = new Monster[]
+            {
+                new Monster("미니언", 5, 0, 15, 10, 2, "", 2, 5),
+                new Monster("공허충", 9, 2, 10, 10, 3, "", 3, 10),
+                new Monster("대포미니언", 8, 5, 25, 20, 5, "", 5, 20)
+            };
+        }
+    }
 }
