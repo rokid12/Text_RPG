@@ -19,10 +19,6 @@ namespace TextRPG
         {
             List<string> statusList = new List<string>();
 
-            int itemNameWidth = 12;
-            int statusWidth = 12;
-            int itemDescriptionWidth = 26;
-
             if (itemAttack != 0)
             {
                 statusList.Add($"공격력 {itemAttack:+#;-#;0}");
@@ -37,16 +33,27 @@ namespace TextRPG
             }
 
             Console.Write("\n - ");
-            Console.Write($"{itemName.PadRight(itemNameWidth)}");
-            Console.Write($"| {statusList[0].PadRight(itemNameWidth)}");
-            Console.Write($"| {itemDescription.PadRight(itemDescriptionWidth)}");
+            Console.Write($"{TextFormat(itemName)}");
+            Console.Write($"| {TextFormat(statusList[0])}");
+            Console.Write($"| {DescriptionFormat(itemDescription)}");
 
             for (int i = 1; i < statusList.Count; i++)
             {
-                Console.Write($"\n".PadRight(15));
-                Console.Write($"| {statusList[i]}");
-                Console.WriteLine($"| ".PadRight(28));
+                Console.Write($"\n   {TextFormat("")}");
+                Console.Write($"| {TextFormat(statusList[i])}");
+                Console.Write($"| {DescriptionFormat("")}");
             }
+        }
+
+        string TextFormat(string txt)
+        {
+            txt = txt.PadRight(16 - txt.Length);
+            return txt;
+        }
+        string DescriptionFormat(string txt)
+        {
+            txt = txt.PadRight(32 - txt.Length);
+            return txt;
         }
     }
 }

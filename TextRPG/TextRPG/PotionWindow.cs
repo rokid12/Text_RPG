@@ -23,7 +23,6 @@ namespace TextRPG
                 switch (InputManager.PickNumber(1, 0))
                 {
                     case 0:
-                        //기본 맵
                         return;
                     case 1:
                         if (ItemManager.potion.itemCount < 1) // 인벤토리로 경로 설정 필요
