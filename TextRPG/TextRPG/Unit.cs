@@ -76,13 +76,13 @@ namespace TextRPG
         public int EquipDef;
         public int EquipHp;
 
-        public Item itemAttack;
-        public Item itemArmor;          //아이템에서 가져오기
-        public Item itemHealth;
+        public Items itemAttack;
+        public Items itemArmor;          //아이템에서 가져오기
+        public Items itemHealth;
 
         //장착
         public Items EquippedWeapon;
-        public Items EquipperArmor;
+        public Items EquippedArmor;
 
         public void Equipment(Items item)
         {
@@ -92,15 +92,15 @@ namespace TextRPG
                 return;
             }
                 
-            switch (item.ItemType)
+            switch (item.itemType)
             {
                 case 0:
                     EquippedWeapon = item;
-                    Console.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
+                    Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
                     break;
                 case 1:
                     EquippedArmor = item;
-                    Console.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
+                    Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
                     break;
                 default :
                     Console.WriteLine("잘못된 장착입니다.");
@@ -110,7 +110,7 @@ namespace TextRPG
             EquipmentStat();      //스탯 업데이트
         }
         //인벤토리 리스트
-        public static List<Item> Inventory = new List<Item>();
+        public static List<Items> Inventory = new List<Items>();
         //캐릭터 생성자
         public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
         :base(name, atk, def, hp, mp, level)   
@@ -122,7 +122,7 @@ namespace TextRPG
 
         public void LevelUp()
         {   //레벨당 경험치가 가득찼을때
-            int CharacterExp = Level * 5
+            int CharacterExp = Level * 5;
             if (Exp >= CharacterExp)
             {
                 Level++;
@@ -138,26 +138,26 @@ namespace TextRPG
         //장착시 스탯
         public void EquipmentStat()
         {
-            equipAtk = 0;
-            equipDef = 0;
-            equipHp = 0;
+            EquipAtk = 0;
+            EquipDef = 0;
+            EquipHp = 0;
 
             if (EquippedWeapon != null)
             {
-                equipAtk = Atk + ItemManager.usefulShield.itemAttack;
-                equipDef = Def + ItemManager.usefulShield.itemArmor;
-                equipHp = Hp + ItemManager.usefulShield.itemHealth;
+                EquipAtk += EquippedWeapon.itemAttack;
+                EquipDef += EquippedWeapon.itemArmor;
+                EquipHp += EquippedWeapon.itemHealth;
             }
             if (EquippedArmor != null)
             {
-                equipAtk = Atk + ItemManager.usefulShield.itemAttack;
-                equipDef = Def + ItemManager.usefulShield.itemArmor;
-                equipHp = Hp + ItemManager.usefulShield.itemHealth;
+                EquipAtk += EquippedArmor.itemAttack;
+                EquipDef += EquippedArmor.itemArmor;
+                EquipHp += EquippedArmor.itemHealth;
             }
 
-            TotalAtk = Atk + equipAtk;
-            TotalDef = Def + equipDef;
-            TotalHp = Hp + equipHp;
+            TotalAtk = Atk + EquipAtk;
+            TotalDef = Def + EquipDef;
+            TotalHp = Hp + EquipHp;
         }
     }
     //몬스터
