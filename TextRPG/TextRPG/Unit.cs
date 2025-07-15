@@ -73,9 +73,9 @@ namespace TextRPG
         public int EquipDef;
         public int EquipHp;
 
-        public Item EquippedWeapon;
-        public Item EquippedArmor;          //아이템에서 가져오기
-        public Item EquippedAccessory;
+        public Item itemAttack;
+        public Item itemArmor;          //아이템에서 가져오기
+        public Item itemHealth;
 
         public bool isEquiped;
 
@@ -87,19 +87,7 @@ namespace TextRPG
                 Console.WriteLine($"{item.Name}을(를) 장착할 수 없습니다.");
                 return;
             }
-            switch ()
-            {
-                case "weapon" :
-                    EquippedWeapon = item;
-                    break;
-                case "armor" :
-                    EquippedArmor = item;
-                    break;
-                case "armor" :
-                    EquippedArmor = item;
-                    break;
-                default :
-
+                
             }
 
             Console.WriteLine($"{item.Name}을(를) 장착했습니다.");
@@ -133,18 +121,18 @@ namespace TextRPG
         //장착시 스탯
         public void EquipmentStat()
         {
-            EquipAtk = 0;
-            EquipDef = 0;
-            EquipHp = 0;
+            equipAtk = 0;
+            equipDef = 0;
+            equipHp = 0;
 
             if (EquippedWeapon != null)
             {
-                TotalAtk = Atk + EquipAtk;
+                TotalAtk = Atk + equipAtk;
             }
             else if (EquippedArmor != null)
-                TotalDef = Def + EquipDef;
+                TotalDef = Def + equipDef;
             else (EquippedAccessory != null)
-                TotalHp = Hp + EquipHp;
+                TotalHp = Hp + equipHp;
         }
     }
     //몬스터
@@ -165,7 +153,7 @@ namespace TextRPG
             DropExp = dropExp;
             DropGold = dropGold;
         }
-        //몬스터 정보
+        // 몬스터 정보
         public static void MonsterInfo()
         {
             MonsterArray = new Monster[]
