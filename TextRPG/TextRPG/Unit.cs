@@ -76,9 +76,32 @@ namespace TextRPG
         public Item EquippedWeapon;
         public Item EquippedArmor;          //아이템에서 가져오기
         public Item EquippedAccessory;
+
+        public bool isEquiped;
+
         //장착
         public void Equipment()
         {
+            if (!isEquiped)
+            {
+                Console.WriteLine($"{item.Name}을(를) 장착할 수 없습니다.");
+                return;
+            }
+            switch ()
+            {
+                case "weapon" :
+                    EquippedWeapon = item;
+                    break;
+                case "armor" :
+                    EquippedArmor = item;
+                    break;
+                case "armor" :
+                    EquippedArmor = item;
+                    break;
+                default :
+
+            }
+
             Console.WriteLine($"{item.Name}을(를) 장착했습니다.");
         }
         //인벤토리 리스트
@@ -110,6 +133,10 @@ namespace TextRPG
         //장착시 스탯
         public void EquipmentStat()
         {
+            EquipAtk = 0;
+            EquipDef = 0;
+            EquipHp = 0;
+
             if (EquippedWeapon != null)
             {
                 TotalAtk = Atk + EquipAtk;
