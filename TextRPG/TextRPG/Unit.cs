@@ -125,12 +125,20 @@ namespace TextRPG
             equipDef = 0;
             equipHp = 0;
 
+            equip
+
             if (EquippedWeapon != null)
             {
                 TotalAtk = Atk + equipAtk;
+                TotalDef = Def + equipDef;
+                TotalHp = Hp + equipHp;
             }
             else if (EquippedArmor != null)
+            {
+                TotalAtk = Atk + equipAtk;
                 TotalDef = Def + equipDef;
+                TotalHp = Hp + equipHp;
+            }
             else (EquippedAccessory != null)
                 TotalHp = Hp + equipHp;
         }
