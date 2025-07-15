@@ -48,10 +48,11 @@ namespace TextRPG
             int damage = trueatk - TotalDef;
             if (TotalDef >= trueatk)
                 damage = 0;
+            Console.WriteLine("Miss");
             Hp -= damage;
             if (Hp <= 0)
                 Hp = 0;
-            Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})")
+            Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})");
         }
 
         //마나소비
@@ -91,12 +92,12 @@ namespace TextRPG
             switch (item.ItemType)
             {
                 case 0:
-                    EquippedWeapon = itemWeapon; 
-                    Cosole.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
+                    EquippedWeapon = item;
+                    Console.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
                     break;
                 case 1:
-                    EquippedArmor = itemArmor;
-                    Cosole.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
+                    EquippedArmor = item;
+                    Console.WriteLine($"{item.ItemName}을(를) 장착했습니다.");
                     break;
                 default :
                     Console.WriteLine("잘못된 장착입니다.");
