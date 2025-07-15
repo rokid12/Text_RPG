@@ -186,6 +186,7 @@ namespace TextRPG
                 new Monster("미니언", 5, 0, 15, 10, 2, "", 2, 5),
                 new Monster("공허충", 9, 2, 10, 10, 3, "", 3, 10),
                 new Monster("대포미니언", 8, 5, 25, 20, 5, "", 5, 20)
+                //,new Monster("협곡의 전령"), 15,
             };
         }
     }
