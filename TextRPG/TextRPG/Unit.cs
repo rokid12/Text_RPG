@@ -49,12 +49,19 @@ namespace TextRPG
         {
             int damage = trueatk - TotalDef;
             if (TotalDef >= trueatk)
+            {
                 damage = 0;
-            Console.WriteLine("Miss");
-            Hp -= damage;
-            if (Hp <= 0)
-                Hp = 0;
-            Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})");
+                Console.WriteLine("Miss");
+            }
+            else
+            {
+                Hp -= damage;
+                if (Hp <= 0)
+                {
+                    Hp = 0;
+                }
+                Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})");
+            }
         }
 
         //마나소비
