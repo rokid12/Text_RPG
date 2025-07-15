@@ -16,37 +16,30 @@ namespace TextRPG
 
         public void UsingPotion()
         {
-            if (GameManager.Instance.player.GetPotion() > 0)
+            if (itemAttack != 0)
             {
-                if (itemAttack != 0)
-                {
-                    GameManager.Instance.player.atk += itemAttack;
-                }
-                if (itemArmor != 0)
-                {
-                    GameManager.Instance.player.def += itemArmor;
-                }
-                if (itemHealth != 0)
-                {
-                    int MHP = GameManager.Instance.player.maxHp;
-                    int HP = GameManager.Instance.player.hp;
-                    int healingPoint = (MHP - HP >= 30) ? healingPoint = 30 : healingPoint = MHP - HP;
-                    GameManager.Instance.player.maxHp += +healingPoint;
-                    Console.WriteLine($"체력을 {healingPoint} 회복했습니다.");
-                }
-
-                Console.WriteLine($"{itemName}을 사용했습니다.");
-
-                GameManager.Instance.player.PotionFinder().itemCount -= 1;
-
-                if (itemCount == 0)
-                {
-                    GameManager.Instance.player.GetInventory().Remove(GameManager.Instance.player.PotionFinder());
-                }
+                GameManager.Instance.player.atk += itemAttack;
             }
-            else
+            if (itemArmor != 0)
             {
-                Console.WriteLine("\n포션이 부족합니다.");
+                GameManager.Instance.player.def += itemArmor;
+            }
+            if (itemHealth != 0)
+            {
+                int MHP = GameManager.Instance.player.maxHp;
+                int HP = GameManager.Instance.player.hp;
+                int healingPoint = (MHP - HP >= 30) ? healingPoint = 30 : healingPoint = MHP - HP;
+                GameManager.Instance.player.maxHp += +healingPoint;
+                Console.WriteLine($"체력을 {healingPoint} 회복했습니다.");
+            }
+
+            Console.WriteLine($"{itemName}을 사용했습니다.");
+
+            GameManager.Instance.player.PotionFinder().itemCount -= 1;
+
+            if (itemCount == 0)
+            {
+                GameManager.Instance.player.GetInventory().Remove(GameManager.Instance.player.PotionFinder());
             }
         }
     }

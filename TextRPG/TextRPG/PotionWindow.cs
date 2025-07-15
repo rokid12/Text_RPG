@@ -25,7 +25,14 @@ namespace TextRPG
                         UIManager.Instance.ShowMainMenu();
                         return;
                     case 1:
-                        GameManager.Instance.player.PotionFinder().UsingPotion();
+                        if (GameManager.Instance.player.PotionFinder() != null)
+                        {
+                            GameManager.Instance.player.PotionFinder().UsingPotion();
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n포션이 부족합니다.");
+                        }
                         break;
                 }
             }
