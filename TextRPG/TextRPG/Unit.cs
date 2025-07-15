@@ -1,6 +1,7 @@
 ﻿using System;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,10 +73,13 @@ namespace TextRPG
         public int EquipDef;
         public int EquipHp;
 
+        public Item EquippedWeapon;
+        public Item EquippedArmor;          //아이템에서 가져오기
+        public Item EquippedAccessory;
         //장착
         public void Equipment()
         {
-            
+            Console.WriteLine($"{item.Name}을(를) 장착했습니다.");
         }
         //인벤토리 리스트
         public static List<Item> Inventory = new List<Item>();
@@ -106,9 +110,14 @@ namespace TextRPG
         //장착시 스탯
         public void EquipmentStat()
         {
-            TotalAtk = Atk + EquipAtk;
-            TotalDef = Def + EquipDef;
-            TotalHp = Hp + EquipHp ;
+            if (EquippedWeapon != null)
+            {
+                TotalAtk = Atk + EquipAtk;
+            }
+            else if (EquippedArmor != null)
+                TotalDef = Def + EquipDef;
+            else (EquippedAccessory != null)
+                TotalHp = Hp + EquipHp;
         }
     }
     //몬스터
