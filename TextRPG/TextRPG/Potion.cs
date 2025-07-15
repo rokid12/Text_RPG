@@ -8,7 +8,7 @@ namespace TextRPG
 {
     internal class Potion : Items
     {
-        public int itemCount = 0; // 포션 갯수
+        public int itemCount = 1; // 포션 갯수는 추가할 때 갯수를 추가 저장해야함.
         public Potion()
         {
             itemType = 2;
@@ -28,6 +28,16 @@ namespace TextRPG
         //    {
         //        int healingPoint = (maxHealth - health >= 30) ? healingPoint = 30 : healingPoint = Maxhealth - health;
         //        health = health + healingPoint;
+        //    }
+        //
+        //    Console.WriteLine($"{itemName} 을 사용했습니다.");
+        //
+        //    if (itemCount == 0)
+        //    {
+        //        inventory.Remove(potion)
+        //    }
+        //    else
+        //    {
         //        inventory.itemCount -= 1;
         //    }
         //}

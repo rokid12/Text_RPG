@@ -10,6 +10,8 @@ namespace TextRPG
     {
         public static Potion potion = new Potion()
         {
+            itemAttack = 0,
+            itemArmor = 0,
             itemHealth = 30,
             itemName = "포션",
             itemDescription = "사용하면 체력을 30 회복할 수 있습니다."
