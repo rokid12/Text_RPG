@@ -188,6 +188,8 @@ namespace TextRPG.BattleSystem
     }
 }
 
+// 아래 클래스들은 일단 임시로 사용한 클래스
+
 public class Unit
 {
     public string Name;
