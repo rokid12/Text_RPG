@@ -64,7 +64,7 @@ namespace TextRPG
 
             public void LevelUp()
             {   //레벨당 경험치가 가득찼을때
-                if(Exp = )
+                if(CharacterExp = )
                 {
                     Level++;
                     Atk = +2;
