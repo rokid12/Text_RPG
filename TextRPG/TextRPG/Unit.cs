@@ -13,7 +13,7 @@ namespace TextRPG
         public string Name;
         public int Atk;
         public int Def;
-        public int HP;
+        public int Hp;
         public int Mp;
         public int Level;
 
@@ -24,7 +24,7 @@ namespace TextRPG
             Name = name;
             Atk = atk;
             Def = def;
-            HP = hp;
+            Hp = hp;
             Mp = mp;
             Level = level;
         }
@@ -39,8 +39,13 @@ namespace TextRPG
         //피격
         public void TakeDamage(int atk)
         {
-            TakeDamage = Atk - Def;
-            Console.WriteLine($"{Name}이(가) {TakeDamage} 데미지를 입었습니다.")
+            int damage = Atk - Def;
+            if (Def >= Atk)
+                damage = 0;
+            Hp -= damage;
+            if (Hp <= damage)
+                Hp = 0;
+            Console.WriteLine($"{Name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {Hp})")
         }
 
     }
@@ -68,9 +73,9 @@ namespace TextRPG
                 {
                     Level++;
                     Atk = +2;
-                    Def = 
-                    HP =
-                    Mp =
+                    Def = +2;
+                    Hp = +5;
+                    Mp = +5;
                     Exp = 0;
                 }
             }
