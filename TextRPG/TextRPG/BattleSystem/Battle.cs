@@ -111,11 +111,19 @@ namespace TextRPG.BattleSystem
                         Console.ResetColor();
                     }
                     else
+<<<<<<< HEAD
                         Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp} (현재 마나 : {enemies[i].mp} / {enemies[i].maxMp})");
                 }
 
                 Console.WriteLine("\n[내정보]");
                 Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} (현재 마나 : {player.mp} / {player.maxMp}) \n"); // 최대 HP 필요함
+=======
+                        Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
+                }
+
+                Console.WriteLine("\n[내정보]");
+                Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp}\n"); // 최대 HP 필요함
+>>>>>>> parent of 2770164 (Merge branch 'Develope' of https://github.com/rokid12/Text_RPG into Develope)
 
                 Console.WriteLine("1. 공격");
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
@@ -149,8 +157,13 @@ namespace TextRPG.BattleSystem
                 return;
             if (enemy.skill != null && enemy.mp >= enemy.skill.mpCost)
             {
+<<<<<<< HEAD
                 Console.WriteLine($"{enemy.name}이(가) {enemy.skill.skillName}을(를) 사용합니다!!");
                 enemy.UseSkill(enemy.skill, target);
+=======
+                Console.WriteLine($"{enemy.name}이 {target.name}을 공격합니다."); // 이거 필요없으면 주석 처리해도 되요
+                enemy.Attack(target);
+>>>>>>> parent of 2770164 (Merge branch 'Develope' of https://github.com/rokid12/Text_RPG into Develope)
             }
             else
             {
@@ -175,11 +188,19 @@ namespace TextRPG.BattleSystem
                     Console.ResetColor();
                 }
                 else
+<<<<<<< HEAD
                     Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp} (현재 마나 : {enemies[i].mp} / {enemies[i].maxMp})");
             }
 
             Console.WriteLine("\n[내정보]");
             Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} (현재 마나 : {player.mp} / {player.maxMp})\n");
+=======
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
+            }
+
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp}\n");
+>>>>>>> parent of 2770164 (Merge branch 'Develope' of https://github.com/rokid12/Text_RPG into Develope)
             Console.WriteLine("0. 취소\n");
 
             Console.Write("대상을 선택해주세요.\n>> ");
