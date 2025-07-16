@@ -113,9 +113,8 @@ namespace TextRPG.BattleSystem
                         ColoredWrite($"{enemies[i].level} ", ConsoleColor.Red);
                         Console.Write($"{enemies[i].name} HP ");
                         ColoredWrite($"{enemies[i].hp}", ConsoleColor.Red);
-                        Console.Write(" ");
-                        ColoredWrite($"({enemies[i].mp} / {enemies[i].maxMp})\n ", ConsoleColor.Blue);
-                        Console.WriteLine();
+                        Console.Write(" MP ");
+                        ColoredWrite($"{enemies[i].mp}\n", ConsoleColor.Blue);
                     }
                 }
 
@@ -125,9 +124,11 @@ namespace TextRPG.BattleSystem
                 Console.Write($"{player.name} ({player.job})\nHP ");
                 ColoredWrite($"{player.hp}", ConsoleColor.Red);
                 Console.Write(" / ");
-                ColoredWrite($"{player.maxHp}\n\n", ConsoleColor.Red);
-                Console.Write(" ");
-                ColoredWrite($"({player.mp} / {player.maxMp})\n ", ConsoleColor.Blue);
+                ColoredWrite($"{player.maxHp}\n", ConsoleColor.Red);
+                Console.Write("MP ");
+                ColoredWrite($"{player.mp}", ConsoleColor.Blue);
+                Console.Write(" / ");
+                ColoredWrite($"{player.maxMp}\n", ConsoleColor.Blue);
                 Console.WriteLine();
 
 
@@ -200,8 +201,8 @@ namespace TextRPG.BattleSystem
                     Console.Write($"{enemies[i].name} HP ");
                     ColoredWrite($"{enemies[i].hp}", ConsoleColor.Red);
                     Console.Write(" ");
-                    ColoredWrite($"({enemies[i].mp} / {enemies[i].maxMp})\n ", ConsoleColor.Blue);
-                    Console.WriteLine();
+                    Console.Write(" MP ");
+                    ColoredWrite($"{enemies[i].mp}\n", ConsoleColor.Blue);
                 }
                 //Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
             }
@@ -212,9 +213,11 @@ namespace TextRPG.BattleSystem
             Console.Write($"{player.name} ({player.job})\nHP ");
             ColoredWrite($"{player.hp}", ConsoleColor.Red);
             Console.Write(" / ");
-            ColoredWrite($"{player.maxHp}\n\n", ConsoleColor.Red);
-            Console.Write(" ");
-            ColoredWrite($"({player.mp} / {player.maxMp})\n ", ConsoleColor.Blue);
+            ColoredWrite($"{player.maxHp}\n", ConsoleColor.Red);
+            Console.Write("MP ");
+            ColoredWrite($"{player.mp}", ConsoleColor.Blue);
+            Console.Write(" / ");
+            ColoredWrite($"{player.maxMp}\n", ConsoleColor.Blue);
             Console.WriteLine();
 
             ColoredWrite("0", ConsoleColor.Red);
@@ -263,7 +266,7 @@ namespace TextRPG.BattleSystem
 
         private void ShowWinUI() // 승리 시 보여줄 UI
         {
-            MyDelay(500);
+            MyDelay(1500);
             Console.Clear();
             Console.WriteLine("승리하였습니다.\n");
 
@@ -275,7 +278,7 @@ namespace TextRPG.BattleSystem
 
         private void ShowLoseUI() // 패배 시 보여줄 UI
         {
-            MyDelay(1000);
+            MyDelay(1500);
             Console.Clear();
             Console.WriteLine("패배하였습니다.");
 
