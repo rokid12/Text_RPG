@@ -79,6 +79,7 @@ namespace TextRPG.BattleSystem
 
                     _tempTurnQueue.Enqueue(current);
                 }
+                //Console.WriteLine("\n[턴 종료]");
                 Console.WriteLine("\n다음으로 넘어가려면 아무 키나 입력하세요...");
                 Console.ReadKey();
 
@@ -110,11 +111,11 @@ namespace TextRPG.BattleSystem
                         Console.ResetColor();
                     }
                     else
-                        Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
+                        Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp} (현재 마나 : {enemies[i].mp} / {enemies[i].maxMp})");
                 }
 
                 Console.WriteLine("\n[내정보]");
-                Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp}\n"); // 최대 HP 필요함
+                Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} (현재 마나 : {player.mp} / {player.maxMp}) \n"); // 최대 HP 필요함
 
                 Console.WriteLine("1. 공격");
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
@@ -167,11 +168,11 @@ namespace TextRPG.BattleSystem
                     Console.ResetColor();
                 }
                 else
-                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp} (현재 마나 : {enemies[i].mp} / {enemies[i].maxMp})");
             }
 
             Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp}\n");
+            Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} (현재 마나 : {player.mp} / {player.maxMp})\n");
             Console.WriteLine("0. 취소\n");
 
             Console.Write("대상을 선택해주세요.\n>> ");
