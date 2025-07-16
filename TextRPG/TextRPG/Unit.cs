@@ -11,7 +11,7 @@ using TextRPG;
 namespace TextRPG
 {
     //유닛
-    class Unit
+    public abstract class Unit
     {
         public string name;
         public int atk;
