@@ -135,9 +135,9 @@ namespace TextRPG
             monsterNumList = new List<Pair>();
 
             // 던전 출현 몬스터 설정
-            monsters.Add(new Monster("미니언", 5, 0, 15, 10, 2, "", 2, 5));
-            monsters.Add(new Monster("공허충", 9, 2, 10, 10, 3, "", 3, 10));
-            monsters.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, "", 5, 20));
+            monsters.Add(new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null));
+            monsters.Add(new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, SkillManager.bite));
+            monsters.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon));
 
             // 각 층마다 출현 가능한 몬스터 설정
             monsterList.Add(new List<Monster>() { monsters[0], monsters[1] });
