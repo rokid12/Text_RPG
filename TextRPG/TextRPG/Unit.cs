@@ -18,6 +18,7 @@ namespace TextRPG
         public int def;
         public int maxHp;
         public int hp;
+        public int maxMp;
         public int mp;
         public int level;
 
@@ -28,14 +29,15 @@ namespace TextRPG
         public int totalHp;
 
         //생성자
-        public Unit(string name, int atk, int def, int maxHp, int mp, int level)
+        public Unit(string name, int atk, int def, int maxHp, int maxMp, int level)
         {
             this.name = name;
             this.atk = atk;
             this.def = def;
             this.maxHp = maxHp;
             this.hp = maxHp;
-            this.mp = mp;
+            this.maxMp = maxMp;
+            this.mp = 0;
             this.level = level;
 
             totalAtk = atk;
@@ -90,6 +92,17 @@ namespace TextRPG
             }
         }
 
+
+        //마나재생
+        public void MpRegen()
+        {
+            int regen = 5;
+            mp += regen;
+
+            if (mp > maxMp)
+                mp = maxMp;
+            Console.WriteLine($"(현재 MP : {mp} / {maxMp})");
+        }
     }
     //캐릭터
     class Character : Unit
@@ -296,9 +309,9 @@ namespace TextRPG
         {
             MonsterArray = new Monster[]
             {
-                new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null),
+                new Monster("미니언", 5, 0, 15, 15, 2, ItemManager.oldSword, 2, 5, null),
                 new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, SkillManager.bite),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon)
+                new Monster("대포미니언", 8, 5, 15, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon)
                 //,new Monster("람머스"), 10, 30, 30, 30, 8, ItemManager.thornMail, 10, 500, SkillManager.raisethorn)
                 //,new Monster("판테온"), 25, 25, 40, 30, 10, ItemManager.spartaArmor, 15, 1000, SkillManager.javelin)
                 //,new Monster("잭시무스"), 33, 33, 53, 30, 15, ItemManager.trinityForce, 20, 2000, SkillManager.counterattack)
