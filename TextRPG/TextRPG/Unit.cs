@@ -21,6 +21,8 @@ namespace TextRPG
         public int mp;
         public int level;
 
+
+
         public int totalAtk;
         public int totalDef;
         public int totalHp;
@@ -238,7 +240,7 @@ namespace TextRPG
         {   //레벨당 경험치가 가득찼을때
             while (true)                    //while로 2렙업 가능하게
             {
-                int CharacterExp = level * 5;
+                int CharacterExp = level * 5;      // 경험치통 렙당 렙*5
                 if (exp >= CharacterExp)
                 {
                     level++;
@@ -309,12 +311,12 @@ namespace TextRPG
 
             MonsterArray = new Monster[]
             {
-                new Monster("미니언", 5, 0, 15, 10, 2, null, 2, 5),
-                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.steelArmor, 3, 10),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, null, 5, 20)
-                //,new Monster("협곡의 전령"), 15,
-                //,new Monster("내셔 남작"),
-                //,new Monster("장로 드래곤")
+                new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5),
+                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10),
+                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20)
+                //,new Monster("람머스"), 10, 30, 30, 30, 8, ItemManager.thornMail, 10, 500)
+                //,new Monster("판테온"), 25, 25, 40, 30, 10, ItemManager.spartaArmor, 15, 1000)
+                //,new Monster("잭시무스"), 33, 33, 53, 30, 15, ItemManager.trinityForce, 20, 2000)
             };
         }
     }
