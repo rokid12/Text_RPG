@@ -42,5 +42,49 @@ namespace TextRPG
                 GameManager.Instance.player.GetInventory().Remove(GameManager.Instance.player.PotionFinder());
             }
         }
+        public string PotionCount()
+        {
+            string potionCount;
+
+            if (itemCount > 1)
+            {
+                potionCount = $" x {itemCount}";
+                return $"{TextFormat((itemName + potionCount))}";
+            }
+            else
+            {
+                return $"{TextFormat(itemName)}";
+            }
+        }
+
+        public override void ItemInformation()
+        {
+            List<string> statusList = new List<string>();
+
+            if (itemAttack != 0)
+            {
+                statusList.Add($"공격력 {itemAttack:+#;-#;0}");
+            }
+            if (itemArmor != 0)
+            {
+                statusList.Add($"방어력 {itemArmor:+#;-#;0}");
+            }
+            if (itemHealth != 0)
+            {
+                statusList.Add($"체력 {itemHealth:+#;-#;0}");
+            }
+
+            Console.Write(" - ");
+            Console.Write(PotionCount());
+            Console.Write($"| {TextFormat(statusList[0])}");
+            Console.Write($"| {DescriptionFormat(itemDescription)}");
+
+            for (int i = 1; i < statusList.Count; i++)
+            {
+                Console.Write($"\n   {TextFormat("")}");
+                Console.Write($"| {TextFormat(statusList[i])}");
+                Console.Write($"| {DescriptionFormat("")}");
+            }
+        }
     }
 }
