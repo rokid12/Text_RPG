@@ -145,11 +145,18 @@ namespace TextRPG.BattleSystem
         private void EnemyTurn(Monster enemy, List<Character> allies)
         {
             Unit? target = allies.FirstOrDefault();
-            if (target != null)
+            if (target == null)
+                return;
+            if (enemy.skill != null && enemy.mp >= enemy.skill.mpCost)
             {
-                Console.WriteLine($"{enemy.name}이 {target.name}을 공격합니다."); // 이거 필요없으면 주석 처리해도 되요
-                enemy.Attack(target);
+                Console.WriteLine($"{enemy.name}이(가) {enemy.skill.skillName}을(를) 사용합니다!!");
+                enemy.UseSkill(enemy.skill, target);
             }
+            else
+            {
+                Console.WriteLine($"{enemy.name}이(가) {target.name}을(를) 공격합니다."); // 이거 필요없으면 주석 처리해도 되요
+                enemy.Attack(target);
+            }    
         }
 
         private void AttackCommand(Character player, List<Monster> enemies)

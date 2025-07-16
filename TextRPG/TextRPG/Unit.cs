@@ -287,6 +287,11 @@ namespace TextRPG
         this.dropExp = dropExp;
         this.dropGold = dropGold;
         this.skill = skill; 
+
+        if (skill != null)
+        {
+            skills.Add(skill);
+        }
     }
 
     //몬스터 복사 생성자
@@ -299,6 +304,9 @@ namespace TextRPG
         this.skill = original.skill;
 
         this.maxHp = original.maxHp;
+
+        if (this.skill != null)
+            this.skills.Add(this.skill);
     }
 
 
