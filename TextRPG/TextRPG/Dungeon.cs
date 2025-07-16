@@ -56,7 +56,10 @@ namespace TextRPG
                     if (int.TryParse(input, out choice))
                     {
                         if (choice == 0)
+                        {
+                            Console.Clear();
                             return;
+                        }
                         if (choice == 1)
                         {
                             if (_allies[0].hp <= 0) // 현재 플레이어는 한 명이니까 첫번째 캐릭터로 확인
