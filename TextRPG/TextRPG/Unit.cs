@@ -268,21 +268,31 @@ namespace TextRPG
         public static Monster[] MonsterArray;
 
         //몬스터 생성자
-        public Monster(string name, int atk, int def, int hp, int mp, int level, Items dropItem, int dropExp, int dropGold)
+        public Monster(string name, int atk, int def, int hp, int mp, int level, Items dropItem, int dropExp, int dropGold, List<Skill> skillList)
         : base(name, atk, def, hp, mp, level)
         {
             this.dropItem = dropItem;
             this.dropExp = dropExp;
             this.dropGold = dropGold;
+
+        if (skillList == null)
+        {
+            this.skills = new List<Skill> { };
         }
+        else
+        {
+            this.skills = skillList;
+        }
+    }
+
         // 몬스터 정보
         public static void MonsterInfo()
         {
             MonsterArray = new Monster[]
             {
-                new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5),
-                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20)
+                new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null),
+                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, new List<Skill> {SkillManager.Bite}),
+                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, new List<Skill> {SkillManager.Cannon})
                 //,new Monster("람머스"), 10, 30, 30, 30, 8, ItemManager.thornMail, 10, 500)
                 //,new Monster("판테온"), 25, 25, 40, 30, 10, ItemManager.spartaArmor, 15, 1000)
                 //,new Monster("잭시무스"), 33, 33, 53, 30, 15, ItemManager.trinityForce, 20, 2000)

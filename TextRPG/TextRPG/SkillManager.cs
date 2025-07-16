@@ -8,8 +8,8 @@ namespace TextRPG
 {
     public static class SkillManager
     {
-        public static Skill Cannon = new Skill("대포발사", 20, 40);
         public static Skill Bite = new Skill("물기", 10, 15);
+        public static Skill Cannon = new Skill("대포발사", 20, 40);
         public static Skill counterattack = new Skill("반격", 15, 50 );
         public static Skill javelin = new Skill("투창", 10, 30);
         public static Skill raisethorn = new Skill("가시 돋히기", 5, 20);
