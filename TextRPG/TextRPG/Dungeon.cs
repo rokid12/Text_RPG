@@ -83,7 +83,7 @@ namespace TextRPG
             }
         }
 
-        public void ShowDungeonInfo() // 현재 층수에 대한 던전 정보표시
+        private void ShowDungeonInfo() // 현재 층수에 대한 던전 정보표시
         {
             // 현재 층수
             Console.WriteLine($"현재 층수 : {curFloor}층");
@@ -100,7 +100,7 @@ namespace TextRPG
             Console.WriteLine($"등장 가능한 몬스터 수 : {monsterNumList[curFloor-1].first} ~ {monsterNumList[curFloor-1].second}");
         }
 
-        public void EnterDungeonFloor() // 현재 층 입장 함수
+        private void EnterDungeonFloor() // 현재 층 입장 함수
         {
             // 현재 층에서 나오는 몬스터 정보를 바탕으로 몬스터 리스트 생성
             List<Monster> _monsters = new List<Monster>();
