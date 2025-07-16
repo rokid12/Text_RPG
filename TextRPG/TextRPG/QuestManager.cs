@@ -30,8 +30,8 @@ class QuestManager
     }
 
 
-        private static void ReceiveQuestMenu()
-        {
+    private static void ReceiveQuestMenu()
+    {
         while (true)
         {
             Console.Clear();
@@ -68,7 +68,7 @@ class QuestManager
                 Console.ReadKey();
             }
         }
-        }
+    }
     private static void ShowAcceptedQuests()
     {
         Console.Clear();
@@ -83,11 +83,63 @@ class QuestManager
             for (int i = 0; i < acceptedQuests.Count; i++)
             {
                 var q = acceptedQuests[i];
-                Console.WriteLine($"{i + 1}. {q.Title} - {q.CurrentKillCount}/{q.GoalKillCount} 진행 중");
+                string status = q.IsCompleted ? (q.IsRewardGiven ? "완료됨" : "보상 대기") : "진행 중";
+                Console.WriteLine($"{i + 1}. {q.Title} - {q.CurrentKillCount}/{q.GoalKillCount} ({status})");
+            }
+
+            Console.Write("보상을 받을 퀘스트 번호를 입력하세요 (0: 뒤로가기): ");
+            string rewardInput = Console.ReadLine();
+            if (int.TryParse(rewardInput, out int rewardIndex) &&
+                rewardIndex >= 1 && rewardIndex <= acceptedQuests.Count)
+            {
+                Quest quest = acceptedQuests[rewardIndex - 1];
+
+                if (quest.IsCompleted && !quest.IsRewardGiven)
+                {
+                    GameManager.Instance.player.exp += quest.RewardExp;
+                    GameManager.Instance.player.gold += quest.RewardGold;
+                    GameManager.Instance.player.LevelUp();
+
+                    quest.IsRewardGiven = true;
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"[보상 지급] EXP: {quest.RewardExp}, GOLD: {quest.RewardGold}");
+                    Console.ResetColor();
+                }
+                else if (quest.IsRewardGiven)
+                {
+                    Console.WriteLine("이미 보상을 받은 퀘스트입니다.");
+                }
+                else
+                {
+                    Console.WriteLine("아직 완료되지 않은 퀘스트입니다.");
+                }
             }
         }
 
         Console.WriteLine("아무 키나 누르면 돌아갑니다.");
         Console.ReadKey();
+    }
+
+    public static void RegisterKill(string monsterName)
+    {
+        foreach (Quest quest in acceptedQuests)
+        {
+            if (!quest.IsCompleted && quest.Title.Contains(monsterName))  
+            {
+                quest.AddKill();
+
+                Console.WriteLine($"[퀘스트 진행] '{quest.Title}' {quest.CurrentKillCount}/{quest.GoalKillCount}");
+
+                if (quest.IsCompleted)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"[퀘스트 완료] '{quest.Title}' - 퀘스트 완료!");
+                    Console.WriteLine($"→ 보상은 퀘스트 메뉴에서 수령할 수 있습니다.");
+                    Console.ResetColor();
+                }
+            }
+        }
     }
 }
