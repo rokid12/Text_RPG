@@ -57,6 +57,8 @@ namespace TextRPG.BattleSystem
                     if (current.hp <= 0) // 사망한 인원의 차례는 제외
                         continue;
 
+                    current.MpRegen();
+
                     if (_allies.Contains(current))
                         PlayerTurn((Character)current, _enemies);
                     else
