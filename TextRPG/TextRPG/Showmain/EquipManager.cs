@@ -45,5 +45,4 @@ namespace TextRPG
             selectedItem.ItemInformation();
         }
     }
-
 }

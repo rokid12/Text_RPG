@@ -6,11 +6,15 @@ namespace TextRPG
 {
     class UIManager
     {
-        private Character character;
-
-        public UIManager(Character character)
+        private static UIManager _instance;
+        public static UIManager Instance
         {
-            this.character = character;
+            get
+            {
+                if (_instance == null)
+                    _instance = new UIManager();
+                return _instance;
+            }
         }
 
         public void ShowIntro()
@@ -71,14 +75,14 @@ namespace TextRPG
             }
         }
 
-        private void ShowStatus()
+        public void ShowStatus()
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("상태 보기");
 
-                character.ShowStatus();
+                GameManager.Instance.player.ShowStatus();
 
                 Console.WriteLine("\n1. 인벤토리 보기 및 장착");
                 Console.WriteLine("0. 나가기");
@@ -86,11 +90,20 @@ namespace TextRPG
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "0")
+                {
                     break;
+                }
                 else if (input == "1")
-                    character.ShowInventory();
+                {
+                    GameManager.Instance.player.ShowInventory();
+                }
                 else
+                {
                     Console.WriteLine("잘못된 입력입니다.");
+                }
+
+                Console.WriteLine("\n아무 키나 누르면 계속...");
+                Console.ReadKey();
             }
         }
     }
