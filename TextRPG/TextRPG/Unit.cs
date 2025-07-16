@@ -181,50 +181,6 @@ namespace TextRPG
                 Console.ReadKey();
             }
         }
-        //장착
-        public void Equipment(Items item)
-        {
-            if (item == null)
-            {
-                Console.WriteLine("장착할 아이템이 없습니다.");
-                return;
-            }
-
-            switch (item.itemType)
-            {
-                case 0:
-                    equippedWeapon = item;
-                    Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
-                    break;
-                case 1:
-                    equippedArmor = item;
-                    Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
-                    break;
-                default:
-                    Console.WriteLine("잘못된 장착입니다.");
-                    break;
-            }
-
-            EquipmentStat();      //스탯 업데이트
-        }
-
-        //장착 해제
-        public void UnEquipment(Items item)
-        {
-            switch (item.itemType)
-            {
-                case 0:
-                    equippedWeapon = null;
-                    break;
-                case 1:
-                    equippedArmor = null;
-                    break;
-            }
-
-            EquipmentStat();
-        }
-
-
         //인벤토리 리스트
         public static List<Items> inventory = new List<Items>();
         //캐릭터 생성자
