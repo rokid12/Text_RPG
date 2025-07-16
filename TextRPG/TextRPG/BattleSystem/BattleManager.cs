@@ -30,10 +30,10 @@ namespace TextRPG.BattleSystem
             }
         }
 
-        public void StartBattle(List<Character> allies, List<Monster> enemies)
+        public bool StartBattle(List<Character> allies, List<Monster> enemies)
         {
             Battle battle = new Battle(allies, enemies);
-            battle.ExecuteBattle();
+            return battle.ExecuteBattle();
         }
 
         // 배틀이 제대로 되는 지 확인하기 위한 함수
