@@ -10,7 +10,7 @@ namespace TextRPG
     {
         //public static Skill smite = new Skill("강타", 10, 10);
 
-        public static Skill bite = new Skill("물기", 10, 15);
+        public static Skill bite = new Skill("물기", 10, 10);
         public static Skill cannon = new Skill("대포발사", 20, 40);
         //public static Skill raisethorn = new Skill("가시 돋히기", 5, 20);
         //public static Skill javelin = new Skill("투창", 10, 30);

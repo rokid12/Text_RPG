@@ -101,7 +101,7 @@ namespace TextRPG
 
             if (mp > maxMp)
                 mp = maxMp;
-            Console.WriteLine($"(현재 MP : {mp} / {maxMp})");
+            Console.WriteLine($"{name}의 (현재 MP : {mp} / {maxMp})");
         }
     }
     //캐릭터
