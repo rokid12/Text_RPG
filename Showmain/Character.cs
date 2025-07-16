@@ -21,6 +21,7 @@ namespace TextRPG
             Gold = gold;
 
             inventory.Add(new Items.Weapon("롱소드", "기본 공격 무기", 10));
+            inventory.Add(new Items.Weapon("냉동 참치", "최종 무기", 9999));
             inventory.Add(new Items.Shield("나무 방패", "튼튼한 나무 방패", 5));
             inventory.Add(new Items.Armor("가죽 갑옷", "얇지만 유연한 방어구", 3));
         }
