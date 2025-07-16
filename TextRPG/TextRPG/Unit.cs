@@ -11,7 +11,7 @@ using TextRPG;
 namespace TextRPG
 {
     //유닛
-    class Unit
+    public abstract class Unit
     {
         public string name;
         public int atk;
@@ -20,6 +20,8 @@ namespace TextRPG
         public int hp;
         public int mp;
         public int level;
+
+        public List<Skill> skills = new List<Skill>();  // 스킬 리스트
 
         public int totalAtk;
         public int totalDef;
@@ -39,6 +41,17 @@ namespace TextRPG
             totalAtk = atk;
             totalDef = def;
             totalHp = maxHp;
+        }
+
+        //스킬 보유 여부
+        public void UseSkill(Skill skill, Unit target)
+        {
+            if (!skills.Contains(skill))
+            {
+                Console.WriteLine("사용할 수 없는 스킬입니다.");
+                return;
+            }
+            skill.UseSkill(this, target);
         }
 
         //공격
@@ -182,49 +195,6 @@ namespace TextRPG
                 Console.ReadKey();
             }
         }
-        //장착
-        public void Equipment(Items item)
-        {
-            if (item == null)
-            {
-                Console.WriteLine("장착할 아이템이 없습니다.");
-                return;
-            }
-
-            switch (item.itemType)
-            {
-                case 0:
-                    equippedWeapon = item;
-                    Console.WriteLine($" - {item.itemName}을(를) 장착했습니다.");
-                    break;
-                case 1:
-                    equippedArmor = item;
-                    Console.WriteLine($" - {item.itemName}을(를) 장착했습니다.");
-                    break;
-                default:
-                    Console.WriteLine("잘못된 장착입니다.");
-                    break;
-            }
-
-            EquipmentStat();      //스탯 업데이트
-        }
-
-        //장착 해제
-        public void UnEquipment(Items item)
-        {
-            switch (item.itemType)
-            {
-                case 0:
-                    equippedWeapon = null;
-                    break;
-                case 1:
-                    equippedArmor = null;
-                    break;
-            }
-
-            EquipmentStat();
-        }
-
 
         //인벤토리 리스트
         public static List<Items> inventory = new List<Items>();
@@ -241,7 +211,7 @@ namespace TextRPG
         {   //레벨당 경험치가 가득찼을때
             while (true)                    //while로 2렙업 가능하게
             {
-                int CharacterExp = level * 5;
+                int CharacterExp = level * 5;     // 경험치통 렙당 렙*5
                 if (exp >= CharacterExp)
                 {
                     level++;
@@ -290,7 +260,7 @@ namespace TextRPG
     //몬스터
     class Monster : Unit
     {
-        public string dropItem;
+        public Items dropItem;
         public int dropExp;
         public int dropGold;
 
@@ -298,7 +268,7 @@ namespace TextRPG
         public static Monster[] MonsterArray;
 
         //몬스터 생성자
-        public Monster(string name, int atk, int def, int hp, int mp, int level, string dropItem, int dropExp, int dropGold)
+        public Monster(string name, int atk, int def, int hp, int mp, int level, Items dropItem, int dropExp, int dropGold)
         : base(name, atk, def, hp, mp, level)
         {
             this.dropItem = dropItem;
@@ -310,12 +280,12 @@ namespace TextRPG
         {
             MonsterArray = new Monster[]
             {
-                new Monster("미니언", 5, 0, 15, 10, 2, "", 2, 5),
-                new Monster("공허충", 9, 2, 10, 10, 3, "", 3, 10),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, "", 5, 20)
-                //,new Monster("협곡의 전령"), 15,
-                //,new Monster("내셔 남작"),
-                //,new Monster("장로 드래곤")
+                new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5),
+                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10),
+                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20)
+                //,new Monster("람머스"), 10, 30, 30, 30, 8, ItemManager.thornMail, 10, 500)
+                //,new Monster("판테온"), 25, 25, 40, 30, 10, ItemManager.spartaArmor, 15, 1000)
+                //,new Monster("잭시무스"), 33, 33, 53, 30, 15, ItemManager.trinityForce, 20, 2000)
             };
         }
     }
