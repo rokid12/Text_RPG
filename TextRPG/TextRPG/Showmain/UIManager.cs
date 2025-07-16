@@ -33,6 +33,8 @@ namespace TextRPG
                 ConsoleColor.Magenta
             };
 
+            Quest.Initialize(); // 퀘스트 리셋
+
             for (int i = 0; i < text.Length; i++)
             {
                 Console.ForegroundColor = rainbowColors[i % rainbowColors.Length];
@@ -50,7 +52,8 @@ namespace TextRPG
                 Console.WriteLine("\n1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+                Console.WriteLine("4. 퀘스트(test)"); //퀘스트 테스트메뉴
+                Console.Write("원하시는 행동을 입력해주세요.>> ");
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "1")
@@ -66,6 +69,11 @@ namespace TextRPG
                 {
                     PotionWindow.Show();
                     break;
+                }
+                else if (input == "4")
+                {
+                    QuestManager.Show();
+                    // 퀘스트메뉴에서 나오면 메인으로 못돌아와서 break; 제거함
                 }
                 else
                 {

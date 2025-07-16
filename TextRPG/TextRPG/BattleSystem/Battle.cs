@@ -237,6 +237,8 @@ namespace TextRPG.BattleSystem
                 rewardExp += monster.dropExp;
                 rewardGold += monster.dropGold;
                 //rewardItems.Add(); --> 여기 보상 아이템 아이템 클래스로 바꿔줘야 뭐 할 수 있음
+
+                QuestManager.RegisterKill(monster.name); //퀘스트 관련 메뉴 (몬스터 상태 호출)
             }
             Console.WriteLine($"경험치 {rewardExp}를 얻었습니다!");
             Console.WriteLine($"{rewardExp} 골드를 얻었습니다!\n");
