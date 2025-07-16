@@ -291,8 +291,8 @@ namespace TextRPG
             MonsterArray = new Monster[]
             {
                 new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null),
-                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, new List<Skill> {SkillManager.Bite}),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, new List<Skill> {SkillManager.Cannon})
+                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, new List<Skill> {SkillManager.bite}),
+                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, new List<Skill> {SkillManager.cannon})
                 //,new Monster("람머스"), 10, 30, 30, 30, 8, ItemManager.thornMail, 10, 500)
                 //,new Monster("판테온"), 25, 25, 40, 30, 10, ItemManager.spartaArmor, 15, 1000)
                 //,new Monster("잭시무스"), 33, 33, 53, 30, 15, ItemManager.trinityForce, 20, 2000)
