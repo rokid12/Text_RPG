@@ -1,6 +1,7 @@
 ﻿using TextRPG;
 using System;
 using TextRPG.BattleSystem;
+using System.Threading;
 
 namespace TextRPG
 {
@@ -20,7 +21,11 @@ namespace TextRPG
         public void ShowIntro()
         {
             Console.Clear();
-            string text = "스파르타 던전에 오신 여러분 환영합니다.";
+            string text = @"
+★────────────────────────────★
+       스파르타 던전에 오신
+       여러분, 환영합니다!
+★────────────────────────────★";
 
             ConsoleColor[] rainbowColors = new ConsoleColor[]
             {
@@ -39,6 +44,7 @@ namespace TextRPG
             {
                 Console.ForegroundColor = rainbowColors[i % rainbowColors.Length];
                 Console.Write(text[i]);
+                Thread.Sleep(20);//타이핑속도
             }
 
             Console.WriteLine();
@@ -49,11 +55,14 @@ namespace TextRPG
         {
             while (true)
             {
-                Console.WriteLine("\n1. 상태 보기");
+                Console.WriteLine("　");
+                Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
                 Console.WriteLine("4. 퀘스트(test)"); //퀘스트 테스트메뉴
+                Console.WriteLine("　");
                 Console.Write("원하시는 행동을 입력해주세요.>> ");
+                
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "1")
@@ -62,7 +71,7 @@ namespace TextRPG
                 }
                 else if (input == "2")
                 {
-                    Console.WriteLine("\n이제 전투를 시작할 수 있습니다.");
+                    Console.WriteLine("이제 전투를 시작할 수 있습니다.");
                     GameManager.Instance.GetDungeon().ShowDungeonUI();
                 }
                 else if (input == "3")
@@ -91,7 +100,7 @@ namespace TextRPG
 
                 GameManager.Instance.player.ShowStatus();
 
-                Console.WriteLine("\n1. 인벤토리 보기 및 장착");
+                Console.WriteLine("1. 인벤토리 보기 및 장착");
                 Console.WriteLine("0. 나가기");
                 Console.Write(">> ");
                 string input = Console.ReadLine() ?? "";

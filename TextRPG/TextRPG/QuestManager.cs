@@ -58,6 +58,7 @@ class QuestManager
                 {
                     acceptedQuests.Add(selectedQuest);
                     Console.WriteLine($"'{selectedQuest.Title}' 퀘스트를 수령했습니다!");
+                    questList.Remove(selectedQuest);
                 }
                 else
                 {

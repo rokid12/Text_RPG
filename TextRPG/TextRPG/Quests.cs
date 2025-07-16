@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TextRPG;
 
- public class Quest
-    {
+public class Quest
+{
     public string Title { get; set; }
     public string Description { get; set; }
     public int GoalKillCount { get; set; }
@@ -29,14 +29,32 @@ using TextRPG;
     {
         if (QuestManager.questList.Count == 0) // 중복 방지
         {
-            QuestManager.questList.Add(new Quest
-            {
-                Title = "공허충 2마리 처치",
-                Description = "공허충을 2마리 사냥하면 보상이 주어집니다.",
-                GoalKillCount = 2,
-                RewardExp = 30,
-                RewardGold = 100
-            });
+            QuestManager.questList.Add
+                (
+
+                    new Quest
+                    {
+                        Title = "공허충 1마리 처치",
+                        Description = "공허충을 1마리 사냥하면 보상이 주어집니다.",
+                        GoalKillCount = 1,
+                        RewardExp = 30,
+                        RewardGold = 100
+                    }
+                );
+
+            QuestManager.questList.Add
+                (
+
+                    new Quest
+                    {
+                        Title = "미니언 1마리 처치",
+                        Description = "미니언을 1마리 사냥하면 보상이 주어집니다.",
+                        GoalKillCount = 1,
+                        RewardExp = 30,
+                        RewardGold = 100
+                    }
+                );
+
         }
     }
 }
