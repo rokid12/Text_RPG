@@ -90,6 +90,16 @@ namespace TextRPG
             }
         }
 
+
+        //마나재생
+        public void MpRegen(int mp)
+        {
+            int regen = 3;
+            mp += regen;
+
+            if (mp > 100)
+                mp = 100;
+        }
     }
     //캐릭터
     class Character : Unit
