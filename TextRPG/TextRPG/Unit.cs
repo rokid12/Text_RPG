@@ -152,7 +152,7 @@ namespace TextRPG
         {
             Console.WriteLine($"\nLv. {level:00}");
             Console.WriteLine($"{name}");
-            Console.WriteLine($"체력 : {maxHp}");
+            Console.WriteLine($"체력 : {hp}");
             Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
@@ -160,6 +160,7 @@ namespace TextRPG
             {
                 if (item.isEquipped)
                 {
+                    Console.Write(" - ");
                     item.ItemInformation();
                     Console.WriteLine();
                 }
@@ -168,8 +169,6 @@ namespace TextRPG
 
         public void ShowInventory()
         {
-            EquipManager equipManager = new EquipManager(this);
-
             while (true)
             {
                 Console.Clear();
@@ -197,7 +196,7 @@ namespace TextRPG
 
                 if (int.TryParse(input, out int index) && index >= 1 && index <= inventory.Count)
                 {
-                    equipManager.EquipItem(index - 1);
+                    EquipManager.Instance.EquipItem(index - 1);
                 }
                 else
                 {
