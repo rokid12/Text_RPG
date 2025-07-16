@@ -13,7 +13,7 @@ namespace TextRPG
         int maxFloor;// 던전 최대 층수
 
         
-        List<Monster> monsters; // 던전에서 출현 가능한 몬스터 리스트
+        List<Monster> monsterDB; // 던전에서 출현 가능한 몬스터 리스트
         List<List<Monster>> monsterList; // 층마다 등장 가능한 몬스터 리스트
         List<Pair> monsterNumList; // 층마다 등장 가능한 몬스터의 최소/최대 수
 
@@ -133,19 +133,19 @@ namespace TextRPG
 
         private void InitDungeon() // 던전 정보 초기화 함수
         {
-            monsters = new List<Monster>();
+            monsterDB = new List<Monster>();
             monsterList = new List<List<Monster>>();
             monsterNumList = new List<Pair>();
 
             // 던전 출현 몬스터 설정
-            monsters.Add(new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null));
-            monsters.Add(new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, SkillManager.bite));
-            monsters.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon));
+            monsterDB.Add(new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null));
+            monsterDB.Add(new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, SkillManager.bite));
+            monsterDB.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon));
 
             // 각 층마다 출현 가능한 몬스터 설정
-            monsterList.Add(new List<Monster>() { monsters[0], monsters[1] });
-            monsterList.Add(new List<Monster>() { monsters[1], monsters[2] });
-            monsterList.Add(new List<Monster>() { monsters[0], monsters[1], monsters[2] });
+            monsterList.Add(new List<Monster>() { monsterDB[0], monsterDB[1] });
+            monsterList.Add(new List<Monster>() { monsterDB[1], monsterDB[2] });
+            monsterList.Add(new List<Monster>() { monsterDB[0], monsterDB[1], monsterDB[2] });
 
             // 각 층마다 출현 가능한 몬스터의 최소/최대 수 설정
             monsterNumList.Add(new Pair(1, 2));
