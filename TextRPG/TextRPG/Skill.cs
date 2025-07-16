@@ -30,7 +30,7 @@ namespace TextRPG
             else
             {
                 user.mp -= mpCost;
-                Console.WriteLine($"{user.name}이(가) {skillName}을 사용했습니다.");
+                Console.WriteLine($"{user.name}이(가) {skillName}을(를) 사용했습니다.");
 
                 target.TakeDamage(damage);
             }
