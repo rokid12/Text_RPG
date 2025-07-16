@@ -36,6 +36,8 @@ namespace TextRPG
                 {
                     selectedItem.isEquipped = false;
                     Console.WriteLine($"{selectedItem.itemName}을(를) 해제했습니다!");
+                    GameManager.Instance.player.EquipmentStatMinus(selectedItem);
+
                 }
                 else
                 {
@@ -47,6 +49,7 @@ namespace TextRPG
 
                     selectedItem.isEquipped = true;
                     Console.WriteLine($"{selectedItem.itemName}을(를) 장착했습니다!");
+                    GameManager.Instance.player.EquipmentStatPlus(selectedItem);
                 }
             }
             else
@@ -54,5 +57,6 @@ namespace TextRPG
                 Console.WriteLine("장착할 수 없는 아이템입니다.");
             }
         }
+
     }
 }

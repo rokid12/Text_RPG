@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG;
@@ -151,6 +152,28 @@ namespace TextRPG
         {
             Console.WriteLine($"\nLv. {level:00}");
             Console.WriteLine($"{name}");
+            Console.Write($"공격력 : {totalAtk}");
+
+            if (equipAtk > 0)
+            {
+                Console.WriteLine($" (+{equipAtk})");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
+            Console.Write($"방어력 : {totalDef}");
+
+            if (equipDef > 0)
+            {
+                Console.WriteLine($" (+{equipDef})");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
             Console.WriteLine($"체력 : {hp}");
             Console.WriteLine($"Gold : {gold} G");
 
@@ -241,29 +264,19 @@ namespace TextRPG
             }
            
         }
-        //장착시 스탯
-        public void EquipmentStat()
+        public void EquipmentStatPlus(Items item)
         {
-            equipAtk = 0;
-            equipDef = 0;
-            equipHp = 0;
-
-            if (equippedWeapon != null)
-            {
-                equipAtk += equippedWeapon.itemAttack;
-                equipDef += equippedWeapon.itemArmor;
-                equipHp += equippedWeapon.itemHealth;
-            }
-            if (equippedArmor != null)
-            {
-                equipAtk += equippedArmor.itemAttack;
-                equipDef += equippedArmor.itemArmor;
-                equipHp += equippedArmor.itemHealth;
-            }
-
-            totalAtk = atk + equipAtk;
-            totalDef = def + equipDef;
-            totalHp = maxHp + equipHp;
+            equipAtk += item.itemAttack;
+            equipDef += item.itemArmor;
+            equipHp += item.itemHealth;
+            maxHp += equipHp;
+        }
+        public void EquipmentStatMinus(Items item)
+        {
+            equipAtk -= item.itemAttack;
+            equipDef -= item.itemArmor;
+            equipHp -= item.itemHealth;
+            maxHp -= equipHp;
         }
     }
 }
