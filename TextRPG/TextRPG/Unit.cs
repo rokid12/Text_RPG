@@ -61,17 +61,39 @@ namespace TextRPG
         public void Attack(Unit target)
         {
             Console.WriteLine($"{name}이(가) {target.name}을(를) 공격하였습니다.");
-            target.TakeDamage(totalAtk);
+
+            Random rand = new Random();
+
+            int _atk = totalAtk;
+            int _error = (int)Math.Ceiling(_atk * 1.0f / 10);
+
+            int totalDamage = rand.Next(_atk - _error, _atk + _error + 1); // 오차에 따른 실 적용 데미지
+
+            int critChance = rand.Next(0, 100); // 크리티컬 
+            if (critChance < 15)
+            {
+                Console.WriteLine("치명타!");
+                totalDamage = (int)Math.Ceiling(totalDamage * 1.6f);
+            }
+
+            target.TakeDamage(totalDamage);
         }
 
         //피격
         public void TakeDamage(int trueatk)
         {
+            Random rand = new Random();
             int damage = trueatk - totalDef;
+            int evadeChance = rand.Next(0, 100);
+            if(evadeChance < 10)
+            {
+                Console.WriteLine($"{name}은(는) 공격을 회피하였다!");
+                return;
+            }
             if (totalDef >= trueatk)
             {
                 damage = 0;
-                Console.WriteLine("Miss");
+                Console.WriteLine($"{name}은(는) 아무런 피해를 받지 않았다.");
             }
             else
             {
