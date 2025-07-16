@@ -112,7 +112,10 @@ namespace TextRPG.BattleSystem
                         Console.Write("Lv.");
                         ColoredWrite($"{enemies[i].level} ", ConsoleColor.Red);
                         Console.Write($"{enemies[i].name} HP ");
-                        ColoredWrite($"{enemies[i].hp}\n", ConsoleColor.Red);
+                        ColoredWrite($"{enemies[i].hp}", ConsoleColor.Red);
+                        Console.Write(" ");
+                        ColoredWrite($"({enemies[i].mp} / {enemies[i].maxMp})\n ", ConsoleColor.Blue);
+                        Console.WriteLine();
                     }
                 }
 
@@ -123,6 +126,10 @@ namespace TextRPG.BattleSystem
                 ColoredWrite($"{player.hp}", ConsoleColor.Red);
                 Console.Write(" / ");
                 ColoredWrite($"{player.maxHp}\n\n", ConsoleColor.Red);
+                Console.Write(" ");
+                ColoredWrite($"({player.mp} / {player.maxMp})\n ", ConsoleColor.Blue);
+                Console.WriteLine();
+
 
                 //Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp}\n"); // 색 안넣은 출력문
 
@@ -191,7 +198,10 @@ namespace TextRPG.BattleSystem
                     Console.Write("Lv.");
                     ColoredWrite($"{enemies[i].level} ", ConsoleColor.Red);
                     Console.Write($"{enemies[i].name} HP ");
-                    ColoredWrite($"{enemies[i].hp}\n", ConsoleColor.Red);
+                    ColoredWrite($"{enemies[i].hp}", ConsoleColor.Red);
+                    Console.Write(" ");
+                    ColoredWrite($"({enemies[i].mp} / {enemies[i].maxMp})\n ", ConsoleColor.Blue);
+                    Console.WriteLine();
                 }
                 //Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp}");
             }
@@ -203,6 +213,9 @@ namespace TextRPG.BattleSystem
             ColoredWrite($"{player.hp}", ConsoleColor.Red);
             Console.Write(" / ");
             ColoredWrite($"{player.maxHp}\n\n", ConsoleColor.Red);
+            Console.Write(" ");
+            ColoredWrite($"({player.mp} / {player.maxMp})\n ", ConsoleColor.Blue);
+            Console.WriteLine();
 
             ColoredWrite("0", ConsoleColor.Red);
             Console.WriteLine(". 취소\n");
