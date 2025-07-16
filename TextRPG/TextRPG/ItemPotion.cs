@@ -29,7 +29,7 @@ namespace TextRPG
                 int MHP = GameManager.Instance.player.maxHp;
                 int HP = GameManager.Instance.player.hp;
                 int healingPoint = (MHP - HP >= 30) ? healingPoint = 30 : healingPoint = MHP - HP;
-                GameManager.Instance.player.maxHp += +healingPoint;
+                GameManager.Instance.player.hp += healingPoint;
                 Console.WriteLine($"체력을 {healingPoint} 회복했습니다.");
             }
 
