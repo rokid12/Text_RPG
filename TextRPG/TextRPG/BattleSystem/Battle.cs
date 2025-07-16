@@ -254,9 +254,12 @@ namespace TextRPG.BattleSystem
 
         private void ShowLoseUI() // 패배 시 보여줄 UI
         {
-            MyDelay(500);
+            MyDelay(1000);
             Console.Clear();
             Console.WriteLine("패배하였습니다.");
+
+            Console.WriteLine("\n3초 뒤에 던전으로 돌아갑니다...");
+            MyDelay(3000);
         }
 
         private void RewardCheck() // 보상 정리 및 플레이어에게 추가
