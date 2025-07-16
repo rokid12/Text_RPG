@@ -278,7 +278,6 @@ namespace TextRPG
             equipDef -= item.itemArmor;
             equipHp -= item.itemHealth;
             hp -= item.itemHealth;
-            hp -= item.itemHealth;
         }
     }
 }
