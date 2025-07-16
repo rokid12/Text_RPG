@@ -177,7 +177,7 @@ namespace TextRPG
                 Console.ReadKey();
             }
         }
-
+        //장착
         public void Equipment(Items item)
         {
             if (item == null)
@@ -203,6 +203,24 @@ namespace TextRPG
 
             EquipmentStat();      //스탯 업데이트
         }
+
+        //장착 해제
+        public void UnEquipment(Items item)
+        {
+            switch (item.itemType)
+            {
+                case 0:
+                    equippedWeapon = null;
+                    break;
+                case 1:
+                    equippedArmor = null;
+                    break;
+            }
+
+            EquipmentStat();
+        }
+
+
         //인벤토리 리스트
         public static List<Items> inventory = new List<Items>();
         //캐릭터 생성자
@@ -251,7 +269,7 @@ namespace TextRPG
 
             totalAtk = atk + equipAtk;
             totalDef = def + equipDef;
-            totalHp = hp + equipHp;
+            totalHp = maxHp + equipHp;
         }
     }
 }
