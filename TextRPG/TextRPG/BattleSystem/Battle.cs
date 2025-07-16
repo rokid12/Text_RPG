@@ -47,7 +47,7 @@ namespace TextRPG.BattleSystem
             }
         }
 
-        public void ExecuteBattle()
+        public bool ExecuteBattle()
         {
             while (true)
             {
@@ -66,13 +66,13 @@ namespace TextRPG.BattleSystem
                     {
                         // 승리 화면 표시
                         ShowWinUI();
-                        return;
+                        return true;
                     }
                     else if (CheckAllDead(_allies.Cast<Unit>().ToList())) // 플레이어 패배
                     {
                         // 패배 화면 표시
                         ShowLoseUI();
-                        return;
+                        return false;
                     }
 
                     _tempTurnQueue.Enqueue(current);
