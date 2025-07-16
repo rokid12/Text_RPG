@@ -65,6 +65,8 @@ namespace TextRPG
                     hp = 0;
                 }
                 Console.WriteLine($"{name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {hp})");
+                Console.WriteLine("▶턴 종료");
+                Console.ReadKey();      // 누를시 턴이 넘어감
             }
         }
 
@@ -234,18 +236,26 @@ namespace TextRPG
 
         public void LevelUp()
         {   //레벨당 경험치가 가득찼을때
-            int CharacterExp = level * 5;
-            if (exp >= CharacterExp)
+            while (true)                    //while로 2렙업 가능하게
             {
-                level++;
-                atk += 2;
-                def += 2;
-                hp += 5;
-                mp += 5;
-                exp -= CharacterExp;
+                int CharacterExp = level * 5;
+                if (exp >= CharacterExp)
+                {
+                    level++;
+                    atk += 2;
+                    def += 2;
+                    hp += 5;
+                    mp += 5;
+                    exp -= CharacterExp;
 
-                Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
+                    Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
+                }
+                else
+                {
+                    break;
+                }
             }
+           
         }
         //장착시 스탯
         public void EquipmentStat()
