@@ -43,6 +43,16 @@ namespace TextRPG
             totalHp = maxHp;
         }
 
+        //스킬 보유 여부
+        public void UseSkill(Skill skill, Unit target)
+        {
+            if (!skills.Contains(skill))
+            {
+                Console.WriteLine("사용할 수 없는 스킬입니다.");
+                return;
+            }
+            skill.UseSkill(this, target);
+        }
         //공격
         public void Attack(Unit target)
         {
