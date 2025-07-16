@@ -324,9 +324,7 @@ namespace TextRPG
         this.skill = skill; 
 
         if (skill != null)
-        {
             skills.Add(skill);
-        }
     }
 
     //몬스터 복사 생성자
