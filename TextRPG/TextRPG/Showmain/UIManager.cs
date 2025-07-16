@@ -6,11 +6,15 @@ namespace TextRPG
 {
     class UIManager
     {
-        private Character character;
-
-        public UIManager(Character character)
+        private static UIManager _instance;
+        public static UIManager Instance
         {
-            this.character = character;
+            get
+            {
+                if (_instance == null)
+                    _instance = new UIManager();
+                return _instance;
+            }
         }
 
         public void ShowIntro()
@@ -29,6 +33,8 @@ namespace TextRPG
                 ConsoleColor.Magenta
             };
 
+            Quest.Initialize(); // 퀘스트 리셋
+
             for (int i = 0; i < text.Length; i++)
             {
                 Console.ForegroundColor = rainbowColors[i % rainbowColors.Length];
@@ -46,7 +52,8 @@ namespace TextRPG
                 Console.WriteLine("\n1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+                Console.WriteLine("4. 퀘스트(test)"); //퀘스트 테스트메뉴
+                Console.Write("원하시는 행동을 입력해주세요.>> ");
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "1")
@@ -56,13 +63,17 @@ namespace TextRPG
                 else if (input == "2")
                 {
                     Console.WriteLine("\n이제 전투를 시작할 수 있습니다.");
-                    BattleManager.Instance.DebugBattleSystem();
-                    break;
+                    GameManager.Instance.GetDungeon().ShowDungeonUI();
                 }
                 else if (input == "3")
                 {
                     PotionWindow.Show();
                     break;
+                }
+                else if (input == "4")
+                {
+                    QuestManager.Show();
+                    // 퀘스트메뉴에서 나오면 메인으로 못돌아와서 break; 제거함
                 }
                 else
                 {
@@ -71,14 +82,14 @@ namespace TextRPG
             }
         }
 
-        private void ShowStatus()
+        public void ShowStatus()
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("상태 보기");
 
-                character.ShowStatus();
+                GameManager.Instance.player.ShowStatus();
 
                 Console.WriteLine("\n1. 인벤토리 보기 및 장착");
                 Console.WriteLine("0. 나가기");
@@ -86,11 +97,20 @@ namespace TextRPG
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "0")
+                {
                     break;
+                }
                 else if (input == "1")
-                    character.ShowInventory();
+                {
+                    GameManager.Instance.player.ShowInventory();
+                }
                 else
+                {
                     Console.WriteLine("잘못된 입력입니다.");
+                }
+
+                Console.WriteLine("\n아무 키나 누르면 계속...");
+                Console.ReadKey();
             }
         }
     }

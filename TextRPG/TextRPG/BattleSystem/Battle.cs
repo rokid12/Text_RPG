@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace TextRPG.BattleSystem
 {
@@ -11,17 +12,20 @@ namespace TextRPG.BattleSystem
     {
         // 플레이어 정보
         // 적 정보
-        private List<Character> _allies;
+        private List<Character> _allies; // 파티 기능을 추가할 수 있다는 가정하에 리스트로 생성은 해둠
         private List<Monster> _enemies;
+
         private Queue<Unit> _turnQueue;
         private Queue<Unit> _tempTurnQueue;
 
-        // 보상 리스트
+        // 해당 전투 보상 리스트
         private int rewardExp = 0;
         private int rewardGold = 0;
         private List<Items> rewardItems = new List<Items>();
 
         private int _curTrun;
+
+        public bool isAct = false;
 
         public Battle(List<Character> allies, List<Monster> enemies)
         {
@@ -43,20 +47,17 @@ namespace TextRPG.BattleSystem
             }
         }
 
-        public void ExecuteBattle()
+        public bool ExecuteBattle()
         {
             while (true)
             {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("Battle!!\n");
-                Console.ResetColor();
-
                 while (_turnQueue.Count > 0)
                 {
                     Unit current = _turnQueue.Dequeue();
-                    if (current.Hp <= 0) // 사망한 인원의 차례는 제외
+                    if (current.hp <= 0) // 사망한 인원의 차례는 제외
                         continue;
+
+                    current.MpRegen();
 
                     if (_allies.Contains(current))
                         PlayerTurn((Character)current, _enemies);
@@ -67,48 +68,119 @@ namespace TextRPG.BattleSystem
                     {
                         // 승리 화면 표시
                         ShowWinUI();
-                        Console.ReadLine();
-                        return;
+                        return true;
                     }
                     else if (CheckAllDead(_allies.Cast<Unit>().ToList())) // 플레이어 패배
                     {
                         // 패배 화면 표시
                         ShowLoseUI();
-                        Console.ReadLine();
-                        return;
+                        return false;
                     }
 
                     _tempTurnQueue.Enqueue(current);
                 }
-                MyDelay(500);
+                //Console.WriteLine("\n[턴 종료]");
+                Console.WriteLine("\n다음으로 넘어가려면 아무 키나 입력하세요...");
+                Console.ReadKey();
 
                 while(_tempTurnQueue.Count > 0)
                 {
                     _turnQueue.Enqueue(_tempTurnQueue.Dequeue());
                 }
-
+                isAct = false;
             }
         }
 
         private void PlayerTurn(Character player, List<Monster> enemies)
         {
-            Console.WriteLine($"{player.Name}의 턴입니다.");
-            Console.WriteLine("공격할 적을 선택하세요:");
+            while (!isAct) // 행동하지 않았으면 반복
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Battle!!\n");
+                Console.ResetColor();
+
+                //Console.WriteLine($"{player.name}의 턴입니다."); // 일단 미관상 주석처리
+
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (enemies[i].hp <= 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} Dead");
+                        Console.ResetColor();
+                    }
+                    else
+                        Console.WriteLine($"Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp} (현재 마나 : {enemies[i].mp} / {enemies[i].maxMp})");
+                }
+
+                Console.WriteLine("\n[내정보]");
+                Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} (현재 마나 : {player.mp} / {player.maxMp}) \n"); // 최대 HP 필요함
+
+                Console.WriteLine("1. 공격");
+                Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+                Console.Write(">> ");
+
+                int choice;
+                while (true)
+                {
+                    string input = Console.ReadLine();
+                    if (int.TryParse(input, out choice))
+                    {
+                        if (choice == 1)
+                        {
+                            AttackCommand(player, enemies);
+                            break;
+                        }
+                    }
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\n잘못된 입력입니다.");
+                    Console.ResetColor();
+                    Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 3);
+                }
+            }
+            
+        }
+
+        private void EnemyTurn(Monster enemy, List<Character> allies)
+        {
+            Unit? target = allies.FirstOrDefault();
+            if (target == null)
+                return;
+            if (enemy.skill != null && enemy.mp >= enemy.skill.mpCost)
+            {
+                Console.WriteLine($"{enemy.name}이(가) {enemy.skill.skillName}을(를) 사용합니다!!");
+                enemy.UseSkill(enemy.skill, target);
+            }
+            else
+            {
+                Console.WriteLine($"{enemy.name}이(가) {target.name}을(를) 공격합니다."); // 이거 필요없으면 주석 처리해도 되요
+                enemy.Attack(target);
+            }    
+        }
+
+        private void AttackCommand(Character player, List<Monster> enemies)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Battle!!\n");
+            Console.ResetColor();
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                if(enemies[i].Hp <= 0)
+                if (enemies[i].hp <= 0)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} Dead");
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} Dead");
                     Console.ResetColor();
                 }
                 else
-                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].Level} {enemies[i].Name} HP {enemies[i].Hp}");
+                    Console.WriteLine($"{i + 1}. Lv.{enemies[i].level} {enemies[i].name} HP {enemies[i].hp} (현재 마나 : {enemies[i].mp} / {enemies[i].maxMp})");
             }
 
             Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job})\nHP {player.Hp}/{player.Mp}\n"); // 최대 HP 필요함
+            Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} (현재 마나 : {player.mp} / {player.maxMp})\n");
+            Console.WriteLine("0. 취소\n");
 
             Console.Write("대상을 선택해주세요.\n>> ");
             int choice;
@@ -117,37 +189,31 @@ namespace TextRPG.BattleSystem
                 string input = Console.ReadLine(); // 죽은 적 선택 못하게 막을 필요 있음
                 if (int.TryParse(input, out choice))
                 {
+                    if (choice == 0)
+                        return;
                     if (choice >= 1 && choice <= enemies.Count)
                     {
-                        if(enemies[choice-1].Hp > 0)
+                        if (enemies[choice - 1].hp > 0)
                             break;
                     }
                 }
-                Console.ForegroundColor= ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n잘못된 입력입니다.");
                 Console.ResetColor();
                 Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 3);
             }
-            player.Attack(enemies[choice-1]);
+            Console.WriteLine();
+            player.Attack(enemies[choice - 1]);
+            isAct = true;
             Console.WriteLine();
         }
 
-        private void EnemyTurn(Monster enemy, List<Character> allies)
-        {
-            Unit? target = allies.FirstOrDefault();
-            if (target != null)
-            {
-                Console.WriteLine($"{enemy.Name}이 {target.Name}을 공격합니다.");
-                enemy.Attack(target);
-            }
-        }
-
-        private bool CheckAllDead(List<Unit> units)
+        private bool CheckAllDead(List<Unit> units) // 아군 또는 적이 전멸했는지 확인하는 함수
         {
             bool isAllDead = true;
             foreach(Unit unit  in units)
             {
-                if(unit.Hp > 0)
+                if(unit.hp > 0)
                 {
                     isAllDead = false;
                     break;
@@ -161,7 +227,12 @@ namespace TextRPG.BattleSystem
         {
             MyDelay(500);
             Console.Clear();
-            Console.WriteLine("승리하였습니다.");
+            Console.WriteLine("승리하였습니다.\n");
+
+            RewardCheck();
+
+            Console.WriteLine("\n3초 뒤에 던전으로 돌아갑니다...");
+            MyDelay(3000);
         }
 
         private void ShowLoseUI() // 패배 시 보여줄 UI
@@ -171,14 +242,30 @@ namespace TextRPG.BattleSystem
             Console.WriteLine("패배하였습니다.");
         }
 
-        private void RewardCheck()
+        private void RewardCheck() // 보상 정리 및 플레이어에게 추가
         {
             foreach(Monster monster in _enemies)
             {
-                rewardExp += monster.DropExp;
-                rewardGold += monster.DropGold;
+                rewardExp += monster.dropExp;
+                rewardGold += monster.dropGold;
                 //rewardItems.Add(); --> 여기 보상 아이템 아이템 클래스로 바꿔줘야 뭐 할 수 있음
+
+                QuestManager.RegisterKill(monster.name); //퀘스트 관련 메뉴 (몬스터 상태 호출)
             }
+            Console.WriteLine($"경험치 {rewardExp}를 얻었습니다!");
+            Console.WriteLine($"{rewardExp} 골드를 얻었습니다!\n");
+            for (int i = 0; i < rewardItems.Count; i++)
+            {
+                Console.WriteLine($"{rewardItems[i].itemName}을(를) 획득하였습니다!");
+            }
+
+            // 실제 아이템&보상 획득 기능
+            // 현재는 플레이어 한명만 있으므로 한명에게만 보상 부여
+            _allies[0].gold += rewardGold;
+            _allies[0].exp += rewardExp;
+            _allies[0].LevelUp();
+
+            // 아이템 리스트로 보상 아이템 획득 기능 구현 필요
         }
 
         void MyDelay(int ms) // 딜레이용으로 만든 함수
@@ -187,95 +274,3 @@ namespace TextRPG.BattleSystem
         }
     }
 }
-
-// 아래 클래스들은 일단 임시로 사용한 클래스
-
-//public class Unit
-//{
-//    public string Name;
-//    public int Atk;
-//    public int Def;
-//    public int HP;
-//    public int Mp;
-//    public int Level;
-
-
-//    //생성자
-//    public Unit(string name, int atk, int def, int hp, int mp, int level)
-//    {
-//        Name = name;
-//        Atk = atk;
-//        Def = def;
-//        HP = hp;
-//        Mp = mp;
-//        Level = level;
-//    }
-
-//    //공격
-//    public void Attack(Unit target)
-//    {
-//        Console.WriteLine($"{Name}이(가) {target.Name}을(를) 공격하였습니다.");
-//        target.TakeDamage(Atk);
-//    }
-
-//    //피격
-//    public void TakeDamage(int atk)
-//    {
-//        int TakeDamage = atk - Def;
-//        HP -= TakeDamage;
-//        Console.WriteLine($"{Name}이(가) {TakeDamage} 데미지를 입었습니다.");
-//    }
-
-//}
-
-//public class Character : Unit
-//{
-//    public int Exp;
-//    public string Job;
-//    public string Inventory;
-//    public int Gold;
-
-//    //public static List<Inventory> item = new List<Inventory>();
-
-//    public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
-//    : base(name, atk, def, hp, mp, level)
-//    {
-//        Exp = exp;
-//        Job = job;
-//        Gold = gold;
-//    }
-
-//    public void LevelUp()
-//    {   //레벨당 경험치가 가득찼을때
-
-//    }
-//}
-
-//public class Monster : Unit
-//{
-//    public string DropItem;
-//    public int DropExp;
-//    public int DropGold;
-
-//    // 몬스터 배열
-//    public static Monster[] MonsterArray;
-
-//    // 생성자
-//    public Monster(string name, int atk, int def, int hp, int mp, int level, string dropItem, int dropExp, int dropGold)
-//    : base(name, atk, def, hp, mp, level)
-//    {
-//        DropItem = dropItem;
-//        DropExp = dropExp;
-//        DropGold = dropGold;
-//    }
-
-//    public static void MonsterInfo()
-//    {
-//        MonsterArray = new Monster[]
-//        {
-//                    new Monster("미니언", 5, 0, 15, 2, 10, "", 2, 5),
-//                    new Monster("공허충", 9, 2, 10, 3, 10, "", 3, 10),
-//                    new Monster("대포미니언", 8, 5, 25, 5, 20, "", 5, 20)
-//        };
-//    }
-//}

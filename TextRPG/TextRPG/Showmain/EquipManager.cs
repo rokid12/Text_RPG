@@ -4,46 +4,59 @@ using TextRPG;
 
 namespace TextRPG
 {
-    class EquipManager
+    public class EquipManager
     {
-        private Character character;
-
-        public EquipManager(Character character)
+        private static EquipManager _instance;
+        public static EquipManager Instance
         {
-            this.character = character;
+            get
+            {
+                if (_instance == null)
+                    _instance = new EquipManager();
+                return _instance;
+            }
         }
-
         public void EquipItem(int index)
         {
-            var inventory = character.GetInventory();
+            int equipable = GameManager.Instance.player.GetInventory()[index].itemType;
 
-            if (index < 0 || index >= inventory.Count)
+            if (equipable == 0 || equipable == 1 || equipable == 2)
             {
-                Console.WriteLine("잘못된 형식입니다.");
-                return;
-            }
+                var inventory = GameManager.Instance.player.GetInventory();
 
-            var selectedItem = inventory[index];
+                if (index < 0 || index >= inventory.Count)
+                {
+                    Console.WriteLine("잘못된 형식입니다.");
+                    return;
+                }
 
-            if (selectedItem.isEquipped)
-            {
-                selectedItem.isEquipped = false;
-                Console.WriteLine($"{selectedItem.itemName}을(를) 해제했습니다!");
+                var selectedItem = inventory[index];
+
+                if (selectedItem.isEquipped)
+                {
+                    selectedItem.isEquipped = false;
+                    Console.WriteLine($"{selectedItem.itemName}을(를) 해제했습니다!");
+                    GameManager.Instance.player.EquipmentStatMinus(selectedItem);
+
+                }
+                else
+                {
+                    foreach (var item in inventory)
+                    {
+                        if (item.itemType == selectedItem.itemType)
+                            item.isEquipped = false;
+                    }
+
+                    selectedItem.isEquipped = true;
+                    Console.WriteLine($"{selectedItem.itemName}을(를) 장착했습니다!");
+                    GameManager.Instance.player.EquipmentStatPlus(selectedItem);
+                }
             }
             else
             {
-                foreach (var item in inventory)
-                {
-                    if (item.itemType == selectedItem.itemType)
-                        item.isEquipped = false;
-                }
-
-                selectedItem.isEquipped = true;
-                Console.WriteLine($"{selectedItem.itemName}을(를) 장착했습니다!");
+                Console.WriteLine("장착할 수 없는 아이템입니다.");
             }
-
-            selectedItem.ItemInformation();
         }
-    }
 
+    }
 }

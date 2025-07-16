@@ -11,34 +11,31 @@ namespace TextRPG
         public static void Show()
         {
             Console.Clear();
-            Console.WriteLine("회복");
-            Console.WriteLine($"{ItemManager.potion.itemDescription} ( 남은 포션 :  )"); //{GameManager.Instance.player.GetInventory().potion.itemCount}
-            // 남은 포션 > 인벤토리로 경로 설정 변경 필요
 
             while (true)
             {
+                Console.WriteLine("\n회복");
+                Console.WriteLine($"{ItemManager.potion.itemDescription} ( 남은 포션 : {GameManager.Instance.player.GetPotion()} )");
                 Console.WriteLine("\n1. 사용하기");
                 Console.WriteLine("0. 나가기");
 
                 switch (InputManager.PickNumber(1, 0))
                 {
                     case 0:
+                        UIManager.Instance.ShowMainMenu();
                         return;
                     case 1:
-                        if (ItemManager.potion.itemCount < 1) // 인벤토리로 경로 설정 필요
+                        if (GameManager.Instance.player.PotionFinder() != null)
                         {
-                            Console.WriteLine("\n포션이 부족합니다.");
-                            break;
+                            GameManager.Instance.player.PotionFinder().UsingPotion();
                         }
                         else
                         {
-                            Console.WriteLine("\n포션 사용 완료");
-                            //ItemManager.potion.UsingPotion();
-                            break;
+                            Console.WriteLine("\n포션이 부족합니다.");
                         }
+                        break;
                 }
             }
         }
-
     }
 }

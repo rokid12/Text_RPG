@@ -30,10 +30,10 @@ namespace TextRPG.BattleSystem
             }
         }
 
-        public void StartBattle(List<Character> allies, List<Monster> enemies)
+        public bool StartBattle(List<Character> allies, List<Monster> enemies)
         {
             Battle battle = new Battle(allies, enemies);
-            battle.ExecuteBattle();
+            return battle.ExecuteBattle();
         }
 
         // 배틀이 제대로 되는 지 확인하기 위한 함수
@@ -44,9 +44,8 @@ namespace TextRPG.BattleSystem
             List<Monster> monsters = new List<Monster>();
 
             characters.Add(new Character("르탄", 10, 5, 100, 100, 1, 0, "전사", 1000));
-            monsters.Add(new Monster("공허충", 2, 3, 20, 0, 1, "", 5, 100));
-            monsters.Add(new Monster("공허충", 2, 3, 20, 0, 1, "", 5, 100));
-            monsters.Add(new Monster("공허충", 2, 3, 20, 0, 1, "", 5, 100));
+            monsters.Add(new Monster("공허충", 2, 3, 20, 10, 1, ItemManager.steelArmor, 5, 100, SkillManager.bite));
+            monsters.Add(new Monster("공허충", 2, 3, 20, 10, 1, ItemManager.steelArmor, 5, 100, SkillManager.bite));
 
             Battle battle = new Battle(characters, monsters);
             battle.ExecuteBattle();
