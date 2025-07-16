@@ -65,6 +65,8 @@ namespace TextRPG
                     hp = 0;
                 }
                 Console.WriteLine($"{name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {hp})");
+                Console.WriteLine("▶턴 종료");
+                Console.ReadKey();      // 누를시 턴이 넘어감
             }
         }
 
@@ -88,10 +90,6 @@ namespace TextRPG
         public int equipAtk;
         public int equipDef;
         public int equipHp;
-
-        public Items itemAttack;
-        public Items itemArmor;          //아이템에서 가져오기
-        public Items itemHealth;
 
         //장착
         public Items equippedWeapon;
@@ -188,7 +186,7 @@ namespace TextRPG
                 Console.ReadKey();
             }
         }
-
+        //장착
         public void Equipment(Items item)
         {
             if (item == null)
@@ -214,6 +212,24 @@ namespace TextRPG
 
             EquipmentStat();      //스탯 업데이트
         }
+
+        //장착 해제
+        public void UnEquipment(Items item)
+        {
+            switch (item.itemType)
+            {
+                case 0:
+                    equippedWeapon = null;
+                    break;
+                case 1:
+                    equippedArmor = null;
+                    break;
+            }
+
+            EquipmentStat();
+        }
+
+
         //인벤토리 리스트
         public static List<Items> inventory = new List<Items>();
         //캐릭터 생성자
@@ -227,18 +243,26 @@ namespace TextRPG
 
         public void LevelUp()
         {   //레벨당 경험치가 가득찼을때
-            int CharacterExp = level * 5;
-            if (exp >= CharacterExp)
+            while (true)                    //while로 2렙업 가능하게
             {
-                level++;
-                atk += 2;
-                def += 2;
-                hp += 5;
-                mp += 5;
-                exp -= CharacterExp;
+                int CharacterExp = level * 5;
+                if (exp >= CharacterExp)
+                {
+                    level++;
+                    atk += 2;
+                    def += 2;
+                    hp += 5;
+                    mp += 5;
+                    exp -= CharacterExp;
 
-                Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
+                    Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
+                }
+                else
+                {
+                    break;
+                }
             }
+           
         }
         //장착시 스탯
         public void EquipmentStat()
@@ -262,7 +286,7 @@ namespace TextRPG
 
             totalAtk = atk + equipAtk;
             totalDef = def + equipDef;
-            totalHp = hp + equipHp;
+            totalHp = maxHp + equipHp;
         }
     }
 }
@@ -294,6 +318,8 @@ namespace TextRPG
                 new Monster("공허충", 9, 2, 10, 10, 3, "", 3, 10),
                 new Monster("대포미니언", 8, 5, 25, 20, 5, "", 5, 20)
                 //,new Monster("협곡의 전령"), 15,
+                //,new Monster("내셔 남작"),
+                //,new Monster("장로 드래곤")
             };
         }
     }
