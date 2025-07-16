@@ -136,7 +136,6 @@ namespace TextRPG
             {
                 if (item.isEquipped)
                 {
-                    Console.Write($" - ");
                     item.ItemInformation();
                     Console.WriteLine();
                 }
@@ -163,7 +162,6 @@ namespace TextRPG
                     var item = inventory[i];
                     Console.Write($"{i + 1}. ");
                     item.ItemInformation();
-                    Console.WriteLine(item.isEquipped ? " [장착 중]" : "");
                 }
 
                 Console.WriteLine("\n0. 나가기");
@@ -199,11 +197,11 @@ namespace TextRPG
             {
                 case 0:
                     equippedWeapon = item;
-                    Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
+                    Console.WriteLine($" - {item.itemName}을(를) 장착했습니다.");
                     break;
                 case 1:
                     equippedArmor = item;
-                    Console.WriteLine($"{item.itemName}을(를) 장착했습니다.");
+                    Console.WriteLine($" - {item.itemName}을(를) 장착했습니다.");
                     break;
                 default:
                     Console.WriteLine("잘못된 장착입니다.");

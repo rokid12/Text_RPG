@@ -18,6 +18,7 @@ namespace TextRPG
 
         public virtual void ItemInformation()
         {
+            string equip = (isEquipped == true) ? " [장착 중]" : "";
             List<string> statusList = new List<string>();
 
             if (itemAttack != 0)
@@ -30,31 +31,30 @@ namespace TextRPG
             }
             if (itemHealth != 0)
             {
-                statusList.Add($"체력 {itemHealth:+#;-#;0}");
+                statusList.Add($"체  력 {itemHealth:+#;-#;0}");
             }
 
-            Console.Write(" - ");
-            Console.Write($"{TextFormat(itemName)}");
-            Console.Write($"| {TextFormat(statusList[0])}");
-            Console.Write($"| {DescriptionFormat(itemDescription)}");
+            Console.Write($"{itemName.PadRight(13 - itemName.Length)}");
+
+            if (statusList != null)
+            {
+                string status = statusList[0];
+                Console.Write("| ");
+                Console.Write(status.PadRight(13 - status.Length));
+            }
+
+            Console.Write(" | ");
+            Console.Write(itemDescription.PadRight(32 - itemDescription.Length));
+            Console.WriteLine(equip);
 
             for (int i = 1; i < statusList.Count; i++)
             {
-                Console.Write($"\n   {TextFormat("")}");
-                Console.Write($"| {TextFormat(statusList[i])}");
-                Console.Write($"| {DescriptionFormat("")}");
+                string status = statusList[i];
+                Console.Write($"".PadRight(16));
+                Console.Write("| ");
+                Console.Write(status.PadRight(13 - status.Length));
+                Console.WriteLine(" |");
             }
-        }
-
-        public string TextFormat(string txt)
-        {
-            txt = txt.PadRight(16 - txt.Length);
-            return txt;
-        }
-        public string DescriptionFormat(string txt)
-        {
-            txt = txt.PadRight(32 - txt.Length);
-            return txt;
         }
     }
 }

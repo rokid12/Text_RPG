@@ -42,23 +42,11 @@ namespace TextRPG
                 GameManager.Instance.player.GetInventory().Remove(GameManager.Instance.player.PotionFinder());
             }
         }
-        public string PotionCount()
-        {
-            string potionCount;
-
-            if (itemCount > 1)
-            {
-                potionCount = $" x {itemCount}";
-                return $"{TextFormat((itemName + potionCount))}";
-            }
-            else
-            {
-                return $"{TextFormat(itemName)}";
-            }
-        }
 
         public override void ItemInformation()
         {
+            string itemCountText;
+            string count = (itemCount > 1) ? itemCountText = $"{itemName} x{itemCount}" : itemCountText = itemName;
             List<string> statusList = new List<string>();
 
             if (itemAttack != 0)
@@ -71,19 +59,28 @@ namespace TextRPG
             }
             if (itemHealth != 0)
             {
-                statusList.Add($"체력 {itemHealth:+#;-#;0}");
+                statusList.Add($"체  력 {itemHealth:+#;-#;0}");
             }
 
-            Console.Write(" - ");
-            Console.Write(PotionCount());
-            Console.Write($"| {TextFormat(statusList[0])}");
-            Console.Write($"| {DescriptionFormat(itemDescription)}");
+            Console.Write($"{itemCountText.PadRight(13 - itemName.Length)}");
+
+            if (statusList != null)
+            {
+                string status = statusList[0];
+                Console.Write("| ");
+                Console.Write(status.PadRight(13 - status.Length));
+            }
+
+            Console.Write(" | ");
+            Console.WriteLine(itemDescription.PadRight(32 - itemDescription.Length));
 
             for (int i = 1; i < statusList.Count; i++)
             {
-                Console.Write($"\n   {TextFormat("")}");
-                Console.Write($"| {TextFormat(statusList[i])}");
-                Console.Write($"| {DescriptionFormat("")}");
+                string status = statusList[i];
+                Console.Write($"".PadRight(16));
+                Console.Write("| ");
+                Console.Write(status.PadRight(13 - status.Length));
+                Console.WriteLine(" |");
             }
         }
     }
