@@ -152,7 +152,7 @@ namespace TextRPG
         {
             Console.WriteLine($"\nLv. {level:00}");
             Console.WriteLine($"{name}");
-            Console.WriteLine($"체력 : {maxHp}");
+            Console.WriteLine($"체력 : {hp}");
             Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
