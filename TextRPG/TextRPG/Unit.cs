@@ -196,7 +196,7 @@ namespace TextRPG
                 Console.WriteLine();
             }
 
-            Console.WriteLine($"체력 : {hp}");
+            Console.WriteLine($"체력 : {hp} / {maxHp}");
             Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
