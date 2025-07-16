@@ -77,8 +77,6 @@ namespace TextRPG
                     hp = 0;
                 }
                 Console.WriteLine($"{name}이(가) {damage} 데미지를 입었습니다. (남은 Hp : {hp})");
-                Console.WriteLine("▶턴 종료");
-                Console.ReadKey();      // 누를시 턴이 넘어감
             }
         }
 
