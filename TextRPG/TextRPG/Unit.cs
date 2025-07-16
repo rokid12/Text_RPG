@@ -21,7 +21,7 @@ namespace TextRPG
         public int mp;
         public int level;
 
-
+        public List<Skill> skills = new List<Skill>();  // 스킬 리스트
 
         public int totalAtk;
         public int totalDef;
