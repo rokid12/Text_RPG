@@ -212,8 +212,8 @@ namespace TextRPG
         //인벤토리 리스트
         public static List<Items> inventory = new List<Items>();
         //캐릭터 생성자
-        public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
-        : base(name, atk, def, hp, mp, level)
+        public Character(string name, int atk, int def, int maxHp, int maxMp, int level, int exp, string job, int gold)
+        : base(name, atk, def, maxHp, maxMp, level)
         {
             this.exp = exp;
             this.job = job;
@@ -282,8 +282,8 @@ namespace TextRPG
         public static Monster[] MonsterArray;
 
     //몬스터 생성자
-    public Monster(string name, int atk, int def, int hp, int mp, int level, Items dropItem, int dropExp, int dropGold, Skill skill)
-    : base(name, atk, def, hp, mp, level)
+    public Monster(string name, int atk, int def, int maxHp, int maxMp, int level, Items dropItem, int dropExp, int dropGold, Skill skill)
+    : base(name, atk, def, maxHp, maxHp, level)
     {
         this.dropItem = dropItem;
         this.dropExp = dropExp;
@@ -293,14 +293,14 @@ namespace TextRPG
 
     //몬스터 복사 생성자
     public Monster(Monster original)
-    : base(original.name, original.atk, original.def, original.hp, original.mp, original.level)
+    : base(original.name, original.atk, original.def, original.maxHp, original.maxMp, original.level)
     {
         this.dropItem = original.dropItem;
         this.dropExp = original.dropExp;
         this.dropGold = original.dropGold;
         this.skill = original.skill;
 
-        this.hp = original.hp;
+        this.maxHp = original.maxHp;
     }
 
 
