@@ -113,8 +113,9 @@ namespace TextRPG
             {
                 int t = rand.Next(0, monsterList[curFloor - 1].Count);
                 // 몬스터 복사 생성자 필요함
-                Monster tmpMst = monsterList[curFloor - 1][t];
-                _monsters.Add(new Monster(tmpMst.name, tmpMst.atk, tmpMst.def, tmpMst.maxHp, tmpMst.mp, tmpMst.level, tmpMst.dropItem, tmpMst.dropExp, tmpMst.dropGold));
+                Monster tmpMst = new Monster(monsterList[curFloor - 1][t]);
+                _monsters.Add(tmpMst);
+                //_monsters.Add(new Monster(tmpMst.name, tmpMst.atk, tmpMst.def, tmpMst.maxHp, tmpMst.mp, tmpMst.level, tmpMst.dropItem, tmpMst.dropExp, tmpMst.dropGold));
             }
 
             bool isWin = BattleSystem.BattleManager.Instance.StartBattle(_allies, _monsters);
