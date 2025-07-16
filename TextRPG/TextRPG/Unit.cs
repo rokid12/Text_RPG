@@ -270,14 +270,14 @@ namespace TextRPG
             equipAtk += item.itemAttack;
             equipDef += item.itemArmor;
             equipHp += item.itemHealth;
-            hp += item.itemHealth;
+            maxHp += equipHp;
         }
         public void EquipmentStatMinus(Items item)
         {
             equipAtk -= item.itemAttack;
             equipDef -= item.itemArmor;
             equipHp -= item.itemHealth;
-            hp -= item.itemHealth;
+            maxHp -= equipHp;
         }
     }
 }
