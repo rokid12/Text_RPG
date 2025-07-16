@@ -287,7 +287,7 @@ namespace TextRPG
     //몬스터
     class Monster : Unit
     {
-        public string dropItem;
+        public Items dropItem;
         public int dropExp;
         public int dropGold;
 
@@ -295,9 +295,10 @@ namespace TextRPG
         public static Monster[] MonsterArray;
 
         //몬스터 생성자
-        public Monster(string name, int atk, int def, int hp, int mp, int level, string dropItem, int dropExp, int dropGold)
+        public Monster(string name, int atk, int def, int hp, int mp, int level, Items dropItem, int dropExp, int dropGold)
         : base(name, atk, def, hp, mp, level)
         {
+
             this.dropItem = dropItem;
             this.dropExp = dropExp;
             this.dropGold = dropGold;
@@ -305,11 +306,12 @@ namespace TextRPG
         // 몬스터 정보
         public static void MonsterInfo()
         {
+
             MonsterArray = new Monster[]
             {
-                new Monster("미니언", 5, 0, 15, 10, 2, "", 2, 5),
-                new Monster("공허충", 9, 2, 10, 10, 3, "", 3, 10),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, "", 5, 20)
+                new Monster("미니언", 5, 0, 15, 10, 2, null, 2, 5),
+                new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.steelArmor, 3, 10),
+                new Monster("대포미니언", 8, 5, 25, 20, 5, null, 5, 20)
                 //,new Monster("협곡의 전령"), 15,
                 //,new Monster("내셔 남작"),
                 //,new Monster("장로 드래곤")
