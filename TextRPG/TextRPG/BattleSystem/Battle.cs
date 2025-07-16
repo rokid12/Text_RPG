@@ -79,7 +79,8 @@ namespace TextRPG.BattleSystem
 
                     _tempTurnQueue.Enqueue(current);
                 }
-                MyDelay(1000);
+                Console.WriteLine("\n다음으로 넘어가려면 아무 키나 입력하세요...");
+                Console.ReadKey();
 
                 while(_tempTurnQueue.Count > 0)
                 {
@@ -98,7 +99,7 @@ namespace TextRPG.BattleSystem
                 Console.WriteLine("Battle!!\n");
                 Console.ResetColor();
 
-                Console.WriteLine($"{player.name}의 턴입니다.");
+                //Console.WriteLine($"{player.name}의 턴입니다."); // 일단 미관상 주석처리
 
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -145,7 +146,7 @@ namespace TextRPG.BattleSystem
             Unit? target = allies.FirstOrDefault();
             if (target != null)
             {
-                Console.WriteLine($"{enemy.name}이 {target.name}을 공격합니다.");
+                Console.WriteLine($"{enemy.name}이 {target.name}을 공격합니다."); // 이거 필요없으면 주석 처리해도 되요
                 enemy.Attack(target);
             }
         }
@@ -193,6 +194,7 @@ namespace TextRPG.BattleSystem
                 Console.ResetColor();
                 Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 3);
             }
+            Console.WriteLine();
             player.Attack(enemies[choice - 1]);
             isAct = true;
             Console.WriteLine();
