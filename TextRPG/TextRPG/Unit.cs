@@ -289,8 +289,8 @@ namespace TextRPG
                     level++;
                     atk += 2;
                     def += 2;
-                    hp += 5;
-                    mp += 5;
+                    maxHp += 5;
+                    maxMp += 5;
                     exp -= CharacterExp;
 
                     Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
