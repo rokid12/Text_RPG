@@ -55,6 +55,13 @@ class QuestManager
             {
                 Quest selectedQuest = questList[questIndex - 1];
 
+                acceptedQuests.Add(selectedQuest);
+                Console.WriteLine($"'{selectedQuest.Title}' 퀘스트를 수령했습니다!");
+                questList.Remove(selectedQuest);
+
+                /* // 퀘스트 목록 개선으로 중복수령 자체가 불가하므로 주석처리 
+                아래 코드는 혹시모를 반복 퀘스트를 위해 남겨둠 (예정에 없다면 삭제)
+
                 if (!acceptedQuests.Contains(selectedQuest))
                 {
                     acceptedQuests.Add(selectedQuest);
@@ -64,7 +71,7 @@ class QuestManager
                 else
                 {
                     Console.WriteLine("이미 수령한 퀘스트입니다.");
-                }
+                }*/
 
                 Console.WriteLine("아무 키나 누르면 계속...");
                 Console.ReadKey();
