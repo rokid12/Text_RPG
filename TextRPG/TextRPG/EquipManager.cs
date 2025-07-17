@@ -4,7 +4,7 @@ using TextRPG;
 
 namespace TextRPG
 {
-    class EquipManager
+    public class EquipManager
     {
         private Character character;
 
@@ -45,4 +45,5 @@ namespace TextRPG
             selectedItem.ItemInformation();
         }
     }
+
 }

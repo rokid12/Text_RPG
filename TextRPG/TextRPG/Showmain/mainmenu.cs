@@ -6,12 +6,11 @@ namespace TextRPG
     {
         static void Main(string[] args)
         {
-            GameManager.Instance.player.GetInventory().Add(ItemManager.potion);
-            GameManager.Instance.player.GetInventory().Add(ItemManager.trinityForce);
-            Character player = new Character("rtan", 5, 5, 100, 100, 1, 0, "전사", 1000);
+            Character player = new Character();
+            UIManager ui = new UIManager(player);
 
-            UIManager.Instance.ShowIntro();
-            UIManager.Instance.ShowMainMenu();
+            ui.ShowIntro();
+            ui.ShowMainMenu();
         }
     }
 }
