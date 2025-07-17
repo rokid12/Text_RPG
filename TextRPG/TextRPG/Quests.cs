@@ -18,6 +18,8 @@ public class Quest
     public bool IsCompleted => CurrentKillCount >= GoalKillCount;
 
     public bool IsRewardGiven { get; set; } = false;
+    public string TargetMonsterName { get; set; }
+
 
     public void AddKill()
     {
@@ -29,18 +31,19 @@ public class Quest
     {
         if (QuestManager.questList.Count == 0) // 중복 방지
         {
-            QuestManager.questList.Add
+            QuestManager.questList.Add // 퀘스트
                 (
 
                     new Quest
                     {
                         Title = "공허충 1마리 처치",
-                        Description = "공허충을 1마리 사냥하면 보상이 주어집니다.",
+                        Description = "공허충을 1마리 사냥해주세요. 보상으로 경험치 30을 드립니다. ",
                         GoalKillCount = 1,
                         RewardExp = 30,
-                        RewardGold = 100
+                        RewardGold = 100,
+                        TargetMonsterName = "공허충"
                     }
-                );
+                ); 
 
             QuestManager.questList.Add
                 (
@@ -48,12 +51,34 @@ public class Quest
                     new Quest
                     {
                         Title = "미니언 1마리 처치",
-                        Description = "미니언을 1마리 사냥하면 보상이 주어집니다.",
+                        Description = "미니언을 1마리 사냥해주세요.보상으로 경험치 30을 드립니다.",
                         GoalKillCount = 1,
                         RewardExp = 30,
-                        RewardGold = 100
+                        RewardGold = 100,
+                        TargetMonsterName = "미니언"
                     }
                 );
+
+            QuestManager.questList.Add
+                (
+
+                    new Quest
+                    {
+                        Title = "대포미니언 1마리 처치",
+                        Description = "대포미니언을 1마리 사냥해주세요.보상으로 경험치 100을 드립니다.",
+                        GoalKillCount = 1,
+                        RewardExp = 100,
+                        RewardGold = 100,
+                        TargetMonsterName = "대포미니언"
+                    }
+                );
+
+
+
+
+
+
+
 
         }
     }

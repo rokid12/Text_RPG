@@ -10,10 +10,11 @@ class QuestManager
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("퀘스트를 받을 수 있습니다.");
-            Console.WriteLine("1. 퀘스트받기");
-            Console.WriteLine("2. 수령한 퀘스트 보기");
-            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n안녕하세요. 모험가 길드입니다. ");
+            Console.WriteLine("퀘스트를 완료하시면 경험치를 드립니다. \n");
+            Console.WriteLine("1. 퀘스트 받기");
+            Console.WriteLine("2. 받은 퀘스트 보기");
+            Console.WriteLine("0. 나가기\n");
             Console.Write("행동하려면 번호를 입력하세요. >> ");
 
             string input = Console.ReadLine();
@@ -35,7 +36,7 @@ class QuestManager
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("수령 가능한 퀘스트 목록:");
+            Console.WriteLine("\n수령 가능한 퀘스트 목록:\n");
 
             for (int i = 0; i < questList.Count; i++)
             {
@@ -43,7 +44,7 @@ class QuestManager
             }
 
             Console.WriteLine("0. 돌아가기");
-            Console.Write("퀘스트 번호 선택: ");
+            Console.Write("\n퀘스트 번호 선택: ");
             string input = Console.ReadLine();
 
             if (input == "0")
@@ -73,11 +74,11 @@ class QuestManager
     private static void ShowAcceptedQuests()
     {
         Console.Clear();
-        Console.WriteLine("수령한 퀘스트 목록:");
+        Console.WriteLine("\n수령한 퀘스트 목록:\n");
 
         if (acceptedQuests.Count == 0)
         {
-            Console.WriteLine("수령한 퀘스트가 없습니다.");
+            Console.WriteLine("\n수령한 퀘스트가 없습니다.\n");
         }
         else
         {
@@ -88,7 +89,7 @@ class QuestManager
                 Console.WriteLine($"{i + 1}. {q.Title} - {q.CurrentKillCount}/{q.GoalKillCount} ({status})");
             }
 
-            Console.Write("보상을 받을 퀘스트 번호를 입력하세요 (0: 뒤로가기): ");
+            Console.Write("\n보상을 받을 퀘스트 번호를 입력하세요 (0: 뒤로가기): ");
             string rewardInput = Console.ReadLine();
             if (int.TryParse(rewardInput, out int rewardIndex) &&
                 rewardIndex >= 1 && rewardIndex <= acceptedQuests.Count)
@@ -106,11 +107,10 @@ class QuestManager
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"[보상 지급] EXP: {quest.RewardExp}, GOLD: {quest.RewardGold}");
                     Console.ResetColor();
+
+                    acceptedQuests.Remove(quest);
                 }
-                else if (quest.IsRewardGiven)
-                {
-                    Console.WriteLine("이미 보상을 받은 퀘스트입니다.");
-                }
+                
                 else
                 {
                     Console.WriteLine("아직 완료되지 않은 퀘스트입니다.");
@@ -126,7 +126,7 @@ class QuestManager
     {
         foreach (Quest quest in acceptedQuests)
         {
-            if (!quest.IsCompleted && quest.Title.Contains(monsterName))  
+            if (!quest.IsCompleted && quest.TargetMonsterName == monsterName)
             {
                 quest.AddKill();
 
@@ -136,8 +136,8 @@ class QuestManager
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"[퀘스트 완료] '{quest.Title}' - 퀘스트 완료!");
-                    Console.WriteLine($"→ 보상은 퀘스트 메뉴에서 수령할 수 있습니다.");
+                    Console.WriteLine($"\n[퀘스트 완료] '{quest.Title}' - 퀘스트 완료!");
+                    Console.WriteLine($"→ 보상은 퀘스트 메뉴에서 수령할 수 있습니다.\n");
                     Console.ResetColor();
                 }
             }
