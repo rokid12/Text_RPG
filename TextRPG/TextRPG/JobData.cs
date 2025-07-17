@@ -6,28 +6,34 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    class JobData
+    class Job
     {
-        public static Job Warrior = new Job(5, 5, 100, 60, "전사");
-        public static Job Archor = new Job(7, 4, 80, 80, "궁수");
-        public static Job Mage = new Job(10, 2, 60, 150, "마법사");
-    }
-
-    struct Job
-    {
-        public int _atk;
-        public int _def;
-        public int _maxHp;
-        public int _maxMp;
-        public string _jobName;
+        public int Atk { get; }
+        public int Def { get; }
+        public int MaxHp { get; }
+        public int MaxMp { get; }
+        public string JobName { get; }
 
         public Job(int atk, int def, int maxHp, int maxMp, string jobName)
         {
-            _atk = atk;
-            _def = def;
-            _maxHp = maxHp;
-            _maxMp = maxMp;
-            _jobName = jobName;
+            Atk = atk;
+            Def = def;
+            MaxHp = maxHp;
+            MaxMp = maxMp;
+            JobName = jobName;
         }
     }
+
+    class JobData
+    {
+        public static Dictionary<JobType, Job> Jobs = new Dictionary<JobType, Job>()
+        {
+            { JobType.Warrior, new Job(5, 5, 100, 60, "전사") },
+            { JobType.Archer,  new Job(7, 4, 80, 80, "궁수") },
+            { JobType.Mage,    new Job(10, 2, 60, 150, "마법사") }
+        };
+    }
+
+    enum JobType { Warrior, Archer, Mage }
+
 }

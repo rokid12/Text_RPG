@@ -43,13 +43,13 @@ namespace TextRPG
             switch(choice)
             {
                 case 1:
-                    player = new Character(name, JobData.Warrior._atk, JobData.Warrior._def, JobData.Warrior._maxHp, JobData.Warrior._maxMp, 1, 0, JobData.Warrior._jobName, 1000);
+                    player = new Character(name, JobData.Jobs[JobType.Warrior]);
                     break;
                 case 2:
-                    player = new Character(name, JobData.Archor._atk, JobData.Archor._def, JobData.Archor._maxHp, JobData.Archor._maxMp, 1, 0, JobData.Archor._jobName, 1000);
+                    player = new Character(name, JobData.Jobs[JobType.Archer]);
                     break;
                 case 3:
-                    player = new Character(name, JobData.Mage._atk, JobData.Mage._def, JobData.Mage._maxHp, JobData.Mage._maxMp, 1, 0, JobData.Mage._jobName, 1000);
+                    player = new Character(name, JobData.Jobs[JobType.Mage]);
                     break;
             }
 

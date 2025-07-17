@@ -292,6 +292,13 @@ namespace TextRPG
             this.gold = gold;
         }
 
+        public Character(string name, Job job) : base(name, job.Atk, job.Def, job.MaxHp, job.MaxMp, 1)
+        {
+            this.exp = 0;
+            this.job = job.JobName;
+            this.gold = 1000;
+        }
+
         public void LevelUp()
         {   //레벨당 경험치가 가득찼을때
             while (true)                    //while로 2렙업 가능하게
