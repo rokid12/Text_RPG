@@ -11,7 +11,7 @@ namespace TextRPG
     {
         int curFloor; // 던전의 현재 층수
 
-        DungeonData _dungeonData;
+        DungeonData _dungeonData; // 현재 던전의 데이터 정보(출현 몬스터, 층 별 추현 몬스터, 출현 수 범위)
 
         private List<Character> _allies; // 던전에 입장한 캐릭터 리스트
 
@@ -84,7 +84,7 @@ namespace TextRPG
         {
             // 현재 층수
             Console.WriteLine($"현재 층수 : {curFloor}층");
-            // 현재 층에서 등장가능한 몬스터 이름
+            // 현재 층에서 등장하는 몬스터 이름
             Console.Write("등장하는 몬스터 목록 : ");
             for(int i=0; i< _dungeonData.MonsterList[curFloor-1].Count;i++)
             {
