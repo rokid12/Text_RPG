@@ -49,6 +49,20 @@ namespace TextRPG
             totalHp = maxHp;
         }
 
+        public int GetTotalAtk()
+        {
+            return atk + equipAtk;
+        }
+        public int GetTotalDef()
+        {
+            return def + equipDef;
+        }
+        public int GetTotalHp()
+        {
+            return hp + equipHp;
+        }
+
+
         //스킬 보유 여부
         public void UseSkill(Skill skill, Unit target)
         {
@@ -63,18 +77,7 @@ namespace TextRPG
         //공격
         public void Attack(Unit target)
         {
-            totalAtk = atk;
-
-            if (equipAtk != null)
-            {
-                totalAtk += equipAtk;
-            }
-
-            if (equipDef != null)
-            {
-                totalDef += equipDef;
-            }
-
+            totalAtk = atk + equipAtk;
             Console.WriteLine($"{name}이(가) {target.name}을(를) 공격하였습니다.");
 
             Random rand = new Random();
@@ -190,7 +193,7 @@ namespace TextRPG
         {
             Console.WriteLine($"\nLv. {level:00}");
             Console.WriteLine($"{name}");
-            Console.Write($"공격력 : {totalAtk + equipAtk}");
+            Console.Write($"공격력 : {atk + equipAtk}");
 
             if (equipAtk > 0)
             {
@@ -201,7 +204,7 @@ namespace TextRPG
                 Console.WriteLine();
             }
 
-            Console.Write($"방어력 : {totalDef + equipDef}");
+            Console.Write($"방어력 : {def + equipDef}");
 
             if (equipDef > 0)
             {
@@ -307,14 +310,14 @@ namespace TextRPG
             equipAtk += item.itemAttack;
             equipDef += item.itemArmor;
             equipHp += item.itemHealth;
-            maxHp += equipHp;
+            maxHp += item.itemHealth; ;
         }
         public void EquipmentStatMinus(Items item)
         {
             equipAtk -= item.itemAttack;
             equipDef -= item.itemArmor;
             equipHp -= item.itemHealth;
-            maxHp -= equipHp;
+            maxHp -= item.itemHealth;
         }
     }
 }
