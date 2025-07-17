@@ -55,14 +55,21 @@ namespace TextRPG
         {
             while (true)
             {
-                Console.WriteLine("　");
+                Console.Clear();
+
+                Console.WriteLine("★────────────────────────────★");
+                Console.WriteLine("       스파르타 던전에 오신");
+                Console.WriteLine("       여러분, 환영합니다!");
+                Console.WriteLine("★────────────────────────────★");
+                Console.WriteLine();
+
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
-                Console.WriteLine("4. 퀘스트(test)"); //퀘스트 테스트메뉴
-                Console.WriteLine("　");
+                Console.WriteLine("4. 퀘스트(test)");
+                Console.WriteLine();
                 Console.Write("원하시는 행동을 입력해주세요.>> ");
-                
+
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "1")
@@ -77,16 +84,17 @@ namespace TextRPG
                 else if (input == "3")
                 {
                     PotionWindow.Show();
-                    break;
+                    continue;
                 }
                 else if (input == "4")
                 {
                     QuestManager.Show();
-                    // 퀘스트메뉴에서 나오면 메인으로 못돌아와서 break; 제거함
                 }
                 else
                 {
                     Console.WriteLine("잘못된 입력입니다.");
+                    Console.WriteLine("아무 키나 누르면 계속...");
+                    Console.ReadKey();
                 }
             }
         }
