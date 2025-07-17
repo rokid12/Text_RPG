@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,45 +9,51 @@ namespace TextRPG
 {
     internal class ItemPotion : Items
     {
-        public int itemCount = 3; // 포션 갯수는 추가할 때 갯수를 추가 저장해야함.
-        public ItemPotion()
-        {
-            itemType = 3; // 포션은 아이템 타입이 고정
-        }
+        public int itemCount = 3;
+        int hpPoint;
 
         public void UsingPotion()
         {
-            if (GameManager.Instance.player.maxHp > GameManager.Instance.player.hp)
+            var player = GameManager.Instance.player;
+            int healingPoint = (player.maxHp - player.hp >= 30) ? healingPoint = 30 : healingPoint = player.maxHp - player.hp;
+
             {
-                if (itemAttack != 0)
+                if (itemAttack != 0) // 공격력을 증가시키는 포션이 있다면.
                 {
-                    GameManager.Instance.player.atk += itemAttack;
+                    player.atk += itemAttack;
                 }
-                if (itemArmor != 0)
+                if (itemArmor != 0) // 방어력을 증가시키는 포션이 있다면.
                 {
-                    GameManager.Instance.player.def += itemArmor;
+                    player.def += itemArmor;
                 }
                 if (itemHealth != 0)
                 {
-                    int MHP = GameManager.Instance.player.maxHp;
-                    int HP = GameManager.Instance.player.hp;
-                    int healingPoint = (MHP - HP >= 30) ? healingPoint = 30 : healingPoint = MHP - HP;
-                    GameManager.Instance.player.hp += healingPoint;
-                    Console.WriteLine($"체력을 {healingPoint} 회복했습니다.");
+                    player.hp += healingPoint;
+                    hpPoint = healingPoint;
                 }
 
-                Console.WriteLine($"{itemName}을 사용했습니다.");
-
-                GameManager.Instance.player.PotionFinder().itemCount -= 1;
+                player.PotionFinder().itemCount -= 1;
 
                 if (itemCount == 0)
                 {
-                    GameManager.Instance.player.GetInventory().Remove(GameManager.Instance.player.PotionFinder());
+                    player.GetInventory().Remove(player.PotionFinder());
                 }
             }
-            else
+        }
+
+        public void PotionPotency()
+        {
+            if (itemAttack != 0)
             {
-                Console.WriteLine($"체력이 이미 모두 회복되었습니다.");
+                Console.WriteLine($"공격력이 {itemAttack} 증가했습니다."); // 공격력을 증가시키는 포션이 있다면.
+            }
+            if (itemArmor != 0)
+            {
+                Console.WriteLine($"방어력이 {itemArmor} 증가했습니다."); // 방어력을 증가시키는 포션이 있다면.
+            }
+            if (itemHealth != 0)
+            {
+                Console.WriteLine($"체력이 {hpPoint} 회복됐습니다.");
             }
         }
 
@@ -89,6 +96,11 @@ namespace TextRPG
                 Console.Write(status.PadRight(13 - status.Length));
                 Console.WriteLine(" |");
             }
+        }
+
+        public ItemPotion()
+        {
+            itemType = 3;
         }
     }
 }

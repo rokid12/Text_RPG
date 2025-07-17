@@ -26,9 +26,9 @@ namespace TextRPG
         private void InitDungeonData()
         {
             // 던전 출현 몬스터 설정
-            MonsterDB.Add(new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null));
-            MonsterDB.Add(new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, SkillManager.bite));
-            MonsterDB.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon));
+            MonsterDB.Add(new Monster("미니언", 5, 0, 15, 10, 2, ItemData.Instance.oldSword, 2, 5, null));
+            MonsterDB.Add(new Monster("공허충", 9, 2, 10, 10, 3, ItemData.Instance.usefulShield, 3, 10, SkillManager.bite));
+            MonsterDB.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, ItemData.Instance.steelArmor, 5, 20, SkillManager.cannon));
 
             // 층별 몬스터 구성
             MonsterList.Add(new List<Monster>() { MonsterDB[0], MonsterDB[1] });                   // 1층

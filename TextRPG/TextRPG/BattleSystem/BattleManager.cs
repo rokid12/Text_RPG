@@ -44,8 +44,8 @@ namespace TextRPG.BattleSystem
             List<Monster> monsters = new List<Monster>();
 
             characters.Add(new Character("르탄", 10, 5, 100, 100, 1, 0, "전사", 1000));
-            monsters.Add(new Monster("공허충", 2, 3, 20, 10, 1, ItemManager.steelArmor, 5, 100, SkillManager.bite));
-            monsters.Add(new Monster("공허충", 2, 3, 20, 10, 1, ItemManager.steelArmor, 5, 100, SkillManager.bite));
+            monsters.Add(new Monster("공허충", 2, 3, 20, 10, 1, ItemData.Instance.steelArmor, 5, 100, SkillManager.bite));
+            monsters.Add(new Monster("공허충", 2, 3, 20, 10, 1, ItemData.Instance.steelArmor, 5, 100, SkillManager.bite));
 
             Battle battle = new Battle(characters, monsters);
             battle.ExecuteBattle();

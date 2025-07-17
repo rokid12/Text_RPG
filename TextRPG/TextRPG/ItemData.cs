@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class ItemManager
+    internal class ItemData
     {
-        public static ItemPotion potion = new ItemPotion()
+        private static ItemData _instance;
+        public static ItemData Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new ItemData();
+                return _instance;
+            }
+        }
+
+        public ItemPotion potion = new ItemPotion()
         {
             itemAttack = 0,
             itemArmor = 0,
@@ -17,7 +28,7 @@ namespace TextRPG
             itemDescription = "사용하면 체력을 30 회복할 수 있습니다."
         };
 
-        public static ItemEquipable oldSword = new ItemEquipable()
+        public ItemEquipable oldSword = new ItemEquipable()
         {
             itemType = 0,
             itemAttack = 2,
@@ -27,7 +38,7 @@ namespace TextRPG
             itemDescription = "쉽게 볼 수 있는 낡은 검입니다."
         };
 
-        public static ItemEquipable bronzeAxe = new ItemEquipable()
+        public ItemEquipable bronzeAxe = new ItemEquipable()
         {
             itemType = 0,
             itemAttack = 5,
@@ -37,7 +48,7 @@ namespace TextRPG
             itemDescription = "어디선가 사용됐던거 같은 도끼입니다."
         };
 
-        public static ItemEquipable spartaSpear = new ItemEquipable()
+        public ItemEquipable spartaSpear = new ItemEquipable()
         {
             itemType = 0,
             itemAttack = 15,
@@ -47,7 +58,7 @@ namespace TextRPG
             itemDescription = "스파르타 전사들이 사용했다는 전설의 창입니다."
         };
 
-        public static ItemEquipable trinityForce = new ItemEquipable()
+        public ItemEquipable trinityForce = new ItemEquipable()
         {
             itemType = 0,
             itemAttack = 33,
@@ -57,7 +68,7 @@ namespace TextRPG
             itemDescription = "위대한 전사 잭시무스가 사용한 무기입니다."
         };
 
-        public static ItemEquipable usefulShield = new ItemEquipable()
+        public ItemEquipable usefulShield = new ItemEquipable()
         {
             itemType = 1,
             itemAttack = 0,
@@ -67,7 +78,7 @@ namespace TextRPG
             itemDescription = "방어에 도움이 되는 방패입니다."
         };
 
-        public static ItemEquipable traineeArmor = new ItemEquipable()
+        public ItemEquipable traineeArmor = new ItemEquipable()
         {
             itemType = 2,
             itemAttack = 0,
@@ -77,7 +88,7 @@ namespace TextRPG
             itemDescription = "수련에 도움을 주는 갑옷입니다."
         };
 
-        public static ItemEquipable steelArmor = new ItemEquipable()
+        public ItemEquipable steelArmor = new ItemEquipable()
         {
             itemType = 2,
             itemAttack = 0,
@@ -87,7 +98,7 @@ namespace TextRPG
             itemDescription = "무쇠로 만들어져 튼튼한 갑옷입니다."
         };
 
-        public static ItemEquipable spartaArmor = new ItemEquipable()
+        public ItemEquipable spartaArmor = new ItemEquipable()
         {
             itemType = 2,
             itemAttack = 0,
@@ -97,7 +108,7 @@ namespace TextRPG
             itemDescription = "스파르타 전사들이 사용했다는 전설의 갑옷입니다."
         };
 
-        public static ItemEquipable thornMail = new ItemEquipable()
+        public ItemEquipable thornMail = new ItemEquipable()
         {
             itemType = 2,
             itemAttack = 0,
