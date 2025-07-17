@@ -245,6 +245,10 @@ namespace TextRPG.BattleSystem
             }
             Console.WriteLine();
             player.Attack(enemies[choice - 1]);
+            if (enemies[choice - 1].hp <= 0) //몬스터가 죽었는지 확인
+            {
+                QuestManager.RegisterKill(enemies[choice - 1].name); // 정확한 몬스터 이름을 퀘스트에 전달
+            }
             isAct = true;
             Console.WriteLine();
         }
