@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG;
@@ -18,6 +19,7 @@ namespace TextRPG
         public int def;
         public int maxHp;
         public int hp;
+        public int maxMp;
         public int mp;
         public int level;
 
@@ -28,14 +30,15 @@ namespace TextRPG
         public int totalHp;
 
         //생성자
-        public Unit(string name, int atk, int def, int maxHp, int mp, int level)
+        public Unit(string name, int atk, int def, int maxHp, int maxMp, int level)
         {
             this.name = name;
             this.atk = atk;
             this.def = def;
             this.maxHp = maxHp;
             this.hp = maxHp;
-            this.mp = mp;
+            this.maxMp = maxMp;
+            this.mp = 0;
             this.level = level;
 
             totalAtk = atk;
@@ -58,17 +61,39 @@ namespace TextRPG
         public void Attack(Unit target)
         {
             Console.WriteLine($"{name}이(가) {target.name}을(를) 공격하였습니다.");
-            target.TakeDamage(totalAtk);
+
+            Random rand = new Random();
+
+            int _atk = totalAtk;
+            int _error = (int)Math.Ceiling(_atk * 1.0f / 10);
+
+            int totalDamage = rand.Next(_atk - _error, _atk + _error + 1); // 오차에 따른 실 적용 데미지
+
+            int critChance = rand.Next(0, 100); // 크리티컬 
+            if (critChance < 15)
+            {
+                Console.WriteLine("치명타!");
+                totalDamage = (int)Math.Ceiling(totalDamage * 1.6f);
+            }
+
+            target.TakeDamage(totalDamage);
         }
 
         //피격
         public void TakeDamage(int trueatk)
         {
+            Random rand = new Random();
             int damage = trueatk - totalDef;
+            int evadeChance = rand.Next(0, 100);
+            if(evadeChance < 10)
+            {
+                Console.WriteLine($"{name}은(는) 공격을 회피하였다!");
+                return;
+            }
             if (totalDef >= trueatk)
             {
                 damage = 0;
-                Console.WriteLine("Miss");
+                Console.WriteLine($"{name}은(는) 아무런 피해를 받지 않았다.");
             }
             else
             {
@@ -90,6 +115,16 @@ namespace TextRPG
             }
         }
 
+
+        //마나재생
+        public void MpRegen()
+        {
+            int regen = 5;
+            mp += regen;
+
+            if (mp > maxMp)
+                mp = maxMp;
+        }
     }
     //캐릭터
     class Character : Unit
@@ -139,7 +174,29 @@ namespace TextRPG
         {
             Console.WriteLine($"\nLv. {level:00}");
             Console.WriteLine($"{name}");
-            Console.WriteLine($"체력 : {maxHp}");
+            Console.Write($"공격력 : {totalAtk}");
+
+            if (equipAtk > 0)
+            {
+                Console.WriteLine($" (+{equipAtk})");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
+            Console.Write($"방어력 : {totalDef}");
+
+            if (equipDef > 0)
+            {
+                Console.WriteLine($" (+{equipDef})");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
+            Console.WriteLine($"체력 : {hp}");
             Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
@@ -147,6 +204,7 @@ namespace TextRPG
             {
                 if (item.isEquipped)
                 {
+                    Console.Write(" - ");
                     item.ItemInformation();
                     Console.WriteLine();
                 }
@@ -155,8 +213,6 @@ namespace TextRPG
 
         public void ShowInventory()
         {
-            EquipManager equipManager = new EquipManager(this);
-
             while (true)
             {
                 Console.Clear();
@@ -184,7 +240,7 @@ namespace TextRPG
 
                 if (int.TryParse(input, out int index) && index >= 1 && index <= inventory.Count)
                 {
-                    equipManager.EquipItem(index - 1);
+                    EquipManager.Instance.EquipItem(index - 1);
                 }
                 else
                 {
@@ -199,8 +255,8 @@ namespace TextRPG
         //인벤토리 리스트
         public static List<Items> inventory = new List<Items>();
         //캐릭터 생성자
-        public Character(string name, int atk, int def, int hp, int mp, int level, int exp, string job, int gold)
-        : base(name, atk, def, hp, mp, level)
+        public Character(string name, int atk, int def, int maxHp, int maxMp, int level, int exp, string job, int gold)
+        : base(name, atk, def, maxHp, maxMp, level)
         {
             this.exp = exp;
             this.job = job;
@@ -230,29 +286,19 @@ namespace TextRPG
             }
            
         }
-        //장착시 스탯
-        public void EquipmentStat()
+        public void EquipmentStatPlus(Items item)
         {
-            equipAtk = 0;
-            equipDef = 0;
-            equipHp = 0;
-
-            if (equippedWeapon != null)
-            {
-                equipAtk += equippedWeapon.itemAttack;
-                equipDef += equippedWeapon.itemArmor;
-                equipHp += equippedWeapon.itemHealth;
-            }
-            if (equippedArmor != null)
-            {
-                equipAtk += equippedArmor.itemAttack;
-                equipDef += equippedArmor.itemArmor;
-                equipHp += equippedArmor.itemHealth;
-            }
-
-            totalAtk = atk + equipAtk;
-            totalDef = def + equipDef;
-            totalHp = maxHp + equipHp;
+            equipAtk += item.itemAttack;
+            equipDef += item.itemArmor;
+            equipHp += item.itemHealth;
+            maxHp += equipHp;
+        }
+        public void EquipmentStatMinus(Items item)
+        {
+            equipAtk -= item.itemAttack;
+            equipDef -= item.itemArmor;
+            equipHp -= item.itemHealth;
+            maxHp -= equipHp;
         }
     }
 }
@@ -269,25 +315,31 @@ namespace TextRPG
         public static Monster[] MonsterArray;
 
     //몬스터 생성자
-    public Monster(string name, int atk, int def, int hp, int mp, int level, Items dropItem, int dropExp, int dropGold, Skill skill)
-    : base(name, atk, def, hp, mp, level)
+    public Monster(string name, int atk, int def, int maxHp, int maxMp, int level, Items dropItem, int dropExp, int dropGold, Skill skill)
+    : base(name, atk, def, maxHp, maxHp, level)
     {
         this.dropItem = dropItem;
         this.dropExp = dropExp;
         this.dropGold = dropGold;
         this.skill = skill; 
+
+        if (skill != null)
+            skills.Add(skill);
     }
 
     //몬스터 복사 생성자
     public Monster(Monster original)
-    : base(original.name, original.atk, original.def, original.hp, original.mp, original.level)
+    : base(original.name, original.atk, original.def, original.maxHp, original.maxMp, original.level)
     {
         this.dropItem = original.dropItem;
         this.dropExp = original.dropExp;
         this.dropGold = original.dropGold;
         this.skill = original.skill;
 
-        this.hp = original.hp;
+        this.maxHp = original.maxHp;
+
+        if (this.skill != null)
+            this.skills.Add(this.skill);
     }
 
 
@@ -296,9 +348,9 @@ namespace TextRPG
         {
             MonsterArray = new Monster[]
             {
-                new Monster("미니언", 5, 0, 15, 10, 2, ItemManager.oldSword, 2, 5, null),
+                new Monster("미니언", 5, 0, 15, 15, 2, ItemManager.oldSword, 2, 5, null),
                 new Monster("공허충", 9, 2, 10, 10, 3, ItemManager.usefulShield, 3, 10, SkillManager.bite),
-                new Monster("대포미니언", 8, 5, 25, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon)
+                new Monster("대포미니언", 8, 5, 15, 20, 5, ItemManager.steelArmor, 5, 20, SkillManager.cannon)
                 //,new Monster("람머스"), 10, 30, 30, 30, 8, ItemManager.thornMail, 10, 500, SkillManager.raisethorn)
                 //,new Monster("판테온"), 25, 25, 40, 30, 10, ItemManager.spartaArmor, 15, 1000, SkillManager.javelin)
                 //,new Monster("잭시무스"), 33, 33, 53, 30, 15, ItemManager.trinityForce, 20, 2000, SkillManager.counterattack)

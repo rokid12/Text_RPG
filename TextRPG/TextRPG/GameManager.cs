@@ -19,6 +19,15 @@ namespace TextRPG
             }
         }
 
-        public Character player = new Character("rtan", 5, 5, 100, 100, 1, 0, "전사", 1000);
+        public Character player;
+        private Dungeon dungeon;
+
+        private GameManager()
+        {
+            player = new Character("rtan", 5, 5, 100, 100, 1, 0, "전사", 1000);
+            dungeon = new Dungeon(player);
+        }
+
+        public Dungeon GetDungeon() => dungeon;
     }
 }
