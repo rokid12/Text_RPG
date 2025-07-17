@@ -29,6 +29,9 @@ namespace TextRPG
         public int totalDef;
         public int totalHp;
 
+        public int equipAtk;
+        public int equipDef;
+        public int equipHp;
         //생성자
         public Unit(string name, int atk, int def, int maxHp, int maxMp, int level)
         {
@@ -60,6 +63,18 @@ namespace TextRPG
         //공격
         public void Attack(Unit target)
         {
+            totalAtk = atk;
+
+            if (equipAtk != null)
+            {
+                totalAtk += equipAtk;
+            }
+
+            if (equipDef != null)
+            {
+                totalDef += equipDef;
+            }
+
             Console.WriteLine($"{name}이(가) {target.name}을(를) 공격하였습니다.");
 
             Random rand = new Random();
@@ -80,16 +95,21 @@ namespace TextRPG
         }
 
         //피격
-        public void TakeDamage(int trueatk)
+        public void TakeDamage(int trueatk, bool isSkill = false)
         {
             Random rand = new Random();
             int damage = trueatk - totalDef;
-            int evadeChance = rand.Next(0, 100);
-            if(evadeChance < 10)
+
+            if (!isSkill)
             {
-                Console.WriteLine($"{name}은(는) 공격을 회피하였다!");
-                return;
+                int evadeChance = rand.Next(0, 100);
+                if (evadeChance < 10)
+                {
+                    Console.WriteLine($"{name}은(는) 공격을 회피하였다!");
+                    return;
+                }
             }
+            
             if (totalDef >= trueatk)
             {
                 damage = 0;
@@ -133,10 +153,6 @@ namespace TextRPG
         public string job;
         public int gold;
 
-        public int equipAtk;
-        public int equipDef;
-        public int equipHp;
-
         //장착
         public Items equippedWeapon;
         public Items equippedArmor;
@@ -174,7 +190,7 @@ namespace TextRPG
         {
             Console.WriteLine($"\nLv. {level:00}");
             Console.WriteLine($"{name}");
-            Console.Write($"공격력 : {totalAtk}");
+            Console.Write($"공격력 : {totalAtk + equipAtk}");
 
             if (equipAtk > 0)
             {
@@ -185,7 +201,7 @@ namespace TextRPG
                 Console.WriteLine();
             }
 
-            Console.Write($"방어력 : {totalDef}");
+            Console.Write($"방어력 : {totalDef + equipDef}");
 
             if (equipDef > 0)
             {
@@ -273,8 +289,8 @@ namespace TextRPG
                     level++;
                     atk += 2;
                     def += 2;
-                    hp += 5;
-                    mp += 5;
+                    maxHp += 5;
+                    maxMp += 5;
                     exp -= CharacterExp;
 
                     Console.WriteLine($"{name}이(가) 레벨업했습니다. 레벨 : {level}");
