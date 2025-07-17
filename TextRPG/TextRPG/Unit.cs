@@ -95,16 +95,21 @@ namespace TextRPG
         }
 
         //피격
-        public void TakeDamage(int trueatk)
+        public void TakeDamage(int trueatk, bool isSkill = false)
         {
             Random rand = new Random();
             int damage = trueatk - totalDef;
-            int evadeChance = rand.Next(0, 100);
-            if(evadeChance < 10)
+
+            if (!isSkill)
             {
-                Console.WriteLine($"{name}은(는) 공격을 회피하였다!");
-                return;
+                int evadeChance = rand.Next(0, 100);
+                if (evadeChance < 10)
+                {
+                    Console.WriteLine($"{name}은(는) 공격을 회피하였다!");
+                    return;
+                }
             }
+            
             if (totalDef >= trueatk)
             {
                 damage = 0;

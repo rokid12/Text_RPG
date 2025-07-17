@@ -41,7 +41,7 @@ namespace TextRPG
                     skillDamage = damage * 3 / 2;
                 }
 
-                target.TakeDamage(skillDamage);
+                target.TakeDamage(skillDamage, isSkill : true);
             }
         }
     }
