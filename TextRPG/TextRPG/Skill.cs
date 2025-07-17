@@ -32,7 +32,16 @@ namespace TextRPG
                 user.mp -= mpCost;
                 Console.WriteLine($"{user.name}이(가) {skillName}을(를) 사용했습니다.");
 
-                target.TakeDamage(damage);
+                Random random = new Random();
+                int skillDamage = damage;
+                int critical = random.Next(0, 100);
+                if (critical < 30)
+                {
+                    Console.WriteLine("치명타!!");
+                    skillDamage = damage * 3 / 2;
+                }
+
+                target.TakeDamage(skillDamage);
             }
         }
     }
