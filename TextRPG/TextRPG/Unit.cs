@@ -59,7 +59,7 @@ namespace TextRPG
         }
         public int GetTotalHp()
         {
-            return hp + equipHp;
+            return maxHp + equipHp;
         }
 
 
@@ -215,8 +215,18 @@ namespace TextRPG
                 Console.WriteLine();
             }
 
-            Console.WriteLine($"체력 : {hp}");
-            Console.WriteLine($"Gold : {gold} G");
+            Console.Write($"체력 : {hp}");
+
+            if (equipHp > 0)
+            {
+                Console.WriteLine($" (+{equipHp})");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
+                Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
             foreach (var item in inventory)
@@ -311,6 +321,10 @@ namespace TextRPG
             equipDef += item.itemArmor;
             equipHp += item.itemHealth;
             maxHp += item.itemHealth; ;
+
+            hp += item.itemHealth;      //현재체력도 증가되게
+            if (hp > maxHp)
+                hp = maxHp;
         }
         public void EquipmentStatMinus(Items item)
         {
@@ -318,6 +332,10 @@ namespace TextRPG
             equipDef -= item.itemArmor;
             equipHp -= item.itemHealth;
             maxHp -= item.itemHealth;
+
+            hp -= item.itemHealth;
+            if (hp < 0)
+                hp = 0;
         }
     }
 }
