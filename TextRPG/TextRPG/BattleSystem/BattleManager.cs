@@ -30,6 +30,7 @@ namespace TextRPG.BattleSystem
             }
         }
 
+        // 실제 전투를 발생시키는 함수, 승리/패배를 bool값으로 반환함
         public bool StartBattle(List<Character> allies, List<Monster> enemies)
         {
             Battle battle = new Battle(allies, enemies);

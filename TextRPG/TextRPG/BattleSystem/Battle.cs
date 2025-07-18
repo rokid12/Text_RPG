@@ -14,8 +14,8 @@ namespace TextRPG.BattleSystem
         private List<Character> _allies; // 파티 기능을 추가할 수 있기에, 일단 리스트로 생성은 해둠
         private List<Monster> _enemies;
 
-        private Queue<Unit> _turnQueue;
-        private Queue<Unit> _tempTurnQueue; // 임시 턴 큐
+        private Queue<Unit> _turnQueue; // 각 유닛들이 행동하는 순서를 담는 큐
+        private Queue<Unit> _tempTurnQueue; // 임시로 이곳에 넣고 다음 라운드에서 다시 큐에 넣음
 
         // 해당 전투 보상 리스트
         private int rewardExp = 0;
@@ -81,6 +81,7 @@ namespace TextRPG.BattleSystem
                 Console.WriteLine("\n다음으로 넘어가려면 아무 키나 입력하세요...");
                 Console.ReadKey();
 
+                // 임시 큐에 있던 순서를 다시 턴큐에 삽입
                 while (_tempTurnQueue.Count > 0)
                 {
                     _turnQueue.Enqueue(_tempTurnQueue.Dequeue());
@@ -130,9 +131,6 @@ namespace TextRPG.BattleSystem
                 Console.Write(" / ");
                 ColoredWrite($"{player.maxMp}\n", ConsoleColor.Blue);
                 Console.WriteLine();
-
-
-                //Console.WriteLine($"Lv.{player.level} {player.name} ({player.job})\nHP {player.hp}/{player.maxHp}\n"); // 색 안넣은 출력문
 
                 ColoredWrite("1", ConsoleColor.Red);
                 Console.WriteLine(". 공격");
