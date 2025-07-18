@@ -152,7 +152,10 @@ namespace TextRPG.BattleSystem
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n잘못된 입력입니다.");
                     Console.ResetColor();
-                    Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 3);
+                    Pair originPos = new Pair(Console.CursorLeft + 3, Console.CursorTop - 3);
+                    Console.SetCursorPosition(originPos.first, originPos.second);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(originPos.first, originPos.second);
                 }
             }
             isAct = false;
@@ -239,9 +242,14 @@ namespace TextRPG.BattleSystem
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n잘못된 입력입니다.");
                 Console.ResetColor();
-                Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 3);
+                Pair originPos = new Pair(Console.CursorLeft + 3, Console.CursorTop - 3);
+                Console.SetCursorPosition(originPos.first, originPos.second);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(originPos.first, originPos.second);
             }
             Console.WriteLine();
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop);
             player.Attack(enemies[choice - 1]);
             if (enemies[choice - 1].hp <= 0) //몬스터가 죽었는지 확인
             {
