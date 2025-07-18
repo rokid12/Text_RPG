@@ -296,7 +296,17 @@ namespace TextRPG.BattleSystem
             {
                 rewardExp += monster.dropExp;
                 rewardGold += monster.dropGold;
-                //rewardItems.Add(); --> 여기 보상 아이템 아이템 클래스로 바꿔줘야 뭐 할 수 있음
+                Random random = new Random(); // 이거 랜덤도 그냥 특정 클래스 하나 만들어서 유틸함수로 쓰면 편할듯
+                int itemDropChance = random.Next(0, 100);
+                if(itemDropChance < 60) // 아이템 클래스 상태가 애매해서 일단 장비만 추가되도록 구현
+                {
+                    ItemEquipable temp;
+                    if (monster.dropItem.GetType() == typeof(ItemEquipable))
+                    {
+                        temp = new ItemEquipable((ItemEquipable)monster.dropItem);
+                        rewardItems.Add(temp);
+                    }
+                }
 
                 QuestManager.RegisterKill(monster.name); //퀘스트 관련 메뉴 (몬스터 상태 호출)
             }
@@ -304,14 +314,14 @@ namespace TextRPG.BattleSystem
             Console.WriteLine($"{rewardGold} 골드를 얻었습니다!\n");
             for (int i = 0; i < rewardItems.Count; i++)
             {
+                _allies[0].AddItem(rewardItems[i]);
                 Console.WriteLine($"{rewardItems[i].itemName}을(를) 획득하였습니다!");
             }
 
             // 실제 아이템&보상 획득 기능
             // 현재는 플레이어 한명만 있으므로 한명에게만 보상 부여
             _allies[0].gold += rewardGold;
-            _allies[0].exp += rewardExp;
-            _allies[0].LevelUp();
+            _allies[0].AddExp(rewardExp);
 
             // 아이템 리스트로 보상 아이템 획득 기능 구현 필요
         }

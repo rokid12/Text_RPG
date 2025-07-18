@@ -14,6 +14,7 @@ namespace TextRPG
     //유닛
     public abstract class Unit
     {
+        // 나중에는 이런 부분 public으로 선언하지말고 프로퍼티로 접근가능하게 만드는게 좋아요
         public string name;
         public int atk;
         public int def;
@@ -187,6 +188,17 @@ namespace TextRPG
         public void AddItem(Items name)
         {
             inventory.Add(name);
+        }
+
+        public void AddExp(int exp)
+        {
+            this.exp += exp;
+            LevelUp();
+        }
+
+        public void AddGold(int gold)
+        {
+            this.gold += gold;
         }
 
         public void ShowStatus()
