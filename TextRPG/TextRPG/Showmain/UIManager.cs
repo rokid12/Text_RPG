@@ -82,7 +82,20 @@ namespace TextRPG
             "＼二)"
                 };
 
-                // 고양이 아트를 오른쪽에 출력
+                ConsoleColor[] colors = new ConsoleColor[]
+                {
+                    ConsoleColor.Yellow,
+                    ConsoleColor.DarkYellow,
+                    ConsoleColor.White,
+                    ConsoleColor.Gray,
+                    ConsoleColor.DarkGray,
+                    ConsoleColor.Cyan,
+                    ConsoleColor.Magenta,
+                    ConsoleColor.Blue,
+                    ConsoleColor.Green
+                };
+
+
                 int startX = Console.WindowWidth - 25;
                 int startY = (Console.WindowHeight - cat.Length) / 2;
 
@@ -91,9 +104,11 @@ namespace TextRPG
                     if (startX >= 0 && startY + i < Console.WindowHeight)
                     {
                         Console.SetCursorPosition(startX, startY + i);
+                        Console.ForegroundColor = colors[i % colors.Length]; // 각 줄에 색 지정
                         Console.WriteLine(cat[i]);
                     }
                 }
+                Console.ResetColor();
 
                 Console.SetCursorPosition(0, startY + cat.Length + 2);
                 Console.Write("원하시는 행동을 입력해주세요.>> ");
