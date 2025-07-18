@@ -311,12 +311,13 @@ namespace TextRPG.BattleSystem
                 QuestManager.RegisterKill(monster.name); //퀘스트 관련 메뉴 (몬스터 상태 호출)
             }
             Console.WriteLine($"경험치 {rewardExp}를 얻었습니다!");
-            Console.WriteLine($"{rewardGold} 골드를 얻었습니다!\n");
+            Console.WriteLine($"{rewardGold} 골드를 얻었습니다!");
             for (int i = 0; i < rewardItems.Count; i++)
             {
                 _allies[0].AddItem(rewardItems[i]);
                 Console.WriteLine($"{rewardItems[i].itemName}을(를) 획득하였습니다!");
             }
+            Console.WriteLine();
 
             // 실제 아이템&보상 획득 기능
             // 현재는 플레이어 한명만 있으므로 한명에게만 보상 부여

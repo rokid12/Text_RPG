@@ -105,9 +105,8 @@ class QuestManager
 
                 if (quest.IsCompleted && !quest.IsRewardGiven)
                 {
-                    GameManager.Instance.player.exp += quest.RewardExp;
-                    GameManager.Instance.player.gold += quest.RewardGold;
-                    GameManager.Instance.player.LevelUp();
+                    GameManager.Instance.player.AddGold(quest.RewardGold);
+                    GameManager.Instance.player.AddExp(quest.RewardExp);
 
                     quest.IsRewardGiven = true;
 
