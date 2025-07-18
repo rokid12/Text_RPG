@@ -51,12 +51,13 @@ namespace TextRPG
                             {
                                 if (player.maxHp > player.hp)
                                 {
+                                    var potionFinder = player.PotionFinder();
                                     Console.Clear();
-                                    player.PotionFinder().UsingPotion();
+                                    potionFinder.UsingPotion();
                                     ShowUi();
                                     Console.WriteLine();
                                     Console.WriteLine("포션을 사용했습니다.");
-                                    player.PotionFinder().PotionPotency();
+                                    potionFinder.PotionPotency();
                                 }
                                 else
                                 {
