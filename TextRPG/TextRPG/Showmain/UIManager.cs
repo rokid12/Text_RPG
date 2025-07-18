@@ -17,7 +17,6 @@ namespace TextRPG
                 return _instance;
             }
         }
-
         public void ShowIntro()
         {
             Console.Clear();
@@ -65,7 +64,7 @@ namespace TextRPG
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
-                Console.WriteLine("4. 퀘 스 트 ");
+                Console.WriteLine("4. 퀘 스 트");
                 Console.WriteLine();
 
                 // 고양이 아트 출력
@@ -141,6 +140,7 @@ namespace TextRPG
                 }
             }
         }
+
 
         public void ShowStatus()
         {
