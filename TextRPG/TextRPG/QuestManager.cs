@@ -140,7 +140,7 @@ class QuestManager
 
                 if (quest.IsCompleted)
                 {
-                    Console.Clear();
+                    
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"\n[퀘스트 완료] '{quest.Title}' - 퀘스트 완료!");
                     Console.WriteLine($"→ 보상은 퀘스트 메뉴에서 수령할 수 있습니다.\n");
