@@ -63,7 +63,7 @@ namespace TextRPG
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
-                Console.WriteLine("4. 퀘스트(test)");
+                Console.WriteLine("4. 퀘스트");
                 Console.WriteLine();
 
                 // 아스키 아트 출력
@@ -85,19 +85,6 @@ namespace TextRPG
 "                              --__----__     -___        __-   _",
 
                 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 ConsoleColor[] colors = new ConsoleColor[]
