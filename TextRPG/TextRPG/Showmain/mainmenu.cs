@@ -7,11 +7,10 @@ namespace TextRPG
         static void Main(string[] args)
         {
             UIManager.Instance.ShowIntro();
-            Console.WriteLine("\n\n시작하시려면 아무키나 입력하세요...");
+            Console.WriteLine("\n\n시작하려면 아무키나 입력하세요...");
             Console.ReadKey();
 
             GameManager.Instance.InitGameManager();
-
             UIManager.Instance.ShowMainMenu();
         }
     }

@@ -33,13 +33,15 @@ namespace TextRPG
 
         private void CharacterMaking()
         {
+            Console.Clear();
             Console.Write("이름을 입력해주세요.\n>> ");
             string name;
 
-            while(true)
+            while (true)
             {
+
                 name = Console.ReadLine();
-                if(name == null || name == "\n" || name == "")
+                if (name == null || name == "\n" || name == "")
                 {
                     Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 1);
                     continue;
@@ -48,29 +50,61 @@ namespace TextRPG
                 break;
             }
 
-            // 직업 선택?
-            Console.WriteLine("\n1. 전사\n2. 궁수\n3. 마법사\n");
-            //Console.Write("\n직업을 선택해주세요.\n>> ");
-
-            int choice = InputManager.PickNumber(3, 1);
-            switch(choice)
+            
+            JobSelect();
+            
+            while (true)
             {
-                case 1:
-                    player = new Character(name, JobData.Jobs[JobType.Warrior]);
-                    break;
-                case 2:
-                    player = new Character(name, JobData.Jobs[JobType.Archer]);
-                    break;
-                case 3:
-                    player = new Character(name, JobData.Jobs[JobType.Mage]);
-                    break;
+                Console.Write("\n원하는 직업을 선택해주세요.\n>> ");
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int selectedNumber))
+                {
+                    switch (selectedNumber)
+                    {
+                        case 1:
+                            player = new Character(name, JobData.Jobs[JobType.Warrior]);
+                            break;
+                        case 2:
+                            player = new Character(name, JobData.Jobs[JobType.Archer]);
+                            break;
+                        case 3:
+                            player = new Character(name, JobData.Jobs[JobType.Mage]);
+                            break;
+                        default:
+                            Console.Clear();
+                            JobSelect();
+                            Console.WriteLine("\n잘못된 입력입니다.");
+                            break;
+                    }
+
+                    if (player != null)
+                    {
+                        Console.Clear();
+                        player.AddItem(ItemData.Instance.trinityForce);
+                        player.AddItem(ItemData.Instance.potion);
+                        Console.WriteLine("캐릭터 생성에 성공하였습니다!");
+                        Console.WriteLine($"\n이름 : {name}");
+                        Console.WriteLine($"직업 : {player.job}");
+                        Console.WriteLine("\n계속하려면 아무 키나 눌러주세요...");
+                        Console.ReadKey();
+                        return;
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    JobSelect();
+                    Console.WriteLine("\n잘못된 입력입니다.");
+                }
             }
+        }
 
-            player.AddItem(ItemData.Instance.trinityForce);
-            player.AddItem(ItemData.Instance.potion);
-
-            Console.WriteLine("\n캐릭터 생성에 성공하였습니다!\n계속하시려면 아무 키나 눌러주세요...");
-            Console.ReadKey();
+        private void JobSelect()
+        {
+            Console.Clear();
+            Console.WriteLine($"직업 선택");
+            Console.WriteLine("\n1. 전사\n2. 궁수\n3. 마법사");
         }
     }
 }
