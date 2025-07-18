@@ -57,17 +57,47 @@ namespace TextRPG
             {
                 Console.Clear();
 
+                // 환영 문구
                 Console.WriteLine("★────────────────────────────★");
                 Console.WriteLine("       스파르타 던전에 오신");
                 Console.WriteLine("       여러분, 환영합니다!");
-                Console.WriteLine("★────────────────────────────★");
-                Console.WriteLine();
+                Console.WriteLine("★────────────────────────────★\n");
 
+                // 메뉴 출력
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 전투 시작");
                 Console.WriteLine("3. 회복 아이템");
                 Console.WriteLine("4. 퀘스트(test)");
                 Console.WriteLine();
+
+                // 고양이 아트 출력
+                string[] cat = new string[]
+                {
+            "      ／＞　 フ",
+            "     | 　_　_| ",
+            "    ／` ミ＿ ノ ",
+            "   /　　　　 |",
+            "  /　   　　| ",
+            " │　　|　|　|",
+            "／￣|　　 |　|",
+            "(￣ ＿_ _)__)",
+            "＼二)"
+                };
+
+                // 고양이 아트를 오른쪽에 출력
+                int startX = Console.WindowWidth - 25;
+                int startY = (Console.WindowHeight - cat.Length) / 2;
+
+                for (int i = 0; i < cat.Length; i++)
+                {
+                    if (startX >= 0 && startY + i < Console.WindowHeight)
+                    {
+                        Console.SetCursorPosition(startX, startY + i);
+                        Console.WriteLine(cat[i]);
+                    }
+                }
+
+                Console.SetCursorPosition(0, startY + cat.Length + 2);
                 Console.Write("원하시는 행동을 입력해주세요.>> ");
 
                 string input = Console.ReadLine() ?? "";
