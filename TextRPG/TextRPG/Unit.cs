@@ -204,7 +204,8 @@ namespace TextRPG
         public void ShowStatus()
         {
             Console.WriteLine($"\nLv. {level:00}");
-            Console.WriteLine($"{name}");
+            Console.WriteLine($"이름 : {name}");
+            Console.WriteLine($"직업 : {job}");
             Console.Write($"공격력 : {atk + equipAtk}");
 
             if (equipAtk > 0)
@@ -227,18 +228,18 @@ namespace TextRPG
                 Console.WriteLine();
             }
 
-            Console.Write($"체력 : {hp}");
+            Console.Write($"체력 : {hp} / {maxHp}");
 
             if (equipHp > 0)
             {
-                Console.WriteLine($" (+{equipHp})");
-            }
-            else
-            {
-                Console.WriteLine();
+                Console.Write($" (+{equipHp})");
             }
 
-                Console.WriteLine($"Gold : {gold} G");
+            Console.WriteLine();
+
+            Console.WriteLine($"마나 : {mp} / {maxMp}");
+
+            Console.WriteLine($"Gold : {gold} G");
 
             Console.WriteLine("\n[장착중인 장비]");
             foreach (var item in inventory)
