@@ -31,14 +31,18 @@ namespace TextRPG
             MonsterDB.Add(new Monster("대포미니언", 8, 5, 25, 20, 5, ItemData.Instance.steelArmor, 5, 20, SkillManager.cannon));
 
             // 층별 몬스터 구성
-            MonsterList.Add(new List<Monster>() { MonsterDB[0], MonsterDB[1] });                   // 1층
-            MonsterList.Add(new List<Monster>() { MonsterDB[1], MonsterDB[2] });                   // 2층
-            MonsterList.Add(new List<Monster>() { MonsterDB[0], MonsterDB[1], MonsterDB[2] });     // 3층
+            MonsterList.Add(new List<Monster>() { MonsterDB[0]});                                  // 1층
+            MonsterList.Add(new List<Monster>() { MonsterDB[0], MonsterDB[1] });                   // 2층
+            MonsterList.Add(new List<Monster>() { MonsterDB[1], MonsterDB[2] });                   // 3층
+            MonsterList.Add(new List<Monster>() { MonsterDB[0], MonsterDB[1], MonsterDB[2] });     // 4층
+            MonsterList.Add(new List<Monster>() { MonsterDB[2] });                                 // 5층
 
             // 층별 몬스터 수 범위
             MonsterNumList.Add(new Pair(1, 2));
+            MonsterNumList.Add(new Pair(2, 2));
             MonsterNumList.Add(new Pair(2, 3));
-            MonsterNumList.Add(new Pair(3, 3));
+            MonsterNumList.Add(new Pair(2, 4));
+            MonsterNumList.Add(new Pair(4, 4));
         }
     }
 

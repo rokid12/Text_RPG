@@ -34,7 +34,19 @@ namespace TextRPG
         private void CharacterMaking()
         {
             Console.Write("이름을 입력해주세요.\n>> ");
-            string name = Console.ReadLine();
+            string name;
+
+            while(true)
+            {
+                name = Console.ReadLine();
+                if(name == null || name == "\n" || name == "")
+                {
+                    Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 1);
+                    continue;
+                }
+                name = name.Trim();
+                break;
+            }
 
             // 직업 선택?
             Console.WriteLine("\n1. 전사\n2. 궁수\n3. 마법사\n");
