@@ -38,8 +38,6 @@ namespace TextRPG
                 ConsoleColor.Magenta
             };
 
-            Quest.Initialize(); // 퀘스트 리셋
-
             for (int i = 0; i < text.Length; i++)
             {
                 Console.ForegroundColor = rainbowColors[i % rainbowColors.Length];

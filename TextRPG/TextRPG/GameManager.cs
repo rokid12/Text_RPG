@@ -22,13 +22,14 @@ namespace TextRPG
         public Character player;
         private Dungeon dungeon;
 
-        private GameManager()
+        public Dungeon GetDungeon() => dungeon;
+
+        public void InitGameManager()
         {
             CharacterMaking();
+            Quest.Initialize(); // 퀘스트 리셋
             dungeon = new Dungeon(player);
         }
-
-        public Dungeon GetDungeon() => dungeon;
 
         private void CharacterMaking()
         {
@@ -52,6 +53,9 @@ namespace TextRPG
                     player = new Character(name, JobData.Jobs[JobType.Mage]);
                     break;
             }
+
+            player.AddItem(ItemData.Instance.trinityForce);
+            player.AddItem(ItemData.Instance.potion);
 
             Console.WriteLine("\n캐릭터 생성에 성공하였습니다!\n계속하시려면 아무 키나 눌러주세요...");
             Console.ReadKey();
