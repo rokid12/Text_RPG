@@ -43,8 +43,12 @@ namespace TextRPG
                 {
                     foreach (var item in inventory)
                     {
-                        if (item.itemType == selectedItem.itemType)
+                        if (item.itemType == selectedItem.itemType && item.isEquipped)
+                        {
                             item.isEquipped = false;
+                            Console.WriteLine($"{item.itemName}을(를) 해제했습니다!");
+                            GameManager.Instance.player.EquipmentStatMinus(item);
+                        }
                     }
 
                     selectedItem.isEquipped = true;

@@ -12,7 +12,6 @@ namespace TextRPG
             getInven.Add(trinityForce);
 
             GameManager.Instance.player.GetInventory().Add(ItemData.Instance.potion);
-            Character player = new Character("rtan", 5, 5, 100, 100, 1, 0, "전사", 1000);
 
             UIManager.Instance.ShowIntro();
             UIManager.Instance.ShowMainMenu();
