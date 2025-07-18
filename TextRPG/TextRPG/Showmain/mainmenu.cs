@@ -9,6 +9,7 @@ namespace TextRPG
             UIManager.Instance.ShowIntro();
             Console.WriteLine("\n\n시작하시려면 아무키나 입력하세요...");
             Console.ReadKey();
+            Console.SetCursorPosition(0, Console.CursorTop);
 
             GameManager.Instance.InitGameManager();
 
