@@ -34,7 +34,7 @@ namespace TextRPG
             itemAttack = 2,
             itemArmor = 0,
             itemHealth = 0,
-            itemName = "낡은 검",
+            itemName = "롱 소드",
             itemDescription = "쉽게 볼 수 있는 낡은 검입니다."
         };
 

@@ -81,6 +81,7 @@ namespace TextRPG
                     if (player != null)
                     {
                         Console.Clear();
+                        player.AddItem(ItemData.Instance.oldSword);
                         player.AddItem(ItemData.Instance.trinityForce);
                         player.AddItem(ItemData.Instance.potion);
                         Console.WriteLine("캐릭터 생성에 성공하였습니다!");
