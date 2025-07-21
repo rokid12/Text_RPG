@@ -92,7 +92,7 @@ namespace TextRPG
             if (critChance < 15)
             {
                 Console.WriteLine("치명타!");
-                totalDamage = (int)Math.Ceiling(totalDamage * 1.6f, );
+                totalDamage = (int)Math.Ceiling(totalDamage * 1.6f);
                 target.TakeDamage(totalDamage, true); // 치명타 발생 시 회피 불가능
             }
             else
